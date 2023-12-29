@@ -1,0 +1,77 @@
+.modal-content {
+  width: 262px;
+  background: #fff;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #363636;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem 2rem;
+  box-sizing: border-box;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3000;
+
+  text-align: center;
+}
+
+.modal-content.open {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.modal-content .close-btn {
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  height: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modal-content .close-btn:hover {
+  cursor: pointer;
+}
+
+.modal-content .close-btn > img {
+  object-fit: contain;
+}
+
+.modal-ic-div {
+  width: 18%;
+  margin-bottom: 1rem;
+}
+
+.modal-ic-div img {
+  width: 100%;
+  object-fit: cover;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -30%);
+  }
+}
