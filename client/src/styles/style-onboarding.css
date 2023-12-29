@@ -1,0 +1,33 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#capsule_area {
+  position: absolute;
+  z-index: -1;
+  width: fit-content;
+  height: fit-content;
+  transform: rotate(20deg);
+}
+
+.title-area {
+  position: absolute;
+  width: 80%;
+  top: 65%;
+}
+
+.title-area p {
+  text-align: right;
+  font-weight: 700;
+  font-size: 2.25rem;
+}
+
+.title-area button {
+  justify-content: space-evenly;
+  font-size: 1.25rem;
+  width: 100%;
+  margin-top: 1rem;
+}
