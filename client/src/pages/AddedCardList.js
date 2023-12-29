@@ -61,7 +61,7 @@ const AddedCardList = () => {
       // 언마운트
       document.removeEventListener('mousedown', clickDropdownOutside);
     };
-  }, [isDropdownOpen, dropdownRef, isDeleteMode]);
+  }, [isDropdownOpen, dropdownRef, isDeleteMode, cards.length]);
 
   return (
     <div className="container" onMouseDown={(e) => e.preventDefault()}>
@@ -127,6 +127,11 @@ const MappedDiv = styled.div`
         position: absolute;
         left: 0%;
         transform: rotate(-7deg);
+
+        &:hover {
+          transform: rotate(-7deg);scale(1.1);
+          z-index: 300;
+        }
       }
       & > div:nth-of-type(2) {
         position: absolute;
