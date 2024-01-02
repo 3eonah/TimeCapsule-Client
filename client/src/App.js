@@ -6,6 +6,7 @@ import OnBoarding from './pages/OnBoarding';
 import AddCard from './pages/AddCard';
 import AddedCardList from './pages/AddedCardList';
 import InsertMusic from './pages/InsertMusic';
+import Send from './pages/Send';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/create/add" element={<AddCard />} />
         <Route path="/create/addedlist" element={<AddedCardList />} />
         <Route path="/create/music" element={<InsertMusic />} />
+        <Route path="/send" element={<Send />} />
       </Routes>
     </div>
   );
