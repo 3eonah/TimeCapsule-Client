@@ -12,6 +12,10 @@ import ic_editphoto from './ic_editphoto.svg';
 import ic_caution from './ic_caution.svg';
 import ic_delete from './ic_delete.svg';
 import ic_close from './ic_close.svg';
+import ic_confirm from './ic_confirm.svg';
+import ic_empty_check from './ic_empty_check.svg';
+import ic_colored_check from './ic_colored_check.svg';
+import ic_deletelist from './ic_deletelist.svg';
 
 export {
   cap_shadow,
@@ -28,4 +32,8 @@ export {
   big_bottom_capsule,
   big_capsule,
   big_top_capsule,
+  ic_confirm,
+  ic_empty_check,
+  ic_colored_check,
+  ic_deletelist,
 };

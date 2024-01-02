@@ -3,10 +3,12 @@ import '../../styles/style-modal.css';
 import { ic_close } from '../../assets';
 
 const Modal = (props) => {
-  const { isOpen, close, icSrc } = props;
+  const { isOpen, close, icSrc, isSendModal } = props;
 
   const [visible, setVisible] = useState(isOpen);
   const [onAnimation, setOnAnimation] = useState(false);
+  const [closeBtnName, setCloseBtnName] = useState('close-btn');
+  const [icName, setIcName] = useState('modal-ic-div');
 
   useEffect(() => {
     setVisible(isOpen);
@@ -16,6 +18,12 @@ const Modal = (props) => {
       setOnAnimation(true);
       setTimeout(() => setOnAnimation(false), 500);
     }
+
+    // /send페이지의 모달일 때
+    if (isSendModal) {
+      setCloseBtnName('close-btn send');
+      setIcName('send-modal-ic');
+    }
     return () => {
       setVisible(false);
     };
@@ -24,12 +32,12 @@ const Modal = (props) => {
   if (!visible && !onAnimation) return null;
 
   return (
-    <div>
+    <div className={isSendModal ? 'modal-container' : ''}>
       <div className={isOpen ? 'modal-content open' : 'modal-content'}>
-        <button className="close-btn" onClick={close}>
+        <button className={closeBtnName} onClick={close}>
           <img src={ic_close} />
         </button>
-        <div className="modal-ic-div">
+        <div className={icName}>
           <img src={icSrc} />
         </div>
         {props.children}
