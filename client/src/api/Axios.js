@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const baseURL = '';
+const baseURL = 'http://3.38.80.77:8080';
 
 const instance = axios.create({
   baseURL,
   // headers: {
   //   'Authorization':'',
-  //   'Content-Type': 'application/json',
+  //   'Content-Type': 'multipart/form-data,
   // },
 });
 
