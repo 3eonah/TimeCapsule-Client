@@ -30,7 +30,6 @@ const AddedCardList = () => {
 
   // 특정 카드 삭제
   const isDeleteMode = useSelector((state) => state.capsule.delete_mode);
-
   useEffect(() => {
     // 드롭다운 외부 영역 클릭 이벤트
     const clickDropdownOutside = (e) => {
@@ -43,19 +42,8 @@ const AddedCardList = () => {
         setIsDropdownOpen(false);
       }
     };
-    document.addEventListener('mousedown', clickDropdownOutside);
 
-    // 삭제모드가 활성화 됐을 때 스타일 조정
-    console.log(isDeleteMode);
-    if (isDeleteMode) {
-      //   if (deleteModeRef.current) {
-      //     deleteModeRef.current.style.zIndex = 1000;
-      //   }
-      // } else {
-      //   if (deleteModeRef.current) {
-      //     deleteModeRef.current.style.zIndex = ''; // Reset to default value or remove this line
-      //   }
-    }
+    document.addEventListener('mousedown', clickDropdownOutside);
 
     return () => {
       // 언마운트
@@ -65,13 +53,24 @@ const AddedCardList = () => {
 
   return (
     <div className="container" onMouseDown={(e) => e.preventDefault()}>
+      <div
+        style={{
+          width: '100%',
+          height: '100vh',
+          position: 'fixed',
+          background: 'rgba(0,0,0,0.25)',
+          top: '0',
+        }}
+      ></div>
       <Modal icSrc={ic_caution} isOpen={isModalOpen} close={handleModalClose}>
         <div>
           카드는 최대 5장까지 <br /> 추가 가능합니다.
         </div>
       </Modal>
-      <h2>새로운 캡슐 보내기</h2>
-      <p style={{ fontSize: '1rem', margin: '0.5rem 0 2.5rem' }}>최대 5장</p>
+      <h2 style={{ zIndex: '100' }}>새로운 캡슐 보내기</h2>
+      <p style={{ fontSize: '1rem', margin: '0.5rem 0 2.5rem', zIndex: '100' }}>
+        최대 5장
+      </p>
       <MappedDiv cardNum={cards.length}>
         {cards.map((card) => (
           <AddedCard
@@ -127,11 +126,6 @@ const MappedDiv = styled.div`
         position: absolute;
         left: 0%;
         transform: rotate(-7deg);
-
-        &:hover {
-          transform: rotate(-7deg);scale(1.1);
-          z-index: 300;
-        }
       }
       & > div:nth-of-type(2) {
         position: absolute;
@@ -174,27 +168,33 @@ const MappedDiv = styled.div`
       position: relative;
       & > div:nth-of-type(1) {
         position: absolute;
-        top: -5%;
-        left: -13%;
-        transform: rotate(-2deg);
+        top: -12%;
+        left: 0%;
+        transform: rotate(-13deg);
       }
       & > div:nth-of-type(2) {
         position: absolute;
-        top: 0%;
-        right: -7%;
-        transform: rotate(7deg);
+        top: -2%;
+        right: -9%;
+        transform: rotate(11deg);
+
+        .delete-btn {
+          top: -3%;
+          left: -3%;
+        }
       }
       & > div:nth-of-type(3) {
         position: absolute;
-        top: 5%;
-        left: 0%;
-        transform: rotate(-8deg);
+        top: 6%;
+        left: -13%;
+        transform: rotate(-20deg);
       }
 
       & > div:nth-of-type(4) {
         position: absolute;
-        top: 13%;
+        top: 17%;
         right: 8%;
+        transform: rotate(4.5deg);
       }
     `}
 
@@ -204,35 +204,45 @@ const MappedDiv = styled.div`
       position: relative;
       & > div:nth-of-type(1) {
         position: absolute;
-        top: -5%;
-        left: -3%;
-        transform: rotate(-11deg);
-        z-index: -1;
+        top: -19%;
+        left: -13%;
+        transform: rotate(-13deg);
       }
       & > div:nth-of-type(2) {
         position: absolute;
-        top: 0%;
-        right: -23%;
-        transform: rotate(13deg);
+        top: -7%;
+        right: -19%;
+        transform: rotate(18deg);
+
+        .delete-btn {
+          top: -3%;
+          left: -3%;
+        }
       }
       & > div:nth-of-type(3) {
         position: absolute;
-        top: 8%;
-        left: -25%;
-        transform: rotate(-17deg);
+        top: 3%;
+        left: -9%;
+        transform: rotate(-10deg);
       }
 
       & > div:nth-of-type(4) {
         position: absolute;
-        top: 11%;
-        right: -2%;
-        transform: rotate(10deg);
+        top: 10%;
+        right: -10%;
+        transform: rotate(16deg);
+
+        .delete-btn {
+          top: -3%;
+          left: -3%;
+        }
       }
 
       & > div:nth-of-type(5) {
         position: absolute;
-        top: 18%;
-        right: 8%;
+        top: 23%;
+        right: 10%;
+        transform: rotate(4deg);
       }
     `}
 `;

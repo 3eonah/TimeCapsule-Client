@@ -7,6 +7,55 @@ const useCardDeleteHandler = (cardId) => {
   const dispatch = useDispatch();
   const deleteMode = useSelector((state) => state.capsule.delete_mode);
 
+  // long press 참고자료: https://spacejelly.dev/posts/how-to-detect-long-press-gestures-in-javascript-events-in-react/
+  const timerRef = useRef();
+  const isLongPress = useRef(false);
+
+  const handleContextMenu = (event) => {
+    // Prevent the default context menu (right-click menu)
+    event.preventDefault();
+  };
+
+  const startPressTimer = (cardRef) => {
+    // long press가 아닌 경우
+    isLongPress.current = false;
+    window.addEventListener('contextmenu', handleContextMenu);
+
+    // long press인 경우
+    timerRef.current = setTimeout(() => {
+      // 0.7초가 지났을 때
+      isLongPress.current = true;
+      handleDeleteBtn(cardRef);
+    }, 700);
+  };
+
+  const handleOnClick = () => {
+    // long press event가 아닌 경우 click 이벤트 방지
+    if (isLongPress.current) return;
+  };
+
+  const handleOncMouseDown = (cardRef) => {
+    console.log('onMouseDown');
+    startPressTimer(cardRef);
+  };
+
+  const handleOnMouseUp = (cardRef) => {
+    console.log('onMouseUp');
+    clearTimeout(timerRef.current);
+    window.removeEventListener('contextmenu', handleContextMenu);
+  };
+
+  const handelOnTouchStart = (cardRef) => {
+    console.log('onTouchStart');
+    startPressTimer(cardRef);
+  };
+
+  const handleOnTouchEnd = (cardRef) => {
+    console.log('onTouchEnd');
+    clearTimeout(timerRef.current);
+    window.removeEventListener('contextmenu', handleContextMenu);
+  };
+
   const handleDeleteBtn = (ref) => {
     dispatch(delete_on());
 
@@ -41,7 +90,16 @@ const useCardDeleteHandler = (cardId) => {
     }
   };
 
-  return { handleDeleteBtn, handleClickOutside };
+  return {
+    handlers: {
+      handleClickOutside,
+      onClick: handleOnClick,
+      onMouseDown: handleOncMouseDown,
+      onMouseUp: handleOnMouseUp,
+      onTouchStart: handelOnTouchStart,
+      onTouchEnd: handleOnTouchEnd,
+    },
+  };
 };
 
 export default useCardDeleteHandler;
