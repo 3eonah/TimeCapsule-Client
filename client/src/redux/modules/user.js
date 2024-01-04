@@ -1,6 +1,7 @@
 const initialState = {
   token: '',
-  name: '',
+  user_id: '',
+  username: '선아',
   capsules: [
     {
       id: 0,

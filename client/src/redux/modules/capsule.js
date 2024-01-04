@@ -5,14 +5,17 @@ const initialState = {
   capsule: {
     writer: '',
     writtendate: '',
-    arrivaldate: '',
+    arrivaldate: {
+      year: '',
+      month: '',
+      day: '',
+    },
     cards: [],
     music: '',
     theme: '',
-    isChecked: false,
   },
   loading: {
-    POST_CAPSULE: false,
+    POST_CAPSULE_REQUEST: false,
   },
 };
 
@@ -22,7 +25,7 @@ const DELETE_ON = 'capsule/DELETE_ON'; //카드 삭제 모드 켜기
 const DELETE_OFF = 'capsule/DELETE_OFF'; //카드 삭제 모드 끄기
 const REMOVE = 'capsule/REMOVE'; // 카드 삭제
 const UPDATE_MUSIC = 'capsule/update_music'; // 음악 상태 변경
-const SEND = 'capsule/SEND'; // 새로운 캡슐 전송
+const UPDATE_ARRIVALINFO = 'capsule/update_arrivalinfo'; // 도착 날짜, 받는 사람 변경
 
 const POST_CAPSULE_REQUEST = 'capsule/POST_CAPSULE_REQUEST'; // 캡슐 서버에 전송 요청
 const POST_CAPSULE_SUCCESS = 'capsule/POST_CAPSULE_SUCCESS'; // 캡슐 서버에 전송 성공
@@ -57,39 +60,33 @@ export const remove = (id) => ({
   id,
 });
 
-export const send = ({ cards, music_url, info, theme }) => ({
-  type: SEND,
-  capsule: {
-    writer: info.writer,
-    writtendate: info.writtendate,
-    arrivaldate: info.arrivaldate,
-    cards,
-    music_url,
-    theme,
-    isChecked: false,
-  },
+export const update_arrivalinfo = (date, writerInfo) => ({
+  type: UPDATE_ARRIVALINFO,
+  date,
+  writerInfo,
 });
 
 export const post_capsule_request = () => ({ type: POST_CAPSULE_REQUEST });
-export const post_capsule_success = (payload) => ({
+export const post_capsule_success = (res) => ({
   type: POST_CAPSULE_SUCCESS,
-  payload,
+  payload: res,
 });
 export const post_capsule_failure = (err) => ({
   type: POST_CAPSULE_FAILURE,
   payload: err,
   error: true,
 });
-// Thunk Creators
-export const post_capsule = () => async (dispatch, getState) => {
+
+// Thunk Creators - POST
+export const post_capsule = (formData) => async (dispatch) => {
   dispatch(post_capsule_request()); // 요청 시작을 알림
 
   try {
-    const { capsule } = getState();
-    const res = await api.postCapsule(capsule);
+    const res = await api.postCapsule(formData);
     dispatch(post_capsule_success(res));
   } catch (err) {
     dispatch(post_capsule_failure(err));
+    throw err; // 컴포넌트단에서 에러를 조회할 수 있도록
   }
 };
 
@@ -124,6 +121,20 @@ function capsule(state = initialState, action) {
           music: action.music,
         },
       };
+    case UPDATE_ARRIVALINFO:
+      return {
+        ...state,
+        capsule: {
+          ...state.capsule,
+          writer: action.writerInfo.writer,
+          writtendate: action.writerInfo.writtendate,
+          arrivaldate: {
+            year: action.date.year,
+            month: action.date.month,
+            day: action.date.day,
+          },
+        },
+      };
 
     case REMOVE:
       const updatedCards = state.capsule.cards.filter(
@@ -136,17 +147,13 @@ function capsule(state = initialState, action) {
           cards: updatedCards,
         },
       };
-    case SEND:
-      return {
-        ...state,
-        capsule: action.capsule,
-      };
+
     case POST_CAPSULE_REQUEST:
       return {
         ...state,
         loading: {
           ...state.loading,
-          POST_CAPSULE: true, // 요청 시작
+          POST_CAPSULE_REQUEST: true, // 요청 시작
         },
       };
     case POST_CAPSULE_SUCCESS:
@@ -154,15 +161,16 @@ function capsule(state = initialState, action) {
         ...initialState,
         loading: {
           ...state.loading,
-          POST_CAPSULE: false, // 요청 완료
+          POST_CAPSULE_REQUEST: false, // 요청 완료
         },
+        postedData: action.payload,
       };
     case POST_CAPSULE_FAILURE:
       return {
         ...state,
         loading: {
           ...state.loading,
-          POST_CAPSULE: false, // 요청 완료
+          POST_CAPSULE_REQUEST: false, // 요청 완료
         },
         error: action.payload,
       };
