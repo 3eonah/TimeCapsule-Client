@@ -26,7 +26,7 @@ const useCardDeleteHandler = (cardId) => {
       // 0.7초가 지났을 때
       isLongPress.current = true;
       handleDeleteBtn(cardRef);
-    }, 700);
+    }, 600);
   };
 
   const handleOnClick = () => {

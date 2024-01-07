@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../styles/style-card.css';
 import useCardDeleteHandler from '../hooks/useCardDeleteHandler';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ const AddedCard = ({ cardId, image, text }) => {
   const cardRef = useRef(null);
   const { handlers } = useCardDeleteHandler(cardId);
   const deleteMode = useSelector((state) => state.capsule.delete_mode);
+
+  const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
     console.log('is Delete Mode:', deleteMode);
@@ -19,13 +21,25 @@ const AddedCard = ({ cardId, image, text }) => {
 
   return (
     <div
-      className="card-container"
+      className={`card-container ${isSelected ? 'selected' : ''}`}
       ref={cardRef}
       onClick={() => handlers.onClick()}
-      onMouseDown={() => handlers.onMouseDown(cardRef.current)}
-      onMouseUp={() => handlers.onMouseUp(cardRef.current)}
-      onTouchStart={() => handlers.onTouchStart(cardRef.current)}
-      onTouchEnd={() => handlers.onTouchEnd(cardRef.current)}
+      onMouseDown={() => {
+        setIsSelected(true);
+        handlers.onMouseDown(cardRef.current);
+      }}
+      onMouseUp={() => {
+        setIsSelected(false);
+        handlers.onMouseUp(cardRef.current);
+      }}
+      onTouchStart={() => {
+        setIsSelected(true);
+        handlers.onTouchStart(cardRef.current);
+      }}
+      onTouchEnd={() => {
+        setIsSelected(false);
+        handlers.onTouchEnd(cardRef.current);
+      }}
     >
       <div className="txt-area" style={{ background: 'transparent' }}>
         {text}
