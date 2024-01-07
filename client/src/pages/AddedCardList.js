@@ -116,6 +116,16 @@ const MappedDiv = styled.div`
     css`
       display: flex;
       justify-content: center;
+
+      & > div {
+        transition: all 0.5s ease;
+        transform: scale(1);
+      }
+
+      & > div.selected {
+        transition: all 0.5s ease;
+        transform: scale(1.1);
+      }
     `}
 
   ${(props) =>
@@ -125,12 +135,26 @@ const MappedDiv = styled.div`
       & > div:nth-of-type(1) {
         position: absolute;
         left: 0%;
-        transform: rotate(-7deg);
+        transition: all 0.5s ease;
+        transform: rotate(-7deg) scale(1);
       }
+
+      & > div:nth-of-type(1).selected {
+        transition: all 0.5s ease;
+        transform: rotate(-7deg) scale(1.1);
+      }
+
       & > div:nth-of-type(2) {
         position: absolute;
         top: 10%;
         right: 3%;
+        transition: all 0.5s ease;
+        transform: scale(1);
+      }
+
+      & > div:nth-of-type(2).selected {
+        transition: all 0.5s ease;
+        transform: scale(1.1);
       }
     `}
 
@@ -142,23 +166,42 @@ const MappedDiv = styled.div`
         position: absolute;
         top: -3%;
         left: -8%;
-        transform: rotate(-7deg);
+        transition: all 0.5s ease;
+        transform: rotate(-7deg) scale(1);
+      }
+
+      & > div:nth-of-type(1).selected {
+        transition: all 0.5s ease;
+        transform: rotate(-7deg) scale(1.1);
       }
       & > div:nth-of-type(2) {
         position: absolute;
         top: 4%;
         right: -3%;
-        transform: rotate(12deg);
+        transition: all 0.5s ease;
+        transform: rotate(12deg) scale(1);
 
         .delete-btn {
           top: -3%;
           left: -3%;
         }
       }
+
+      & > div:nth-of-type(2).selected {
+        transition: all 0.5s ease;
+        transform: rotate(12deg) scale(1.1);
+      }
       & > div:nth-of-type(3) {
         position: absolute;
         top: 13%;
         left: 8%;
+        transition: all 0.5s ease;
+        transform: scale(1);
+      }
+
+      & > div:nth-of-type(3).selected {
+        transition: all 0.5s ease;
+        transform: scale(1.1);
       }
     `}
 
@@ -170,31 +213,56 @@ const MappedDiv = styled.div`
         position: absolute;
         top: -12%;
         left: 0%;
-        transform: rotate(-13deg);
+        transition: all 0.5s ease;
+        transform: rotate(-13deg) scale(1);
+      }
+
+      & > div:nth-of-type(1).selected {
+        transition: all 0.5s ease;
+        transform: rotate(-13deg) scale(1.1);
       }
       & > div:nth-of-type(2) {
         position: absolute;
         top: -2%;
         right: -9%;
-        transform: rotate(11deg);
+        transition: all 0.5s ease;
+        transform: rotate(11deg) scale(1);
 
         .delete-btn {
           top: -3%;
           left: -3%;
         }
       }
+
+      & > div:nth-of-type(2).selected {
+        transition: all 0.5s ease;
+        transform: rotate(11deg) scale(1.1);
+      }
+
       & > div:nth-of-type(3) {
         position: absolute;
         top: 6%;
         left: -13%;
-        transform: rotate(-20deg);
+        transition: all 0.5s ease;
+        transform: rotate(-20deg) scale(1);
+      }
+
+      & > div:nth-of-type(3).selected {
+        transition: all 0.5s ease;
+        transform: rotate(-20deg) scale(1.1);
       }
 
       & > div:nth-of-type(4) {
         position: absolute;
         top: 17%;
         right: 8%;
-        transform: rotate(4.5deg);
+        transition: all 0.5s ease;
+        transform: rotate(4.5deg) scale(1);
+      }
+
+      & > div:nth-of-type(4).selected {
+        transition: all 0.5s ease;
+        transform: rotate(4.5deg) scale(1.1);
       }
     `}
 
@@ -206,31 +274,51 @@ const MappedDiv = styled.div`
         position: absolute;
         top: -19%;
         left: -13%;
-        transform: rotate(-13deg);
+        transition: all 0.5s ease;
+        transform: rotate(-13deg) scale(1);
+      }
+
+      & > div:nth-of-type(1).selected {
+        transition: all 0.5s ease;
+        transform: rotate(-13deg) scale(1.1);
       }
       & > div:nth-of-type(2) {
         position: absolute;
         top: -7%;
         right: -19%;
-        transform: rotate(18deg);
+        transition: all 0.5s ease;
+        transform: rotate(18deg) scale(1);
 
         .delete-btn {
           top: -3%;
           left: -3%;
         }
       }
+
+      & > div:nth-of-type(2).selected {
+        transition: all 0.5s ease;
+        transform: rotate(18deg) scale(1.1);
+      }
+
       & > div:nth-of-type(3) {
         position: absolute;
         top: 3%;
         left: -9%;
-        transform: rotate(-10deg);
+        transition: all 0.5s ease;
+        transform: rotate(-10deg) scale(1);
+      }
+
+      & > div:nth-of-type(3).selected {
+        transition: all 0.5s ease;
+        transform: rotate(-10deg) scale(1.1);
       }
 
       & > div:nth-of-type(4) {
         position: absolute;
         top: 10%;
         right: -10%;
-        transform: rotate(16deg);
+        transition: all 0.5s ease;
+        transform: rotate(16deg) scale(1);
 
         .delete-btn {
           top: -3%;
@@ -238,11 +326,22 @@ const MappedDiv = styled.div`
         }
       }
 
+      & > div:nth-of-type(4).selected {
+        transition: all 0.5s ease;
+        transform: rotate(16deg) scale(1.1);
+      }
+
       & > div:nth-of-type(5) {
         position: absolute;
         top: 23%;
         right: 10%;
-        transform: rotate(4deg);
+        transition: all 0.5s ease;
+        transform: rotate(4deg) scale(1);
+      }
+
+      & > div:nth-of-type(5).selected {
+        transition: all 0.5s ease;
+        transform: rotate(4deg) scale(1.1);
       }
     `}
 `;
