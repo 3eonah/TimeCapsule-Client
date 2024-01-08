@@ -97,6 +97,7 @@ const AddedCardList = () => {
         verticalPadding="1.25rem"
         fontSize="1.25rem"
         onClick={() => navigate('/send')}
+        className="next-btn"
       >
         다음 단계로 &gt;
       </BasicButton>
@@ -110,7 +111,6 @@ export default AddedCardList;
 const MappedDiv = styled.div`
   width: 100%;
   height: 72%;
-
   ${(props) =>
     props.cardNum === 1 &&
     css`

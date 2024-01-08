@@ -37,11 +37,15 @@ body {
 }
 
 /* mobile */
-@media all and (max-width: 390px) {
-  body {
+@media all and (max-width: 430px) {
+  .edit-card-div {
+    margin: 4rem 0;
   }
 }
 
 /* desktop */
-@media all and (min-width: 391px) {
+@media all and (min-width: 431px) {
+  .edit-card-div {
+    margin: 4rem 0 2rem;
+  }
 }

@@ -3,6 +3,7 @@ import YouTube from 'react-youtube';
 import '../styles/style-insertmusic.css';
 import { useSelector } from 'react-redux';
 import capsule from '../redux/modules/capsule';
+
 const ControlIframe = ({ handleMusicUrl }) => {
   const existingState = useSelector((state) => state.capsule.capsule.music);
   const [link, setLink] = useState('');
@@ -21,7 +22,7 @@ const ControlIframe = ({ handleMusicUrl }) => {
     }
   };
 
-  const onPlayerReady = (event) => {
+  const onPlayerReady = () => {
     // 플레이어가 준비되면 isPlayerReady를 true로 설정
     setPlayerReady(true);
   };
@@ -30,6 +31,8 @@ const ControlIframe = ({ handleMusicUrl }) => {
     if (existingState) {
       // existingState가 존재하면 link 설정
       setLink(`https://www.youtube.com/watch?v=${existingState}`);
+    } else {
+      setLink('');
     }
   }, [existingState]);
 

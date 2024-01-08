@@ -103,17 +103,29 @@
   height: 40%;
   box-sizing: border-box;
   overflow-y: scroll;
+  width: 100%;
 }
 
 .added-list li {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
 
-  margin-left: 0.3rem;
+  /* margin-left: 0.3rem; */
   color: #363636;
 
   margin-bottom: 0.8rem;
+
+  width: 100%;
+}
+
+.added-list li > .li-txt {
+  max-width: 89%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 }
 
 .added-list li > button {
