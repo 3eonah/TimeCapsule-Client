@@ -41,6 +41,12 @@ body {
   .edit-card-div {
     margin: 4rem 0;
   }
+  .alert-txt {
+    color: red;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
 }
 
 /* desktop */
