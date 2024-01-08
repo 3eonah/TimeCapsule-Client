@@ -209,7 +209,7 @@ const Send = () => {
         <div className="add-div">
           <input
             type="text"
-            placeholder="카카오톡 아이디 입력"
+            placeholder="카카오계정 (이메일) 입력"
             ref={(element) => (inputRef.current[3] = element)}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -223,7 +223,7 @@ const Send = () => {
             <li key={idx}>
               {val !== myId && (
                 <>
-                  {val}
+                  <div className="li-txt">{val}</div>
                   <button onClick={() => handleDelete(idx)}>
                     <img src={ic_deletelist} alt="Delete" />
                   </button>

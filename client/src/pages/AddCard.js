@@ -20,7 +20,7 @@ const AddCard = () => {
   return (
     <div className="container">
       <h2>새로운 캡슐 보내기</h2>
-      <div style={{ margin: '4rem 0' }}>
+      <div className="edit-card-div">
         <EditCard onCardValueChange={handleCardState} />
       </div>
       <BasicButton
