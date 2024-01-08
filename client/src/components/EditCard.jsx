@@ -34,8 +34,9 @@ const EditCard = ({ onCardValueChange }) => {
   };
 
   // 부모 컴포넌트로 image state와 textRef의 value를 전달
+  const cardRef = useRef();
   const handleCardValueChange = () => {
-    onCardValueChange(cardData);
+    onCardValueChange(cardData, cardRef.current);
   };
 
   const icBoxRef = useRef(null);
@@ -57,7 +58,7 @@ const EditCard = ({ onCardValueChange }) => {
   }, [cardData]);
 
   return (
-    <div className="card-container">
+    <div className="card-container" ref={cardRef}>
       <textarea
         className="txt-area"
         placeholder="최대 120자"

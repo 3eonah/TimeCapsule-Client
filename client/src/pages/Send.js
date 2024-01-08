@@ -12,11 +12,11 @@ import {
 } from '../assets/';
 import { useDispatch, useSelector } from 'react-redux';
 import { post_capsule, update_arrivalinfo } from '../redux/modules/capsule';
+import useValidate from '../hooks/useValidate';
 
 const Send = () => {
   // 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
@@ -27,7 +27,6 @@ const Send = () => {
     month: '',
     day: '',
   });
-
   const handleDateChange = (name, val) => {
     setDateValues({
       ...dateValues,
@@ -92,13 +91,19 @@ const Send = () => {
   const inputRef = useRef([]);
   const [isSendClicked, setIsSendClicked] = useState(false);
 
-  // TODO: capsule state formData로 변경
+  // TODO: capsule state form-data로 변경
   const { capsule } = useSelector((state) => state.capsule);
   const handleFormData = () => {
-    const formData = new formData();
+    const formData = new FormData();
     for (const key in capsule) {
-      if (key === 'cards') {
-        // cards는 객체의 배열이므로 따로 처리
+      // arrivaldate의 value는 객체이므로 따로 처리
+      if (key === 'arrivaldate') {
+        for (const dateKey in capsule[key]) {
+          formData.append(`arrivaldate[${dateKey}]`, capsule[key][dateKey]);
+        }
+      }
+      // cards의 value는 객체의 배열이므로 따로 처리
+      else if (key === 'cards') {
         capsule.cards.forEach((card, idx) => {
           for (const cardKey in card) {
             formData.append(`cards[${idx}][${cardKey}]`, card[cardKey]);
@@ -108,37 +113,35 @@ const Send = () => {
         formData.append(key, capsule[key]);
       }
     }
+
     return formData;
   };
 
-  // TODO: 유효성 검사 조건문 수정
+  // 유효성 검사 custom hooks
+  const { handleDateInput, handleListInput } = useValidate(
+    {
+      dateValues,
+      addedList,
+    },
+    inputRef.current
+  );
+
   const sendData = () => {
     // 올바른 입력값이나 입력값이 있을 때
-    if (
-      dateValues.year.length === 4 &&
-      dateValues.month.length > 0 &&
-      dateValues.month.length <= 2 &&
-      dateValues.day.length > 0 &&
-      dateValues.day.length <= 2 &&
-      addedList.length > 0
-    ) {
+    const isDateValidate = handleDateInput();
+    const isAddedListValidate = handleListInput();
+    if (isDateValidate && isAddedListValidate) {
       // 캡슐 도착 날짜, 전송자 정보 업데이트
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
       // TODO: 캡슐 서버에 formData 형태로 post 요청
+      // const postData = handleFormData();
+      // for (const pair of postData.entries()) {
+      //   console.log(pair[0] + ': ' + pair[1]);
+      // }
       dispatch(post_capsule(handleFormData()));
-    }
-    if (dateValues.year.length !== 4) {
-      inputRef.current[0].style.outline = '1px solid red';
-    }
-    if (dateValues.month.length <= 0 || dateValues.month > 2) {
-      inputRef.current[1].style.outline = '1px solid red';
-    }
-    if (dateValues.day.length <= 0 || dateValues.day.length > 2) {
-      inputRef.current[2].style.outline = '1px solid red';
-    }
-    if (addedList.length <= 0) {
-      inputRef.current[3].style.outline = '1px solid red';
+    } else {
+      console.log('something is invalidate');
     }
     handleModalClose();
     setIsSendClicked(true);
