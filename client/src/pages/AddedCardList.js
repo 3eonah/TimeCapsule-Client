@@ -5,7 +5,7 @@ import { ic_add, ic_caution } from '../assets';
 import { css, styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Dropdown from '../components/Dropdown';
-
+import '../styles/style-addedlist.css';
 const AddedCardList = () => {
   const navigate = useNavigate();
 
@@ -52,25 +52,16 @@ const AddedCardList = () => {
   }, [isDropdownOpen, dropdownRef, isDeleteMode, cards.length]);
 
   return (
-    <div className="container" onMouseDown={(e) => e.preventDefault()}>
-      <div
-        style={{
-          width: '100%',
-          height: '100vh',
-          position: 'fixed',
-          background: 'rgba(0,0,0,0.25)',
-          top: '0',
-        }}
-      ></div>
-      <Modal icSrc={ic_caution} isOpen={isModalOpen} close={handleModalClose}>
-        <div>
-          카드는 최대 5장까지 <br /> 추가 가능합니다.
-        </div>
-      </Modal>
-      <h2 style={{ zIndex: '100' }}>새로운 캡슐 보내기</h2>
-      <p style={{ fontSize: '1rem', margin: '0.5rem 0 2.5rem', zIndex: '100' }}>
-        최대 5장
-      </p>
+    <div
+      className="container addedlist"
+      onMouseDown={(e) => e.preventDefault()}
+    >
+      <div className="background-div"></div>
+
+      <div className="title-div">
+        <h2>새로운 캡슐 보내기</h2>
+        <p style={{ fontSize: '1rem', margin: '0.7rem 0' }}>최대 5장</p>
+      </div>
       <MappedDiv cardNum={cards.length}>
         {cards.map((card) => (
           <AddedCard
@@ -81,26 +72,33 @@ const AddedCardList = () => {
           />
         ))}
       </MappedDiv>
-      {isDropdownOpen ? (
-        <Dropdown
-          ref={dropdownRef}
-          cardsLength={cards.length}
-          handleModal={handleModal}
-        />
-      ) : (
-        <BasicButton isCardAddBtn={true} onClick={handlAddBtn}>
-          <img src={ic_add}></img>
+      <Modal icSrc={ic_caution} isOpen={isModalOpen} close={handleModalClose}>
+        <div>
+          카드는 최대 5장까지 <br /> 추가 가능합니다.
+        </div>
+      </Modal>
+      <div className="btns-div">
+        {isDropdownOpen ? (
+          <Dropdown
+            ref={dropdownRef}
+            cardsLength={cards.length}
+            handleModal={handleModal}
+          />
+        ) : (
+          <BasicButton isCardAddBtn={true} onClick={handlAddBtn}>
+            <img src={ic_add}></img>
+          </BasicButton>
+        )}
+        <BasicButton
+          buttonWidth="311px"
+          verticalPadding="1.25rem"
+          fontSize="1.25rem"
+          onClick={() => navigate('/send')}
+          className="next-btn"
+        >
+          다음 단계로 &gt;
         </BasicButton>
-      )}
-      <BasicButton
-        buttonWidth="311px"
-        verticalPadding="1.25rem"
-        fontSize="1.25rem"
-        onClick={() => navigate('/send')}
-        className="next-btn"
-      >
-        다음 단계로 &gt;
-      </BasicButton>
+      </div>
       {isDeleteMode && <DeleteModeContainer></DeleteModeContainer>}
     </div>
   );
@@ -111,6 +109,8 @@ export default AddedCardList;
 const MappedDiv = styled.div`
   width: 100%;
   height: 72%;
+  // border: 1px solid purple;
+  margin-top: 3rem;
   ${(props) =>
     props.cardNum === 1 &&
     css`
@@ -118,7 +118,7 @@ const MappedDiv = styled.div`
       justify-content: center;
 
       & > div {
-        transition: all 0.5s ease;
+        position: all 0.5s ease;
         transform: scale(1);
       }
 
@@ -285,7 +285,7 @@ const MappedDiv = styled.div`
       & > div:nth-of-type(2) {
         position: absolute;
         top: -7%;
-        right: -19%;
+        right: -2%;
         transition: all 0.5s ease;
         transform: rotate(18deg) scale(1);
 
@@ -356,5 +356,5 @@ const DeleteModeContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 500;
+  z-index: 100;
 `;

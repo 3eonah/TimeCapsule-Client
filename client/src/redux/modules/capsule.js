@@ -26,6 +26,7 @@ const DELETE_OFF = 'capsule/DELETE_OFF'; //카드 삭제 모드 끄기
 const REMOVE = 'capsule/REMOVE'; // 카드 삭제
 const UPDATE_MUSIC = 'capsule/update_music'; // 음악 상태 변경
 const UPDATE_ARRIVALINFO = 'capsule/update_arrivalinfo'; // 도착 날짜, 받는 사람 변경
+const UPDATE_THEME = 'capsule/update_theme'; // 캡슐 테마 변경
 
 const POST_CAPSULE_REQUEST = 'capsule/POST_CAPSULE_REQUEST'; // 캡슐 서버에 전송 요청
 const POST_CAPSULE_SUCCESS = 'capsule/POST_CAPSULE_SUCCESS'; // 캡슐 서버에 전송 성공
@@ -66,6 +67,11 @@ export const update_arrivalinfo = (date, writerInfo) => ({
   writerInfo,
 });
 
+export const update_theme = (theme) => ({
+  type: UPDATE_THEME,
+  theme,
+});
+
 export const post_capsule_request = () => ({ type: POST_CAPSULE_REQUEST });
 export const post_capsule_success = (res) => ({
   type: POST_CAPSULE_SUCCESS,
@@ -78,15 +84,25 @@ export const post_capsule_failure = (err) => ({
 });
 
 // Thunk Creators - POST
-export const post_capsule = (formData) => async (dispatch) => {
-  dispatch(post_capsule_request()); // 요청 시작을 알림
+export const post_capsule = (formData, receivers) => async (dispatch) => {
+  dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
 
   try {
-    const res = await api.postCapsule(formData);
-    dispatch(post_capsule_success(res));
+    // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
+    const responses = await Promise.all(
+      receivers.map(async (receiver) => {
+        const requestData = {
+          receiver: receiver,
+          capsule: formData,
+        };
+        const res = await api.postCapsule(requestData);
+        return res;
+      })
+    );
+    // 응답 성공에 대한 액션
+    responses.forEach((res) => dispatch(post_capsule_success(res)));
   } catch (err) {
-    dispatch(post_capsule_failure(err));
-    throw err; // 컴포넌트단에서 에러를 조회할 수 있도록
+    dispatch(post_capsule_failure(err.message));
   }
 };
 
@@ -133,6 +149,15 @@ function capsule(state = initialState, action) {
             month: action.date.month,
             day: action.date.day,
           },
+        },
+      };
+
+    case UPDATE_THEME:
+      return {
+        ...state,
+        capsule: {
+          ...state.capsule,
+          theme: action.theme,
         },
       };
 

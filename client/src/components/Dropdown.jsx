@@ -28,9 +28,11 @@ const DropdownContainer = styled.ul`
   -webkit-backdrop-filter: blur(10.1px);
 
   width: 149px;
-  position: absolute;
-  bottom: 17%;
-  right: 10%;
+  // position: absolute;
+  // bottom: 17%;
+  // right: 10%;
+  align-self: flex-end;
+  margin-bottom: 1.3rem;
 
   display: flex;
   flex-direction: column;

@@ -1,7 +1,9 @@
+import * as api from '../../api/Axios';
+
 const initialState = {
   token: '',
-  user_id: '',
-  username: '선아',
+  email: '',
+  name: '선아',
   capsules: [
     {
       id: 0,
@@ -15,29 +17,25 @@ const initialState = {
     },
   ],
   uncheckedCount: 0,
+  loading: {
+    POST_USER_REQUEST: false,
+  },
 };
 
 // Action Types
-const LOGIN = 'user/LOGIN';
+
 const LOGOUT = 'user/LOGOUT';
-const GET_CAPSULES = 'user/GET_CAPSULES';
 const UPDATE_CHECK = 'user/UPDATE_CHECK';
 const COUNT_UNCHECKED = 'user/COUNT_UNCHECKED';
 
+const POST_USER_REQUEST = 'user/POST_USER_REQUEST';
+const POST_USER_SUCCESS = 'user/POST_USER_SUCCESS';
+const POST_USER_FAILURE = 'user/POST_USER_FAILURE';
+
 // Action Creators
-export const login = (token, name) => ({
-  type: LOGIN,
-  token,
-  name,
-});
 
 export const logout = () => ({
   type: LOGOUT,
-});
-
-export const get_capsules = (capsules) => ({
-  type: GET_CAPSULES,
-  capsules,
 });
 
 export const update_check = (id) => ({
@@ -47,25 +45,34 @@ export const update_check = (id) => ({
 
 export const count_unchecked = () => ({ type: COUNT_UNCHECKED });
 
+export const post_user_request = () => ({ type: POST_USER_REQUEST });
+export const post_user_success = (res) => ({
+  type: POST_USER_SUCCESS,
+  res,
+});
+export const post_user_failure = (err) => ({
+  type: POST_USER_FAILURE,
+  payload: err,
+  error: true,
+});
+
 // Thunk Creators
+export const post_user = () => async (dispatch) => {
+  dispatch(post_user_request());
+  try {
+    const res = await api.postUser();
+    dispatch(post_user_success(res));
+  } catch (err) {
+    dispatch(post_user_failure(err.message));
+  }
+};
 
 // Reducer
 function user(state = initialState, action) {
   switch (action.type) {
-    case LOGIN:
-      return {
-        ...state,
-        token: action.token,
-        name: action.name,
-      };
     case LOGOUT:
       return initialState;
 
-    case GET_CAPSULES:
-      return {
-        ...state,
-        capsules: action.capsules,
-      };
     case UPDATE_CHECK:
       return {
         ...state,
@@ -81,6 +88,32 @@ function user(state = initialState, action) {
         ...state,
         uncheckedCount,
       };
+    case POST_USER_REQUEST:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          POST_USER_REQUEST: true,
+        },
+      };
+    case POST_USER_SUCCESS:
+      return {
+        ...state,
+        token: action.res.data.memberID,
+        email: action.res.data.email,
+        name: action.res.data.name,
+        capsules: action.res.data.capsules,
+      };
+    case POST_USER_FAILURE: {
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          POST_USER_REQUEST: false,
+        },
+        error: action.payload,
+      };
+    }
     default:
       return state;
   }

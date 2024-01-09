@@ -10,6 +10,11 @@
   color: #fff;
 }
 
+.container.home {
+  justify-content: space-between;
+  padding: 5rem 0 4.5rem;
+}
+
 .greeting {
   text-align: center;
 }
@@ -24,12 +29,15 @@ h2 span {
 }
 
 .cap-div {
+  align-self: center;
   position: relative;
-  margin: 3rem 0;
+  /* margin: 2rem 0; */
+  height: 55vh;
 }
 
 .cap-div > img {
   width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
 }
@@ -38,7 +46,7 @@ h2 span {
   width: 130%;
   position: absolute;
   left: -14%;
-  bottom: -13%;
+  bottom: -50%;
   z-index: -1;
 }
 
@@ -58,11 +66,29 @@ h2 span {
   font-weight: 400;
 }
 
-.row-div {
+.btn-row-div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 85%;
+  width: 88%;
+}
+
+.btn-row-div > button:nth-of-type(1) {
+  width: 38%;
+}
+
+.btn-row-div > button:nth-of-type(2) {
+  width: 58.5%;
+}
+
+.container.addedlist > .title-div {
+  z-index: 100;
+  text-align: center;
+}
+
+.container.addedlist > .btn-div {
+  display: flex;
+  flex-direction: column;
 }
 
 /* mobile */

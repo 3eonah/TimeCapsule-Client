@@ -139,7 +139,7 @@ const Send = () => {
       // for (const pair of postData.entries()) {
       //   console.log(pair[0] + ': ' + pair[1]);
       // }
-      dispatch(post_capsule(handleFormData()));
+      dispatch(post_capsule(handleFormData(), addedList));
     } else {
       console.log('something is invalidate');
     }
