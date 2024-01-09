@@ -37,7 +37,7 @@ const StyledButton = styled.button`
   width: ${(props) => props.buttonWidth};
 
   .ic {
-    margin-right: 0.8rem;
+    margin-right: 0.5rem;
   }
 
   &:hover {
@@ -54,8 +54,10 @@ const StyledButton = styled.button`
     css`
       padding: 1.7rem;
       z-index: 100;
-      position: absolute;
-      bottom: 17%;
-      right: 10%;
+      display: block;
+      align-self: flex-end;
+      margin-bottom: 1.3rem;
+      // position: absolute;
+      // right: 0;
     `}
 `;

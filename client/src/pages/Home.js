@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="container">
+    <div className="container home">
       <div className="greeting">
         <h2>안녕하세요,</h2>
         <h2>
@@ -23,7 +23,7 @@ const Home = () => {
         <img src={capsule} />
         <img src={cap_shadow} id="shadow" />
       </div>
-      <div className="row-div">
+      <div className="btn-row-div">
         <BasicButton onClick={() => navigate('/capsulelist')}>
           <img src={ic_list} className="ic"></img>
           <p>전체보기</p>

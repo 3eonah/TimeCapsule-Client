@@ -1,0 +1,27 @@
+.addedlist-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 5rem 0 5rem;
+  color: #fff;
+}
+
+.background-div {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.btns-div {
+  position: fixed;
+  bottom: 8%;
+
+  display: flex;
+  flex-direction: column;
+}
