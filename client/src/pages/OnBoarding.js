@@ -1,3 +1,4 @@
+// OnBoarding.js
 import React, { useEffect, useState } from 'react';
 import '../styles/style-onboarding.css';
 import { big_capsule, ic_kakao } from '../assets';
@@ -16,7 +17,7 @@ const OnBoarding = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/data', { message: newData });
+      await axios.post('http://localhost:3000', { message: newData }); // 수정: 서버의 실제 엔드포인트로 변경
       fetchData();
       setNewData('');
       console.log(newData);
@@ -27,7 +28,7 @@ const OnBoarding = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/data');
+      const res = await axios.get('http://localhost:3000'); // 수정: 서버의 실제 엔드포인트로 변경
       setData(res.data);
       console.log(res.data);
     } catch (err) {
@@ -38,6 +39,7 @@ const OnBoarding = () => {
   useEffect(() => {
     console.log(data);
   }, [data]);
+  
   return (
     <div className="container">
       <div id="capsule_area">
@@ -60,3 +62,4 @@ const OnBoarding = () => {
 };
 
 export default OnBoarding;
+
