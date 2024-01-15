@@ -7,7 +7,9 @@ import AddCard from './pages/AddCard';
 import AddedCardList from './pages/AddedCardList';
 import InsertMusic from './pages/InsertMusic';
 import Send from './pages/Send';
-import CapsuleList from './pages/CapsuleList'
+import CapsuleList from './pages/CapsuleList';
+import CapsuleDetail from './pages/CapsuleDetail';
+
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/create/music" element={<InsertMusic />} />
         <Route path="/send" element={<Send />} />
         <Route path="/capsulelist" element={<CapsuleList />} />
+        <Route path="/capsuledetail" element={<CapsuleDetail />} />
+        
       </Routes>
     </div>
   );
