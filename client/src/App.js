@@ -9,7 +9,7 @@ import InsertMusic from './pages/InsertMusic';
 import Send from './pages/Send';
 import CapsuleList from './pages/CapsuleList';
 import CapsuleDetail from './pages/CapsuleDetail';
-
+import ThemeList from './pages/ThemeList';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         <Route path="/send" element={<Send />} />
         <Route path="/capsulelist" element={<CapsuleList />} />
         <Route path="/capsuledetail" element={<CapsuleDetail />} />
-        
+        <Route path="/create" element={<ThemeList />} />
       </Routes>
     </div>
   );
