@@ -19,12 +19,12 @@
   text-align: center;
 }
 
-h2 {
+.container h2 {
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-h2 span {
+.container h2 span {
   font-size: 2rem;
 }
 
@@ -42,7 +42,7 @@ h2 span {
   display: block;
 }
 
-#shadow {
+.container #shadow {
   width: 130%;
   position: absolute;
   left: -14%;

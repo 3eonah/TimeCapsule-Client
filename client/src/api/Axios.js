@@ -1,20 +1,26 @@
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const baseURL = 'http://localhost:8080';
 
-const instance = axios.create({
-  baseURL,
-  // headers: {
-  //   Authorization: 'Bearer Token',
-  //   //   'Content-Type': 'multipart/form-data,
-  // },
-});
+const useToken = () => {
+  return useSelector((state) => state.user.token);
+};
 
-export const postUser = () => instance.post(`/user`);
-export const getAllCapsules = () => instance.get(`/capsules`);
-export const getEachCapsule = (id) => instance.get(`/capsules/${id}`);
+const CreateAxiosInstance = () => {
+  return axios.create({
+    baseURL,
+    headers: {
+      Authorization: `Bearer + ${useToken()}`,
+    },
+  });
+};
+
+export const postUser = () => CreateAxiosInstance.post('/user');
+export const getAllCapsules = () => CreateAxiosInstance.get(`/capsule`);
+export const getEachCapsule = (id) => CreateAxiosInstance.get(`/capsule/${id}`);
 export const postCapsule = (data) =>
-  instance.post(`/capsule`, data, {
+  CreateAxiosInstance.post(`/capsule`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
