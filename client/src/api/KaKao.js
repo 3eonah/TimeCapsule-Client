@@ -1,25 +1,51 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { update_token, post_user } from '../redux/modules/user';
+import { useNavigate } from 'react-router-dom';
 
-const REACT_APP_KAKAO_REST_API_KEY="ffaab583469817d3cb6857fa597d9bd9"
-const REACT_APP_KAKAO_REDIRECT_URI="http://localhost:8080/login/oauth2/code/kakao"
+const REACT_APP_KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
 export const kakao_auth_url = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 export const handleKakKaoLogin = () => {
   return (window.location.href = kakao_auth_url);
 };
 
-// 인가코드
-let access_code = '';
+// 카카오 인가코드
+let kakao_auth_code = '';
 
 const KaKao = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    access_code = new URL(window.location.href).searchParams.get('code');
+    // 카카오 인가코드 발급 받기
+    kakao_auth_code = new URL(window.location.href).searchParams.get('code');
+
+    // TODO: 서버에 카카오 인가코드 넘기고 JWT Token 받아오기
+    const getToken = async () => {
+      try {
+        const res = await axios.post('http://localhost:8080/login', {
+          grant_type: 'authorization_code',
+          code: kakao_auth_code,
+          redirect_uri: REACT_APP_KAKAO_REDIRECT_URI,
+        });
+
+        // set redux state
+        dispatch(update_token(res.data));
+        dispatch(post_user());
+
+        navigate('/home');
+      } catch (err) {
+        console.err(err);
+      }
+    };
+
+    getToken();
   }, []);
 
   return <div></div>;
 };
 
 export default KaKao;
-
-

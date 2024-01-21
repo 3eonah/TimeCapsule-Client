@@ -3,8 +3,9 @@ import Slider from 'react-slick';
 import YouTube from 'react-youtube';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { school, europe, cat1, slidingbutton, musicon, musicoff } from '../assets/index.js';
+import { school, europe, slidingbutton, musicon, musicoff } from '../assets/index.js';
 import '../styles/style-capsuledetail.css';
+import { BasicButton } from '../components/index.js';
 
 const CapsuleDetail = () => {
   const commonData = {
@@ -27,8 +28,9 @@ const CapsuleDetail = () => {
   ];
 
   const sliderRef = useRef(null);
+  const playerRef = useRef(null);
   const [currentVideoId, setCurrentVideoId] = useState(commonData.videoId);
-
+  const [isMuted, setIsMuted] = useState(true); 
   const settings = {
     dots: false,
     infinite: true,
@@ -48,13 +50,29 @@ const CapsuleDetail = () => {
     width: '640',
     playerVars: {
       autoplay: 1,
-      controls: 0, // 컨트롤러를 숨기도록 설정
+      controls: 0,
     },
   };
 
   const videoStyle = {
     display: 'none', // 영상을 숨김
   };
+
+  const unmuteVideo = () => {
+    if (playerRef.current) {
+      playerRef.current.unMute();
+    }
+    setIsMuted(false);
+  };
+
+  const muteVideo = () => {
+    if (playerRef.current) {
+      playerRef.current.mute();
+    }
+    setCurrentVideoId(commonData.videoId); // Set to the common video ID
+    setIsMuted(true);
+  };
+
 
   return (
     <div className="App">
@@ -68,10 +86,18 @@ const CapsuleDetail = () => {
             />
             <div className="slide-text">
               <div className="info-container">
-                <p className="from">{commonData.from}</p>
-                <p className="date">{commonData.date}</p>
+                <p className="from">전달한 분 <br/> {commonData.from}</p>
+                <p className="date">작성일 <br/>{commonData.date}</p>
               </div>
-              <p className="song-title">{commonData.songTitle}</p>
+              <div className="button-container">
+                <BasicButton onClick={unmuteVideo}>
+                  <img src={musicon} alt="음소거 해제" />
+                </BasicButton>
+                <BasicButton onClick={muteVideo}>
+                  <img src={musicoff} alt="음소거 하기" />
+                </BasicButton>
+                <p className="song-title">{commonData.songTitle}</p>
+              </div>
               <p className="content">{data.content}</p>
             </div>
           </div>
@@ -84,10 +110,13 @@ const CapsuleDetail = () => {
         onClick={goToNextSlide}
       />
       <div style={videoStyle}>
-        <YouTube videoId={currentVideoId} opts={opts} />
+        <YouTube videoId={currentVideoId} opts={opts} onReady={(e) => playerRef.current = e.target} />
       </div>
     </div>
   );
 };
 
 export default CapsuleDetail;
+
+
+

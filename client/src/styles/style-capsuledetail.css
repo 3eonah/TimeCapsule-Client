@@ -1,31 +1,7 @@
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
 .App {
   overflow: hidden;
 }
 
-.info-container {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  margin: 0;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-}
-
-.date {
-  
-  top: 10px;
-  right: 10px;
-  margin: 0;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-}
 .slide-container {
   position: relative;
   height: 100vh;
@@ -42,22 +18,45 @@ html, body {
 
 .slide-text {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  color: #fff;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-weight: 400; /* bold로 설정 */
+  color: #fff; /* 흰색으로 설정 */
+  font-size: 1.1rem; /* 폰트 크기를 1.2rem으로 설정 */
+  margin-left: 10%; 
+  margin-top: 15%;
 }
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 50%;
+}
+
+.button-container {
+  margin-top :5%;
+  display: flex;
+  align-items: center; 
+}
+
+.button-container > * {
+  margin-right: 2% 
+}
+
 .song-title {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  font-size: 18px; /* 예시로 지정한 폰트 크기 */
+  align-self: center; 
+  margin-right: 10%; 
 }
 
 .content {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 14px; /* 예시로 지정한 폰트 크기 */
+  align-self: flex-start; 
+  margin-top:100%; 
+  margin-right: 30%;
 }
 
 .sliding-button {
@@ -75,6 +74,8 @@ html, body {
   height: 100%;
   object-fit: cover;
 }
+
+
 
 
 @media screen and (max-width: 390px) {
