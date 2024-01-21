@@ -16,15 +16,14 @@ import ic_confirm from './ic_confirm.svg';
 import ic_empty_check from './ic_empty_check.svg';
 import ic_colored_check from './ic_colored_check.svg';
 import ic_deletelist from './ic_deletelist.svg';
-import cp_retro from'./cp_retro.svg';
-import cp_main from'./cp_main.svg';
-import cp_retro_open from'./cp_retro_open.svg';
-import cp_main_open from'./cp_main_open.svg';
+import cp_retro from './cp_retro.svg';
+import cp_main from './cp_main.svg';
+import cp_retro_open from './cp_retro_open.svg';
+import cp_main_open from './cp_main_open.svg';
 import cat1 from './cat1.jpg';
 import europe from './europe.jpg';
 import school from './school.jpg';
 import slidingbutton from './slidingbutton.svg';
-
 
 export {
   cap_shadow,
@@ -48,10 +47,9 @@ export {
   cp_retro,
   cp_main,
   cp_retro_open,
-  cp_main_open, 
+  cp_main_open,
   cat1,
   europe,
   school,
   slidingbutton,
-
 };
