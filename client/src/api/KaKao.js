@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const REACT_APP_KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+const REACT_APP_KAKAO_CLINET_SECRET = process.env.REACT_APP_KAKAO_REST_API_KEY_CLINET_SECRET;
 
 export const kakao_auth_url = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 export const handleKakKaoLogin = () => {
@@ -29,7 +30,9 @@ const KaKao = (props) => {
         const res = await axios.post('http://localhost:8080/login', {
           grant_type: 'authorization_code',
           code: kakao_auth_code,
+          client_id:REACT_APP_KAKAO_REST_API_KEY,
           redirect_uri: REACT_APP_KAKAO_REDIRECT_URI,
+          client_secret: REACT_APP_KAKAO_CLINET_SECRET,
         });
 
         // set redux state

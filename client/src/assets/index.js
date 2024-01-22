@@ -24,6 +24,9 @@ import cat1 from './cat1.jpg';
 import europe from './europe.jpg';
 import school from './school.jpg';
 import slidingbutton from './slidingbutton.svg';
+import musicon from './musicon.svg';
+import musicoff from './musicoff.svg'; 
+
 
 export {
   cap_shadow,
@@ -52,4 +55,8 @@ export {
   europe,
   school,
   slidingbutton,
+  musicon,
+  musicoff,
+  
+
 };
