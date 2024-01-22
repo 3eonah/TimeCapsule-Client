@@ -27,7 +27,7 @@ const KaKao = (props) => {
     // TODO: 서버에 카카오 인가코드 넘기고 JWT Token 받아오기
     const getToken = async () => {
       try {
-        const res = await axios.post('http://localhost:3000/login', {
+        const res = await axios.post('http://localhost:8080/login', {
           grant_type: 'authorization_code',
           code: kakao_auth_code,
           client_id:REACT_APP_KAKAO_REST_API_KEY,
