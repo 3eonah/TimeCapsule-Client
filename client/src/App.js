@@ -17,7 +17,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<OnBoarding />} />
-        <Route path="/oauth/callback/kakao" element={<KaKao />} />
+        <Route path="/login/oauth2/code/kakao" element={<KaKao />} />
         <Route path="/home" element={<Home />} />
         <Route path="/create/add" element={<AddCard />} />
         <Route path="/create/addedlist" element={<AddedCardList />} />

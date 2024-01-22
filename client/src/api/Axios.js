@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://3.38.80.77:8080';
 
 const useToken = () => {
   return useSelector((state) => state.user.token);
 };
 
+// TODO: "CreateAxiosInstance.post is not a function" Error 해결 예정
 const CreateAxiosInstance = () => {
   return axios.create({
     baseURL,
