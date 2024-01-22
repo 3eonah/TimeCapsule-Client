@@ -1,22 +1,22 @@
-.App {
+.cd-App {
   overflow: hidden;
 }
 
-.slide-container {
+.cd-slide-container {
   position: relative;
   height: 100vh;
   display: flex;
   flex-direction: column-reverse; /* 역순으로 배치 */
 }
 
-.slide-image {
+.cd-slide-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
 }
 
-.slide-text {
+.cd-slide-text {
   position: absolute;
   top: 0;
   display: flex;
@@ -31,45 +31,45 @@
   margin-top: 15%;
 }
 
-.info-container {
+.cd-info-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   width: 50%;
 }
 
-.button-container {
+.cd-button-container {
   margin-top :5%;
   display: flex;
   align-items: center; 
 }
 
-.button-container > * {
+.cd-button-container > * {
   margin-right: 2% 
 }
 
-.song-title {
+.cd-song-title {
   align-self: center; 
   margin-right: 10%; 
 }
 
-.content {
+.cd-content {
   align-self: flex-start; 
   margin-top:100%; 
   margin-right: 30%;
 }
 
-.sliding-button {
+.cd-sliding-button {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  right: -10px;
+  right: -5%;
   cursor: pointer;
   width: 100px; 
   height: 100px; 
 }
 
-.sliding-button img {
+.cd-sliding-button img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -78,8 +78,3 @@
 
 
 
-@media screen and (max-width: 390px) {
-  .cap-div {
-    width: 50%;
-  }
-}

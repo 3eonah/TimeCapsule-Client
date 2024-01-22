@@ -75,30 +75,30 @@ const CapsuleDetail = () => {
 
 
   return (
-    <div className="App">
+    <div className="cd-App">
       <Slider ref={sliderRef} {...settings}>
         {dataFromBackend.map((data, index) => (
-          <div key={index} className="slide-container">
+          <div key={index} className="cd-slide-container">
             <img
               src={data.imageUrl}
               alt={`이미지 ${index + 1}`}
-              className="slide-image"
+              className="cd-slide-image"
             />
-            <div className="slide-text">
-              <div className="info-container">
-                <p className="from">전달한 분 <br/> {commonData.from}</p>
-                <p className="date">작성일 <br/>{commonData.date}</p>
+            <div className="cd-slide-text">
+              <div className="cd-info-container">
+                <p className="cd-from">전달한 분 <br/> {commonData.from}</p>
+                <p className="cd-date">작성일 <br/>{commonData.date}</p>
               </div>
-              <div className="button-container">
+              <div className="cd-button-container">
                 <BasicButton onClick={unmuteVideo}>
                   <img src={musicon} alt="음소거 해제" />
                 </BasicButton>
                 <BasicButton onClick={muteVideo}>
                   <img src={musicoff} alt="음소거 하기" />
                 </BasicButton>
-                <p className="song-title">{commonData.songTitle}</p>
+                <p className="cd-song-title">{commonData.songTitle}</p>
               </div>
-              <p className="content">{data.content}</p>
+              <p className="cd-content">{data.content}</p>
             </div>
           </div>
         ))}
@@ -106,7 +106,7 @@ const CapsuleDetail = () => {
       <img
         src={slidingbutton}
         alt="슬라이딩 버튼"
-        className="sliding-button"
+        className="cd-sliding-button"
         onClick={goToNextSlide}
       />
       <div style={videoStyle}>
