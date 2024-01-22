@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BasicButton } from '../components/index.js';
-import { cp_retro, cp_main ,cp_retro_open, cp_main_open, } from '../assets/index.js';
+import {
+  cp_retro,
+  cp_main,
+  cp_retro_open,
+  cp_main_open,
+} from '../assets/index.js';
 
 const CapsuleList = () => {
   const navigate = useNavigate();
@@ -49,14 +54,32 @@ const CapsuleList = () => {
       <div className="all" style={{ marginBottom: '20px' }}>
         <h2> 캡슐 전체보기 </h2>
       </div>
-      <div className="row-div" style={{ justifyContent: 'space-between', marginBottom: '10px', padding: '0 20px' }}>
+      <div
+        className="row-div"
+        style={{
+          justifyContent: 'space-between',
+          marginBottom: '10px',
+          padding: '0 20px',
+        }}
+      >
         <BasicButton onClick={handleConfirm} buttonWidth="100%" fontSize="1rem">
           <p>확인한 캡슐</p>
         </BasicButton>
-        <BasicButton onClick={handleUnconfirm} buttonWidth="100%" fontSize="1rem">
+        <BasicButton
+          onClick={handleUnconfirm}
+          buttonWidth="100%"
+          fontSize="1rem"
+        >
           <p>확인하지 않은 캡슐</p>
         </BasicButton>
       </div>
+      {/* TODO: 
+        1. components-container를 컴포넌트화해서 /components 폴더에 넣고 여기로 불러오기
+        2. 컴포넌트 props로 isConfirmed state (boolean) 넘겨주기
+        3. 컴포넌트에서 props로 받은 isConfirmed 에 따라 map함수로 데이터 (redux) 보여주기
+        4. isConfirmed가 false일 때 불러와진 각 데이터를 나타내는 div에 onClick 이벤트가 발생하면
+            해당 데이터의 isChecked state 변경 (redux)
+      */}
       <div className="components-container">
         {componentData.map((component, index) => (
           <div
@@ -82,7 +105,9 @@ const CapsuleList = () => {
             }}
           >
             <img src={component.image} alt={component.label} />
-            <p style={{ position: 'absolute', bottom: '-30px' }}>{component.name}</p>
+            <p style={{ position: 'absolute', bottom: '-30px' }}>
+              {component.name}
+            </p>
           </div>
         ))}
       </div>
@@ -91,7 +116,3 @@ const CapsuleList = () => {
 };
 
 export default CapsuleList;
-
-
-
-
