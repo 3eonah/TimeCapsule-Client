@@ -1,4 +1,4 @@
-import * as api from '../../api/Axios';
+import axios from 'axios';
 
 const initialState = {
   delete_mode: false,
@@ -84,27 +84,37 @@ export const post_capsule_failure = (err) => ({
 });
 
 // Thunk Creators - POST
-export const post_capsule = (formData, receivers) => async (dispatch) => {
-  dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
+export const post_capsule =
+  (formData, receivers, token) => async (dispatch) => {
+    dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
 
-  try {
-    // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
-    const responses = await Promise.all(
-      receivers.map(async (receiver) => {
-        const requestData = {
-          receiver: receiver,
-          capsule: formData,
-        };
-        const res = await api.postCapsule(requestData);
-        return res;
-      })
-    );
-    // 응답 성공에 대한 액션
-    responses.forEach((res) => dispatch(post_capsule_success(res)));
-  } catch (err) {
-    dispatch(post_capsule_failure(err.message));
-  }
-};
+    try {
+      // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
+      const responses = await Promise.all(
+        receivers.map(async (receiver) => {
+          const requestData = {
+            receiver: receiver,
+            capsule: formData,
+          };
+          const res = await axios.post(
+            'http://3.38.80.77:8080/capsule',
+            requestData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          );
+          return res;
+        })
+      );
+      // 응답 성공에 대한 액션
+      responses.forEach((res) => dispatch(post_capsule_success(res)));
+    } catch (err) {
+      dispatch(post_capsule_failure(err.message));
+    }
+  };
 
 // Reducer
 function capsule(state = initialState, action) {
