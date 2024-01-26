@@ -38,7 +38,7 @@ const Send = () => {
   const [isSendToMe, setIsSendToMe] = useState(false);
   const meRef = useRef(null);
   // TODO: 접속한 사용자 아이디 져오기
-  const myId = '1234';
+  const { email } = useSelector((state) => state.user);
 
   const handleSendToMeBtn = () => {
     if (!isSendToMe) {
@@ -48,7 +48,7 @@ const Send = () => {
         meRef.current.style.border = '1px solid rgba(255, 255, 255, 0.0)';
       }
       // receivers에 내 아이디 추가
-      setAddedList([...addedList, myId]);
+      setAddedList([...addedList, email]);
     } else {
       setIsSendToMe(false);
       if (meRef) {
@@ -56,7 +56,7 @@ const Send = () => {
         meRef.current.style.border = '1px solid rgba(255, 255, 255, 0.4)';
       }
       // receivers에 내 아이디 삭제
-      const updatedList = addedList.filter((id) => id !== myId);
+      const updatedList = addedList.filter((id) => id !== email);
       setAddedList(updatedList);
     }
   };
@@ -88,6 +88,7 @@ const Send = () => {
   }));
 
   const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.user);
   const inputRef = useRef([]);
   const [isSendClicked, setIsSendClicked] = useState(false);
 
@@ -135,11 +136,7 @@ const Send = () => {
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
       // TODO: 캡슐 서버에 formData 형태로 post 요청
-      // const postData = handleFormData();
-      // for (const pair of postData.entries()) {
-      //   console.log(pair[0] + ': ' + pair[1]);
-      // }
-      dispatch(post_capsule(handleFormData(), addedList));
+      dispatch(post_capsule(handleFormData(), addedList, token));
     } else {
       console.log('something is invalidate');
     }
@@ -224,7 +221,7 @@ const Send = () => {
         <ul className="added-list">
           {addedList.map((val, idx) => (
             <li key={idx}>
-              {val !== myId && (
+              {val !== email && (
                 <>
                   <div className="li-txt">{val}</div>
                   <button onClick={() => handleDelete(idx)}>
