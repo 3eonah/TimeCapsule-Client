@@ -6,7 +6,7 @@
   position: relative;
   height: 100vh;
   display: flex;
-  flex-direction: column-reverse; /* 역순으로 배치 */
+  flex-direction: column-reverse; 
 }
 
 .cd-slide-image {
@@ -14,6 +14,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
+  filter: brightness(50%)
 }
 
 .cd-slide-text {
@@ -24,10 +25,10 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  font-weight: 400; /* bold로 설정 */
-  color: #fff; /* 흰색으로 설정 */
-  font-size: 1.1rem; /* 폰트 크기를 1.2rem으로 설정 */
-  margin-left: 10%; 
+  color: #fff; 
+  font-weight: 200;
+  font-size: 1.2rem; 
+  margin-left: 5%; 
   margin-top: 15%;
 }
 
@@ -35,7 +36,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 50%;
+  width: 60%;
 }
 
 .cd-button-container {
@@ -45,12 +46,17 @@
 }
 
 .cd-button-container > * {
-  margin-right: 2% 
+  margin-right: 4% 
 }
 
 .cd-song-title {
   align-self: center; 
-  margin-right: 10%; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 220px; 
+  margin-left: 5%; 
+  margin-right: 5%; 
 }
 
 .cd-content {
@@ -76,5 +82,44 @@
 }
 
 
+.cd-from span,
+.cd-date span {
+  font-weight: 1000;
+}
 
 
+.slick-dots {
+  position: absolute;
+  bottom: 20px; 
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.slick-dots li {
+  margin: 0 5px;
+}
+
+.slick-dots button {
+  font-size: 0; 
+  line-height: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #fff; 
+  border: 1px solid #ddd; 
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slick-dots button:hover {
+  background-color: #ddd; 
+}
+
+.slick-dots .slick-active button {
+  background-color: #333; 
+}

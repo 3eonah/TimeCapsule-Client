@@ -32,7 +32,7 @@ const CapsuleDetail = () => {
   const [currentVideoId, setCurrentVideoId] = useState(commonData.videoId);
   const [isMuted, setIsMuted] = useState(true); 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -86,8 +86,8 @@ const CapsuleDetail = () => {
             />
             <div className="cd-slide-text">
               <div className="cd-info-container">
-                <p className="cd-from">전달한 분 <br/> {commonData.from}</p>
-                <p className="cd-date">작성일 <br/>{commonData.date}</p>
+                <p className="cd-from"><span>전달한 분 </span> <br/> {commonData.from}</p>
+                <p className="cd-date"><span>작성일 </span> <br/>{commonData.date}</p>
               </div>
               <div className="cd-button-container">
                 <BasicButton onClick={unmuteVideo}>

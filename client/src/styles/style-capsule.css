@@ -61,8 +61,19 @@
   .row-div {
     display: flex; 
     flex-direction: row;
-    font-size: 1rem;
+    justify-content: space-between;
     width: 90%;
+  }
+
+  .capsule-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .capsule-item {
+    flex: 1 0 45%; /* 45%로 조절하면 2열로 배치됩니다. */
+    margin: 10px;
+    text-align: center;
   }
 
 

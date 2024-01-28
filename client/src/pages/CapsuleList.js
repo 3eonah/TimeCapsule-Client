@@ -1,118 +1,129 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BasicButton } from '../components/index.js';
-import {
-  cp_retro,
-  cp_main,
-  cp_retro_open,
-  cp_main_open,
-} from '../assets/index.js';
+import { cp_retro, cp_main, cp_newyear, cp_retro_open, cp_main_open, cp_newyear_open } from '../assets/index.js';
+import '../styles/style-capsule.css';
 
 const CapsuleList = () => {
   const navigate = useNavigate();
+  const [commonData, setCommonData] = useState([
+    {
+      name: 'YS',
+      theme: 'newyear',
+      ischecked: false,
+    },
+    {
+      name: 'SY',
+      theme: 'retro',
+      ischecked: false,
+    },
+    {
+      name: '솔룩스',
+      theme: 'main',
+      ischecked: false,
+    },
+    {
+      name: '타임캡슐',
+      theme: 'main',
+      ischecked: true,
+    }
+  ]);
 
-  const [isConfirmed, setIsConfirmed] = useState(false);
-  const [componentData, setComponentData] = useState([]);
-
-  const handleConfirm = () => {
-    setIsConfirmed(true);
-    setComponentData([
-      { name: '솔룩스', label: 'cp_retro_open', image: cp_retro_open },
-      { name: 'SY', label: 'cp_main_open', image: cp_main_open },
-    ]);
+  const getImage = (theme, ischecked) => {
+    if (theme === 'retro' && ischecked) {
+      return cp_retro_open;
+    } else if (theme === 'retro') {
+      return cp_retro;
+    } else if (theme === 'main' && ischecked) {
+      return cp_main_open;
+    } else if (theme === 'main') {
+      return cp_main;
+    } else if (theme === 'newyear' && ischecked) {
+      return cp_newyear_open;
+    } else if (theme === 'newyear') {
+      return cp_newyear;
+    }
+    return cp_retro;
   };
 
-  const handleUnconfirm = () => {
-    setIsConfirmed(false);
-    setComponentData([
-      { name: 'YS', label: 'cp_retro', image: cp_retro },
-      { name: '타임캡슐', label: 'cp_main', image: cp_main },
-    ]);
+  // row와 col 인덱스를 활용하여 실제 데이터의 인덱스를 계산
+  const calculateDataIndex = (rowIndex, colIndex) => {
+    return rowIndex * 2 + colIndex;
   };
 
-  const handleCapsuleClick = (index) => {
-    const clickedCapsule = componentData[index];
+  const handleButtonClick = (rowIndex, colIndex) => {
+    const dataIndex = calculateDataIndex(rowIndex, colIndex);
+    const updatedCommonData = [...commonData];
 
-    // 이미 확인한 캡슐에 추가
-    setComponentData((prevData) => [...prevData, clickedCapsule]);
+    // false 일 때만 true로 변경
+    if (!updatedCommonData[dataIndex].ischecked) {
+      updatedCommonData[dataIndex].ischecked = true;
+    }
 
-    // 확인하지 않은 캡슐에서 제거
-    const updatedData = componentData.filter((item, idx) => idx !== index);
-    setComponentData(updatedData);
+    // 토글 상태 확인
+    console.log(`토글 상태(${dataIndex}): ${updatedCommonData[dataIndex].ischecked}`);
 
+    setCommonData(updatedCommonData);
     // 페이지 이동
     navigate('/capsuledetail');
   };
 
-  useEffect(() => {
-    // 초기에 확인한 목록으로 설정
-    handleConfirm();
-  }, []);
+  const handleCapsuleClick = (isChecked) => {
+    // 이 함수에서는 isChecked 값을 받아와서 해당 값에 따라 visibleData를 설정
+    const visibleData = commonData.filter((data) => isChecked ? data.ischecked : !data.ischecked);
+    
+  
+    console.log(`${isChecked ? '확인한' : '확인하지 않은'} 캡슐 보기`);
+    console.log(visibleData);
+  };
+
+  const splitArrayIntoPairs = (array, size) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  };
+
+  // visibleData를 사용하여 데이터를 필터링한 후 사용
+  const visibleData = commonData.filter((data) => data.ischecked);
+  const pairedData = splitArrayIntoPairs(visibleData, 2);
 
   return (
-    <div className="container">
+    <div className="container" style={{ overflowY: 'scroll' }}>
       <div className="all" style={{ marginBottom: '20px' }}>
-        <h2> 캡슐 전체보기 </h2>
+        <h2>캡슐 전체보기</h2>
       </div>
-      <div
-        className="row-div"
-        style={{
-          justifyContent: 'space-between',
-          marginBottom: '10px',
-          padding: '0 20px',
-        }}
-      >
-        <BasicButton onClick={handleConfirm} buttonWidth="100%" fontSize="1rem">
+      <div className="row-div">
+        <BasicButton buttonWidth="150%" fontSize="1rem" onClick={() => handleCapsuleClick(true)}>
           <p>확인한 캡슐</p>
         </BasicButton>
-        <BasicButton
-          onClick={handleUnconfirm}
-          buttonWidth="100%"
-          fontSize="1rem"
-        >
+        <div style={{ margin: '0 10px' }}></div>
+        <BasicButton buttonWidth="150%" fontSize="1rem" onClick={() => handleCapsuleClick(false)}>
           <p>확인하지 않은 캡슐</p>
         </BasicButton>
       </div>
-      {/* TODO: 
-        1. components-container를 컴포넌트화해서 /components 폴더에 넣고 여기로 불러오기
-        2. 컴포넌트 props로 isConfirmed state (boolean) 넘겨주기
-        3. 컴포넌트에서 props로 받은 isConfirmed 에 따라 map함수로 데이터 (redux) 보여주기
-        4. isConfirmed가 false일 때 불러와진 각 데이터를 나타내는 div에 onClick 이벤트가 발생하면
-            해당 데이터의 isChecked state 변경 (redux)
-      */}
-      <div className="components-container">
-        {componentData.map((component, index) => (
-          <div
-            key={index}
-            className={`${component.name}-box link-style`}
-            onClick={() => handleCapsuleClick(index)}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(255, 255, 255, 0.23)',
-              borderRadius: '16px',
-              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-              backdropFilter: 'blur(5.4px)',
-              WebkitBackdropFilter: 'blur(5.4px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              width: '160px',
-              margin: '25px',
-              height: '188px',
-              cursor: 'pointer',
-            }}
-          >
-            <img src={component.image} alt={component.label} />
-            <p style={{ position: 'absolute', bottom: '-30px' }}>
-              {component.name}
-            </p>
-          </div>
-        ))}
-      </div>
+      {pairedData.map((pair, rowIndex) => (
+        <div key={rowIndex} className="row-div">
+          {pair.map((data, colIndex) => (
+            <div key={colIndex}>
+              <BasicButton onClick={() => handleButtonClick(rowIndex, colIndex)}>
+                <img src={getImage(data.theme, data.ischecked)} alt="Capsule Image" />
+              </BasicButton>
+              <p style={{ textAlign: 'center' }}>{data.name}</p>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };
 
 export default CapsuleList;
+
+
+
+
+
+
+
