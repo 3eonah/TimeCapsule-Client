@@ -23,7 +23,36 @@ const CapsuleList = () => {
       ischecked: false,
     },
     {
-      name: '타임캡슐',
+      name: '투게더',
+      theme: 'main',
+      ischecked: true,
+    },
+    {
+      name: '영서',
+      theme: 'retro',
+      ischecked: true,
+    },
+    {
+      name: '선아',
+      theme: 'newyear',
+      ischecked: true,
+    },{
+      name: '소연',
+      theme: 'retro',
+      ischecked: true,
+    }
+    ,{
+      name: '승연',
+      theme: 'main',
+      ischecked: true,
+    }
+    ,{
+      name: '민진',
+      theme: 'newyear',
+      ischecked: true,
+    },
+    {
+      name: '채민',
       theme: 'main',
       ischecked: true,
     }
@@ -46,11 +75,14 @@ const CapsuleList = () => {
     return cp_retro;
   };
 
-  // row와 col 인덱스를 활용하여 실제 데이터의 인덱스를 계산
+  // 초기 화면은 확인하지 않은 캡슐들이 보이게 설정 
+  const [visibleData, setVisibleData] = useState(commonData.filter(data => !data.ischecked));
+  //2열로 정렬
   const calculateDataIndex = (rowIndex, colIndex) => {
     return rowIndex * 2 + colIndex;
   };
-
+  
+  //확인하지 않은 캡슐을 누르면 확인한 캡슐로 변경됨 ( ischecked false가 true로 변경 )
   const handleButtonClick = (rowIndex, colIndex) => {
     const dataIndex = calculateDataIndex(rowIndex, colIndex);
     const updatedCommonData = [...commonData];
@@ -61,20 +93,22 @@ const CapsuleList = () => {
     }
 
     // 토글 상태 확인
-    console.log(`토글 상태(${dataIndex}): ${updatedCommonData[dataIndex].ischecked}`);
+    //console.log(`토글 상태(${dataIndex}): ${updatedCommonData[dataIndex].ischecked}`);
 
     setCommonData(updatedCommonData);
     // 페이지 이동
     navigate('/capsuledetail');
   };
-
-  const handleCapsuleClick = (isChecked) => {
-    // 이 함수에서는 isChecked 값을 받아와서 해당 값에 따라 visibleData를 설정
-    const visibleData = commonData.filter((data) => isChecked ? data.ischecked : !data.ischecked);
-    
   
+// 확인핸캡슐 버튼을 누르면 확인한 캡슐만 보이게, 확인하지 않은 캡슐 버튼을 누르면  확인하지 않은 캡슐만 보이게 
+  const handleCapsuleClick = (isChecked) => {
+    const updatedVisibleData = commonData.filter((data) => isChecked ? data.ischecked : !data.ischecked);
+    setVisibleData(updatedVisibleData);
+
     console.log(`${isChecked ? '확인한' : '확인하지 않은'} 캡슐 보기`);
-    console.log(visibleData);
+    console.log(updatedVisibleData);
+
+    return updatedVisibleData;
   };
 
   const splitArrayIntoPairs = (array, size) => {
@@ -85,38 +119,37 @@ const CapsuleList = () => {
     return result;
   };
 
-  // visibleData를 사용하여 데이터를 필터링한 후 사용
-  const visibleData = commonData.filter((data) => data.ischecked);
   const pairedData = splitArrayIntoPairs(visibleData, 2);
 
   return (
-    <div className="container" style={{ overflowY: 'scroll' }}>
-      <div className="all" style={{ marginBottom: '20px' }}>
+    <div className="cs-container" style={{ overflowY: 'scroll' }}>
+      <div className="cs-all" style={{ marginBottom: '20px' }}>
         <h2>캡슐 전체보기</h2>
       </div>
-      <div className="row-div">
-        <BasicButton buttonWidth="150%" fontSize="1rem" onClick={() => handleCapsuleClick(true)}>
+      <div className="cs-row-div" style={{ marginBottom: '20px' }}>
+        <BasicButton buttonWidth="250%" fontSize="0.9rem" onClick={() => handleCapsuleClick(true)}>
           <p>확인한 캡슐</p>
         </BasicButton>
         <div style={{ margin: '0 10px' }}></div>
-        <BasicButton buttonWidth="150%" fontSize="1rem" onClick={() => handleCapsuleClick(false)}>
+        <BasicButton buttonWidth="250%" fontSize="0.9rem" onClick={() => handleCapsuleClick(false)}>
           <p>확인하지 않은 캡슐</p>
         </BasicButton>
       </div>
       {pairedData.map((pair, rowIndex) => (
-        <div key={rowIndex} className="row-div">
+        <div key={rowIndex} className="cs-row-div" style={{ marginBottom: '10px' }}>
           {pair.map((data, colIndex) => (
-            <div key={colIndex}>
-              <BasicButton onClick={() => handleButtonClick(rowIndex, colIndex)}>
+            <div key={colIndex} >
+              <BasicButton buttonWidth="168px" verticalPadding="13px" onClick={() => handleButtonClick(rowIndex, colIndex)}>
                 <img src={getImage(data.theme, data.ischecked)} alt="Capsule Image" />
               </BasicButton>
-              <p style={{ textAlign: 'center' }}>{data.name}</p>
+              <p style={{ textAlign: 'center', fontSize: '14px', marginTop: '10px' }}>{data.name}</p>
             </div>
           ))}
         </div>
       ))}
     </div>
   );
+  
 };
 
 export default CapsuleList;
