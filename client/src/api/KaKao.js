@@ -1,7 +1,11 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { update_token, post_user } from '../redux/modules/user';
+import {
+  update_token,
+  post_user,
+  count_unchecked,
+} from '../redux/modules/user';
 import { useNavigate } from 'react-router-dom';
 
 const REACT_APP_KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -38,7 +42,9 @@ const KaKao = (props) => {
         // set redux state
         if (res.status === 200) {
           dispatch(update_token(res.data.userToken));
-          dispatch(post_user(res.data.userToken));
+          // dispatch(post_user(res.data.userToken));
+          // dispatch(count_unchecked());
+          navigate('/home');
         }
       } catch (err) {
         console.error(err);
@@ -48,11 +54,11 @@ const KaKao = (props) => {
     Login();
   }, []);
 
-  useEffect(() => {
-    if (email) {
-      navigate('/home');
-    }
-  }, [email]);
+  // useEffect(() => {
+  //   if (email) {
+  //     navigate('/home');
+  //   }
+  // }, [email]);
 
   return <div></div>;
 };

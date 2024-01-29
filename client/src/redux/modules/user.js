@@ -3,7 +3,8 @@ import axios from 'axios';
 const initialState = {
   token: '',
   email: '',
-  name: '선아',
+  name: '',
+  // TODO: 실제 데이터 받을 땐 빈 배열이어야 됨
   capsules: [
     {
       id: 0,
@@ -97,8 +98,6 @@ export const put_check = (token, id) => async (dispatch) => {
   dispatch(put_check_reqeust);
 
   try {
-    // TODO: 엔드포인트 /capsule/id 로 요청해야 하는지
-    // 아니면 user에서 받은 캡슐 id를 request body에 포함해야 하는지 논의 필요
     const res = axios.put(
       `http://3.38.80.77:8080/capsule/${id}`,
       {
