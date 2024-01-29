@@ -84,7 +84,7 @@ const Send = () => {
   ).padStart(2, 0)}.${String(today.getDate()).padStart(2, 0)}`;
   const writerInfo = useSelector((state) => ({
     // writer: state.user.username,
-    writer: '선아',
+    writer: '이선아',
     writtendate: formattedDate,
   }));
 

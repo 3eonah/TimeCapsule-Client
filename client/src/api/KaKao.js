@@ -42,7 +42,7 @@ const KaKao = (props) => {
         // set redux state
         if (res.status === 200) {
           dispatch(update_token(res.data.userToken));
-          // dispatch(post_user(res.data.userToken));
+          dispatch(post_user(res.data.userToken));
           // dispatch(count_unchecked());
           navigate('/home');
         }

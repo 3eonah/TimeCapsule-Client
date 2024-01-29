@@ -88,29 +88,39 @@ export const post_capsule =
   (receivers, token) => async (dispatch, getState) => {
     dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
 
-    const requestData = new FormData();
-    const { capsule } = getState().capsule;
-    for (const key in capsule) {
-      if (key === 'arrivaldate') {
-        for (const dateKey in capsule[key]) {
-          requestData.append(`arrivaldate[${dateKey}]`, capsule[key][dateKey]);
-        }
-      } else if (key === 'cards') {
-        capsule.cards.forEach((card, idx) => {
-          for (const cardKey in card) {
-            requestData.append(`cards[${idx}][${cardKey}]`, card[cardKey]);
-          }
-        });
-      } else {
-        requestData.append(key, capsule[key]);
-      }
-    }
-
     try {
       // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
       const responses = await Promise.all(
         receivers.map(async (receiver) => {
+          const requestData = new FormData();
+          const { capsule } = getState().capsule;
+          console.log(capsule);
+          for (const key in capsule) {
+            if (key === 'arrivaldate') {
+              for (const dateKey in capsule[key]) {
+                requestData.append(
+                  `arrivaldate[${dateKey}]`,
+                  capsule[key][dateKey]
+                );
+              }
+            } else if (key === 'cards') {
+              capsule.cards.forEach((card, idx) => {
+                for (const cardKey in card) {
+                  requestData.append(
+                    `cards[${idx}][${cardKey}]`,
+                    card[cardKey]
+                  );
+                }
+              });
+            } else {
+              requestData.append(key, capsule[key]);
+            }
+          }
           requestData.append('receiver', receiver);
+
+          for (const [key, value] of requestData.entries()) {
+            console.log(`${key}: ${value}`);
+          }
 
           const res = await axios.post(
             'http://3.38.80.77:8080/capsule',
@@ -118,7 +128,7 @@ export const post_capsule =
             {
               headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
+                // 'Content-Type': 'multipart/form-data',
               },
             }
           );

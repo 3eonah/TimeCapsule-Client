@@ -78,9 +78,10 @@ export const put_check_failure = (err) => ({
 // Thunk Creators
 export const post_user = (token) => async (dispatch) => {
   dispatch(post_user_request());
+  console.log('token:', token);
   try {
     const res = await axios.post(
-      'http://3.38.80.77:8080/user',
+      'http://3.38.80.77:8080/users',
       {},
       {
         headers: {
