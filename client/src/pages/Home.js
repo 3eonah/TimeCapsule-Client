@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../styles/style-home.css';
 import { capsule, cap_shadow, ic_list, ic_addpost } from '../assets/index.js';
 import { BasicButton } from '../components/index.js';
@@ -8,6 +8,16 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user);
+
+  const countRef = useRef();
+
+  useEffect(() => {
+    if (countRef.current && userInfo.uncheckedCount === 1) {
+      countRef.current.style.paddingRight = '1rem';
+    } else {
+      countRef.current.style.paddingRight = '0rem';
+    }
+  }, [userInfo.uncheckedCount]);
 
   // Check if userInfo is available before rendering
   if (userInfo) {
@@ -22,7 +32,7 @@ const Home = () => {
         <div className="cap-div">
           <div className="cap-txt-area">
             <p>도착한 캡슐</p>
-            <p>{userInfo.uncheckedCount}</p>
+            <p ref={countRef}>{userInfo.uncheckedCount}</p>
           </div>
           <img src={capsule} />
           <img src={cap_shadow} id="shadow" />

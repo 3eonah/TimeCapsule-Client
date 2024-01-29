@@ -1,19 +1,51 @@
 import axios from 'axios';
+import { instance } from '../../api/Axios';
 
 const initialState = {
   token: '',
   email: '',
-  name: '선아',
+  name: '',
+  // TODO: 실제 데이터 받을 땐 빈 배열이어야 됨
   capsules: [
     {
       id: 0,
-      writer: '',
+      writer: '솔룩스',
       writtendate: '',
       arrivaldate: '',
       cards: [],
       music: '',
-      theme: '',
+      theme: 'default',
       isChecked: false,
+    },
+    {
+      id: 0,
+      writer: '솔룩스',
+      writtendate: '',
+      arrivaldate: '',
+      cards: [],
+      music: '',
+      theme: 'retro',
+      isChecked: false,
+    },
+    {
+      id: 0,
+      writer: '솔룩스',
+      writtendate: '',
+      arrivaldate: '',
+      cards: [],
+      music: '',
+      theme: 'newyear',
+      isChecked: false,
+    },
+    {
+      id: 0,
+      writer: '솔룩스',
+      writtendate: '',
+      arrivaldate: '',
+      cards: [],
+      music: '',
+      theme: 'newyear',
+      isChecked: true,
     },
   ],
   uncheckedCount: 0,
@@ -77,9 +109,10 @@ export const put_check_failure = (err) => ({
 // Thunk Creators
 export const post_user = (token) => async (dispatch) => {
   dispatch(post_user_request());
+  console.log('token:', token);
   try {
-    const res = await axios.post(
-      'http://3.38.80.77:8080/user',
+    const res = await instance.post(
+      '/users',
       {},
       {
         headers: {
@@ -97,10 +130,8 @@ export const put_check = (token, id) => async (dispatch) => {
   dispatch(put_check_reqeust);
 
   try {
-    // TODO: 엔드포인트 /capsule/id 로 요청해야 하는지
-    // 아니면 user에서 받은 캡슐 id를 request body에 포함해야 하는지 논의 필요
-    const res = axios.put(
-      `http://3.38.80.77:8080/capsule/${id}`,
+    const res = instance.put(
+      `/capsule/${id}`,
       {
         readState: true,
       },

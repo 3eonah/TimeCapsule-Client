@@ -83,7 +83,8 @@ const Send = () => {
     today.getMonth() + 1
   ).padStart(2, 0)}.${String(today.getDate()).padStart(2, 0)}`;
   const writerInfo = useSelector((state) => ({
-    writer: state.user.username,
+    // writer: state.user.username,
+    writer: '이선아',
     writtendate: formattedDate,
   }));
 
@@ -91,32 +92,6 @@ const Send = () => {
   const { token } = useSelector((state) => state.user);
   const inputRef = useRef([]);
   const [isSendClicked, setIsSendClicked] = useState(false);
-
-  // TODO: capsule state form-data로 변경
-  const { capsule } = useSelector((state) => state.capsule);
-  const handleFormData = () => {
-    const formData = new FormData();
-    for (const key in capsule) {
-      // arrivaldate의 value는 객체이므로 따로 처리
-      if (key === 'arrivaldate') {
-        for (const dateKey in capsule[key]) {
-          formData.append(`arrivaldate[${dateKey}]`, capsule[key][dateKey]);
-        }
-      }
-      // cards의 value는 객체의 배열이므로 따로 처리
-      else if (key === 'cards') {
-        capsule.cards.forEach((card, idx) => {
-          for (const cardKey in card) {
-            formData.append(`cards[${idx}][${cardKey}]`, card[cardKey]);
-          }
-        });
-      } else {
-        formData.append(key, capsule[key]);
-      }
-    }
-
-    return formData;
-  };
 
   // 유효성 검사 custom hooks
   const { handleDateInput, handleListInput } = useValidate(
@@ -135,8 +110,8 @@ const Send = () => {
       // 캡슐 도착 날짜, 전송자 정보 업데이트
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
-      // TODO: 캡슐 서버에 formData 형태로 post 요청
-      dispatch(post_capsule(handleFormData(), addedList, token));
+      // TODO: 캡슐 서버에 post 요청
+      dispatch(post_capsule(addedList, token));
     } else {
       console.log('something is invalidate');
     }
@@ -146,7 +121,7 @@ const Send = () => {
 
   useEffect(() => {
     if (isSendClicked) {
-      if (dateValues.year.length === 4) {
+      if (dateValues.year.length === 4 && Number(dateValues.year) > 2023) {
         inputRef.current[0].style.outline = 'none';
       }
       if (Number(dateValues.month) > 0 && Number(dateValues.month) <= 12) {
