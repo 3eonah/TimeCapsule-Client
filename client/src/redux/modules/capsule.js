@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { instance } from '../../api/Axios';
 
 const initialState = {
   delete_mode: false,
@@ -122,16 +123,12 @@ export const post_capsule =
             console.log(`${key}: ${value}`);
           }
 
-          const res = await axios.post(
-            'http://3.38.80.77:8080/capsule',
-            requestData,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                // 'Content-Type': 'multipart/form-data',
-              },
-            }
-          );
+          const res = await instance.post('/capsule', requestData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              // 'Content-Type': 'multipart/form-data',
+            },
+          });
           return res;
         })
       );

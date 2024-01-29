@@ -121,7 +121,7 @@ const Send = () => {
 
   useEffect(() => {
     if (isSendClicked) {
-      if (dateValues.year.length === 4) {
+      if (dateValues.year.length === 4 && Number(dateValues.year) > 2023) {
         inputRef.current[0].style.outline = 'none';
       }
       if (Number(dateValues.month) > 0 && Number(dateValues.month) <= 12) {

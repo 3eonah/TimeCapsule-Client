@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { instance } from '../../api/Axios';
 
 const initialState = {
   token: '',
@@ -8,13 +9,43 @@ const initialState = {
   capsules: [
     {
       id: 0,
-      writer: '',
+      writer: '솔룩스',
       writtendate: '',
       arrivaldate: '',
       cards: [],
       music: '',
-      theme: '',
+      theme: 'default',
       isChecked: false,
+    },
+    {
+      id: 0,
+      writer: '솔룩스',
+      writtendate: '',
+      arrivaldate: '',
+      cards: [],
+      music: '',
+      theme: 'retro',
+      isChecked: false,
+    },
+    {
+      id: 0,
+      writer: '솔룩스',
+      writtendate: '',
+      arrivaldate: '',
+      cards: [],
+      music: '',
+      theme: 'newyear',
+      isChecked: false,
+    },
+    {
+      id: 0,
+      writer: '솔룩스',
+      writtendate: '',
+      arrivaldate: '',
+      cards: [],
+      music: '',
+      theme: 'newyear',
+      isChecked: true,
     },
   ],
   uncheckedCount: 0,
@@ -80,8 +111,8 @@ export const post_user = (token) => async (dispatch) => {
   dispatch(post_user_request());
   console.log('token:', token);
   try {
-    const res = await axios.post(
-      'http://3.38.80.77:8080/users',
+    const res = await instance.post(
+      '/users',
       {},
       {
         headers: {
@@ -99,8 +130,8 @@ export const put_check = (token, id) => async (dispatch) => {
   dispatch(put_check_reqeust);
 
   try {
-    const res = axios.put(
-      `http://3.38.80.77:8080/capsule/${id}`,
+    const res = instance.put(
+      `/capsule/${id}`,
       {
         readState: true,
       },

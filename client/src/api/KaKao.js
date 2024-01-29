@@ -7,6 +7,7 @@ import {
   count_unchecked,
 } from '../redux/modules/user';
 import { useNavigate } from 'react-router-dom';
+import { instance } from './Axios';
 
 const REACT_APP_KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
@@ -38,7 +39,7 @@ const KaKao = (props) => {
     };
     const Login = async () => {
       try {
-        const res = await axios.post('http://3.38.80.77:8080/login', data);
+        const res = await instance.post('/login', data);
         // set redux state
         if (res.status === 200) {
           dispatch(update_token(res.data.userToken));

@@ -10,70 +10,74 @@ import {
   cp_newyear_open,
 } from '../assets/index.js';
 import '../styles/style-capsule.css';
+import { useSelector } from 'react-redux';
 
 const CapsuleList = () => {
   const navigate = useNavigate();
-  const [commonData, setCommonData] = useState([
-    {
-      name: 'YS',
-      theme: 'newyear',
-      ischecked: false,
-    },
-    {
-      name: 'SY',
-      theme: 'retro',
-      ischecked: false,
-    },
-    {
-      name: '솔룩스',
-      theme: 'main',
-      ischecked: false,
-    },
-    {
-      name: '투게더',
-      theme: 'main',
-      ischecked: true,
-    },
-    {
-      name: '영서',
-      theme: 'retro',
-      ischecked: true,
-    },
-    {
-      name: '선아',
-      theme: 'newyear',
-      ischecked: true,
-    },
-    {
-      name: '소연',
-      theme: 'retro',
-      ischecked: true,
-    },
-    {
-      name: '승연',
-      theme: 'main',
-      ischecked: true,
-    },
-    {
-      name: '민진',
-      theme: 'newyear',
-      ischecked: true,
-    },
-    {
-      name: '채민',
-      theme: 'main',
-      ischecked: true,
-    },
-  ]);
+  // const [commonData, setCommonData] = useState([
+  //   {
+  //     name: 'YS',
+  //     theme: 'newyear',
+  //     ischecked: false,
+  //   },
+  //   {
+  //     name: 'SY',
+  //     theme: 'retro',
+  //     ischecked: false,
+  //   },
+  //   {
+  //     name: '솔룩스',
+  //     theme: 'main',
+  //     ischecked: false,
+  //   },
+  //   {
+  //     name: '투게더',
+  //     theme: 'main',
+  //     ischecked: true,
+  //   },
+  //   {
+  //     name: '영서',
+  //     theme: 'retro',
+  //     ischecked: true,
+  //   },
+  //   {
+  //     name: '선아',
+  //     theme: 'newyear',
+  //     ischecked: true,
+  //   },
+  //   {
+  //     name: '소연',
+  //     theme: 'retro',
+  //     ischecked: true,
+  //   },
+  //   {
+  //     name: '승연',
+  //     theme: 'main',
+  //     ischecked: true,
+  //   },
+  //   {
+  //     name: '민진',
+  //     theme: 'newyear',
+  //     ischecked: true,
+  //   },
+  //   {
+  //     name: '채민',
+  //     theme: 'main',
+  //     ischecked: true,
+  //   },
+  // ]);
+
+  // redux에서 capsules 데이터 가져옴
+  const { capsules } = useSelector((state) => state.user);
 
   const getImage = (theme, ischecked) => {
     if (theme === 'retro' && ischecked) {
       return cp_retro_open;
     } else if (theme === 'retro') {
       return cp_retro;
-    } else if (theme === 'main' && ischecked) {
+    } else if (theme === 'default' && ischecked) {
       return cp_main_open;
-    } else if (theme === 'main') {
+    } else if (theme === 'default') {
       return cp_main;
     } else if (theme === 'newyear' && ischecked) {
       return cp_newyear_open;
@@ -85,7 +89,7 @@ const CapsuleList = () => {
 
   // 초기 화면은 확인하지 않은 캡슐들이 보이게 설정
   const [visibleData, setVisibleData] = useState(
-    commonData.filter((data) => !data.ischecked)
+    capsules ? capsules.filter((data) => !data.isChecked) : []
   );
   //2열로 정렬
   const calculateDataIndex = (rowIndex, colIndex) => {
@@ -95,25 +99,25 @@ const CapsuleList = () => {
   //확인하지 않은 캡슐을 누르면 확인한 캡슐로 변경됨 ( ischecked false가 true로 변경 )
   const handleButtonClick = (rowIndex, colIndex) => {
     const dataIndex = calculateDataIndex(rowIndex, colIndex);
-    const updatedCommonData = [...commonData];
+    // const updatedCommonData = [...commonData];
 
     // false 일 때만 true로 변경
-    if (!updatedCommonData[dataIndex].ischecked) {
-      updatedCommonData[dataIndex].ischecked = true;
-    }
+    // if (!updatedCommonData[dataIndex].ischecked) {
+    //   updatedCommonData[dataIndex].ischecked = true;
+    // }
 
     // 토글 상태 확인
     //console.log(`토글 상태(${dataIndex}): ${updatedCommonData[dataIndex].ischecked}`);
 
-    setCommonData(updatedCommonData);
+    // setCommonData(updatedCommonData);
     // 페이지 이동
     navigate('/capsuledetail');
   };
 
   // 확인핸캡슐 버튼을 누르면 확인한 캡슐만 보이게, 확인하지 않은 캡슐 버튼을 누르면  확인하지 않은 캡슐만 보이게
   const handleCapsuleClick = (isChecked) => {
-    const updatedVisibleData = commonData.filter((data) =>
-      isChecked ? data.ischecked : !data.ischecked
+    const updatedVisibleData = capsules.filter((data) =>
+      isChecked ? data.isChecked : !data.isChecked
     );
     setVisibleData(updatedVisibleData);
 
@@ -142,17 +146,17 @@ const CapsuleList = () => {
         <BasicButton
           buttonWidth="250%"
           fontSize="0.9rem"
-          onClick={() => handleCapsuleClick(true)}
+          onClick={() => handleCapsuleClick(false)}
         >
-          <p>확인한 캡슐</p>
+          <p>확인하지 않은 캡슐</p>
         </BasicButton>
         <div style={{ margin: '0 10px' }}></div>
         <BasicButton
           buttonWidth="250%"
           fontSize="0.9rem"
-          onClick={() => handleCapsuleClick(false)}
+          onClick={() => handleCapsuleClick(true)}
         >
-          <p>확인하지 않은 캡슐</p>
+          <p>확인한 캡슐</p>
         </BasicButton>
       </div>
       {pairedData.map((pair, rowIndex) => (
@@ -169,7 +173,7 @@ const CapsuleList = () => {
                 onClick={() => handleButtonClick(rowIndex, colIndex)}
               >
                 <img
-                  src={getImage(data.theme, data.ischecked)}
+                  src={getImage(data.theme, data.isChecked)}
                   alt="Capsule Image"
                 />
               </BasicButton>
@@ -180,7 +184,7 @@ const CapsuleList = () => {
                   marginTop: '10px',
                 }}
               >
-                {data.name}
+                {data.writer}
               </p>
             </div>
           ))}
