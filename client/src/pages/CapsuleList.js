@@ -11,6 +11,12 @@ import {
 } from '../assets/index.js';
 import '../styles/style-capsule.css';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components'; 
+
+// BaiscButton에 있는 css 수정해서 사용
+const CapsuleButton = styled(BasicButton)`
+
+`;
 
 const CapsuleList = () => {
   const navigate = useNavigate();
@@ -70,22 +76,51 @@ const CapsuleList = () => {
   // redux에서 capsules 데이터 가져옴
   const { capsules } = useSelector((state) => state.user);
 
-  const getImage = (theme, ischecked) => {
-    if (theme === 'retro' && ischecked) {
-      return cp_retro_open;
-    } else if (theme === 'retro') {
+
+  const CapsuleButton = ({ theme, isChecked, writer, onClick }) => {
+    const getImage = (theme, ischecked) => {
+      if (theme === 'retro' && ischecked) {
+        return cp_retro_open;
+      } else if (theme === 'retro') {
+        return cp_retro;
+      } else if (theme === 'default' && ischecked) {
+        return cp_main_open;
+      } else if (theme === 'default') {
+        return cp_main;
+      } else if (theme === 'newyear' && ischecked) {
+        return cp_newyear_open;
+      } else if (theme === 'newyear') {
+        return cp_newyear;
+      }
       return cp_retro;
-    } else if (theme === 'default' && ischecked) {
-      return cp_main_open;
-    } else if (theme === 'default') {
-      return cp_main;
-    } else if (theme === 'newyear' && ischecked) {
-      return cp_newyear_open;
-    } else if (theme === 'newyear') {
-      return cp_newyear;
-    }
-    return cp_retro;
+    };
+
+    return (
+      <div>
+        <CapsuleButton
+          buttonWidth="168px"
+          verticalPadding="13px"
+          onClick={onClick}
+        >
+          <img
+            src={isChecked ? getImage(theme, true) : getImage(theme, false)}
+            alt="Capsule Image"
+          />
+        </CapsuleButton>
+        <p
+          style={{
+            textAlign: 'center',
+            fontSize: '14px',
+            marginTop: '10px',
+          }}
+        >
+          {writer}
+        </p>
+      </div>
+    );
   };
+
+  
 
   // 초기 화면은 확인하지 않은 캡슐들이 보이게 설정
   const [visibleData, setVisibleData] = useState(
@@ -94,7 +129,10 @@ const CapsuleList = () => {
   //2열로 정렬
   const calculateDataIndex = (rowIndex, colIndex) => {
     return rowIndex * 2 + colIndex;
+    
   };
+
+
 
   //확인하지 않은 캡슐을 누르면 확인한 캡슐로 변경됨 ( ischecked false가 true로 변경 )
   const handleButtonClick = (rowIndex, colIndex) => {
@@ -166,27 +204,13 @@ const CapsuleList = () => {
           style={{ marginBottom: '10px' }}
         >
           {pair.map((data, colIndex) => (
-            <div key={colIndex}>
-              <BasicButton
-                buttonWidth="168px"
-                verticalPadding="13px"
-                onClick={() => handleButtonClick(rowIndex, colIndex)}
-              >
-                <img
-                  src={getImage(data.theme, data.isChecked)}
-                  alt="Capsule Image"
-                />
-              </BasicButton>
-              <p
-                style={{
-                  textAlign: 'center',
-                  fontSize: '14px',
-                  marginTop: '10px',
-                }}
-              >
-                {data.writer}
-              </p>
-            </div>
+            <CapsuleButton
+              key={colIndex}
+              theme={data.theme}
+              isChecked={data.isChecked}
+              writer={data.writer}
+              onClick={() => handleButtonClick(rowIndex, colIndex)}
+            />
           ))}
         </div>
       ))}
