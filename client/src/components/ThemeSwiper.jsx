@@ -10,24 +10,30 @@ export default ({ themes, onClick, currentThemeIndex }) => {
     <Swiper
       spaceBetween={24}
       slidesPerView={'auto'}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
       centeredSlides={false}
-      className="mySwiper"
+      className="swiper-container"
+      slidesOffsetBefore={40}
+      slidesOffsetAfter={40}
     >
-      {themes.map((theme, index) => {
+      {themes.map((theme) => {
+        const active = currentThemeIndex === theme.id;
         return (
           <SwiperSlide
+            key={theme.id}
             onClick={() => {
-              onClick(index);
+              onClick(theme.id);
             }}
           >
             <div
-              className={`theme-item ${
-                currentThemeIndex === index ? 'active-button' : ''
+              className={`theme-item swiper-item-${theme.id} ${
+                active ? 'active-button' : ''
               }`}
             >
-              <img className="theme-icon" src={theme.icon} alt={''} />
+              <img
+                className="theme-icon"
+                src={active ? theme.iconActive : theme.icon}
+                alt={''}
+              />
             </div>
           </SwiperSlide>
         );
