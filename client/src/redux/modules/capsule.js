@@ -126,7 +126,7 @@ export const post_capsule =
           const res = await instance.post('/capsule', requestData, {
             headers: {
               Authorization: `Bearer ${token}`,
-              // 'Content-Type': 'multipart/form-data',
+              'Content-Type': 'multipart/form-data',
             },
           });
           return res;
