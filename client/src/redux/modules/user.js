@@ -67,8 +67,8 @@ const POST_USER_SUCCESS = 'user/POST_USER_SUCCESS';
 const POST_USER_FAILURE = 'user/POST_USER_FAILURE';
 
 const PUT_CHECK_REQUEST = 'user/PUT_CHECK_REQUEST'; // 캡슐 체크 상태 변경 요청
-const PUT_CHECK_SUCCESS = 'user/POST_CAPSULE_SUCCESS'; // 캡슐 체크 상태 변경 성공
-const PUT_CHECK_FAILURE = 'user/POST_CAPSULE_FAILURE'; // 캡슐 체크 상태 변경 실패
+const PUT_CHECK_SUCCESS = 'user/PUT_CHECK_SUCCESS'; // 캡슐 체크 상태 변경 성공
+const PUT_CHECK_FAILURE = 'user/PUT_CHECK_FAILURE'; // 캡슐 체크 상태 변경 실패
 
 // Action Creators
 export const update_token = (token) => ({
@@ -97,7 +97,7 @@ export const post_user_failure = (err) => ({
   error: true,
 });
 
-export const put_check_reqeust = () => ({ type: PUT_CHECK_REQUEST });
+export const put_check_request = () => ({ type: PUT_CHECK_REQUEST });
 export const put_check_success = () => ({
   type: PUT_CHECK_SUCCESS,
 });
@@ -131,10 +131,9 @@ export const post_user = (token) => async (dispatch, getState) => {
 };
 
 export const put_check = (token, id) => async (dispatch) => {
-  dispatch(put_check_reqeust);
-
+  dispatch(put_check_request());
   try {
-    const res = instance.put(
+    const res = await instance.put(
       `/capsule/${id}`,
       {
         readState: true,

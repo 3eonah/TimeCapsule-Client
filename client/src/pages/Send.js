@@ -83,8 +83,7 @@ const Send = () => {
     today.getMonth() + 1
   ).padStart(2, 0)}.${String(today.getDate()).padStart(2, 0)}`;
   const writerInfo = useSelector((state) => ({
-    // writer: state.user.username,
-    writer: '이선아',
+    writer: state.user.name,
     writtendate: formattedDate,
   }));
 
@@ -92,7 +91,7 @@ const Send = () => {
   const { token } = useSelector((state) => state.user);
   const inputRef = useRef([]);
   const [isSendClicked, setIsSendClicked] = useState(false);
-
+  const { capsule } = useSelector((state) => state.capsule);
   // 유효성 검사 custom hooks
   const { handleDateInput, handleListInput } = useValidate(
     {
@@ -110,7 +109,6 @@ const Send = () => {
       // 캡슐 도착 날짜, 전송자 정보 업데이트
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
-      // TODO: 캡슐 서버에 post 요청
       dispatch(post_capsule(addedList, token));
     } else {
       console.log('something is invalidate');

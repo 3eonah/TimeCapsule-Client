@@ -36,6 +36,7 @@ const CapsuleDetail = () => {
   //   },
   // ];
 
+  // redux
   const location = useLocation();
   const capsuleId = location.state.capsuleId;
   const { capsules } = useSelector((state) => state.user);
