@@ -89,13 +89,15 @@ export const post_capsule =
   (receivers, token) => async (dispatch, getState) => {
     dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
 
+    const { capsule } = getState().capsule;
+
     try {
       // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
       const responses = await Promise.all(
         receivers.map(async (receiver) => {
           const requestData = new FormData();
-          const { capsule } = getState().capsule;
-          console.log(capsule);
+
+          requestData.append('receiver', receiver);
           for (const key in capsule) {
             if (key === 'arrivaldate') {
               for (const dateKey in capsule[key]) {
@@ -117,7 +119,6 @@ export const post_capsule =
               requestData.append(key, capsule[key]);
             }
           }
-          requestData.append('receiver', receiver);
 
           for (const [key, value] of requestData.entries()) {
             console.log(`${key}: ${value}`);
@@ -126,7 +127,7 @@ export const post_capsule =
           const res = await instance.post('/capsule', requestData, {
             headers: {
               Authorization: `Bearer ${token}`,
-              // 'Content-Type': 'multipart/form-data',
+              'Content-Type': 'multipart/form-data',
             },
           });
           return res;

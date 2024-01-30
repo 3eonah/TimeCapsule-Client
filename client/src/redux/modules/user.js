@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { instance } from '../../api/Axios';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   token: '',
@@ -18,7 +19,7 @@ const initialState = {
       isChecked: false,
     },
     {
-      id: 0,
+      id: 1,
       writer: '솔룩스',
       writtendate: '',
       arrivaldate: '',
@@ -28,7 +29,7 @@ const initialState = {
       isChecked: false,
     },
     {
-      id: 0,
+      id: 2,
       writer: '솔룩스',
       writtendate: '',
       arrivaldate: '',
@@ -38,7 +39,7 @@ const initialState = {
       isChecked: false,
     },
     {
-      id: 0,
+      id: 3,
       writer: '솔룩스',
       writtendate: '',
       arrivaldate: '',
@@ -66,8 +67,8 @@ const POST_USER_SUCCESS = 'user/POST_USER_SUCCESS';
 const POST_USER_FAILURE = 'user/POST_USER_FAILURE';
 
 const PUT_CHECK_REQUEST = 'user/PUT_CHECK_REQUEST'; // 캡슐 체크 상태 변경 요청
-const PUT_CHECK_SUCCESS = 'user/POST_CAPSULE_SUCCESS'; // 캡슐 체크 상태 변경 성공
-const PUT_CHECK_FAILURE = 'user/POST_CAPSULE_FAILURE'; // 캡슐 체크 상태 변경 실패
+const PUT_CHECK_SUCCESS = 'user/PUT_CHECK_SUCCESS'; // 캡슐 체크 상태 변경 성공
+const PUT_CHECK_FAILURE = 'user/PUT_CHECK_FAILURE'; // 캡슐 체크 상태 변경 실패
 
 // Action Creators
 export const update_token = (token) => ({
@@ -96,7 +97,7 @@ export const post_user_failure = (err) => ({
   error: true,
 });
 
-export const put_check_reqeust = () => ({ type: PUT_CHECK_REQUEST });
+export const put_check_request = () => ({ type: PUT_CHECK_REQUEST });
 export const put_check_success = () => ({
   type: PUT_CHECK_SUCCESS,
 });
@@ -107,9 +108,8 @@ export const put_check_failure = (err) => ({
 });
 
 // Thunk Creators
-export const post_user = (token) => async (dispatch) => {
+export const post_user = (token) => async (dispatch, getState) => {
   dispatch(post_user_request());
-  console.log('token:', token);
   try {
     const res = await instance.post(
       '/users',
@@ -120,17 +120,20 @@ export const post_user = (token) => async (dispatch) => {
         },
       }
     );
-    dispatch(post_user_success(res));
+    if (res.status === 200 && res.data.result.name && res.data.result.email) {
+      dispatch(post_user_success(res));
+    } else {
+      console.log(res.data.result);
+    }
   } catch (err) {
     dispatch(post_user_failure(err.message));
   }
 };
 
 export const put_check = (token, id) => async (dispatch) => {
-  dispatch(put_check_reqeust);
-
+  dispatch(put_check_request());
   try {
-    const res = instance.put(
+    const res = await instance.put(
       `/capsule/${id}`,
       {
         readState: true,
@@ -169,13 +172,21 @@ function user(state = initialState, action) {
         ),
       };
     case COUNT_UNCHECKED:
-      const uncheckedCount = state.capsules.filter(
-        (capsule) => !capsule.isChecked
-      ).length;
-      return {
-        ...state,
-        uncheckedCount,
-      };
+      if (state.capsules.length === 0) {
+        return {
+          ...state,
+          uncheckedCount: 0,
+        };
+      } else {
+        const uncheckedCount = state.capsules.filter(
+          (capsule) => !capsule.isChecked
+        ).length;
+        return {
+          ...state,
+          uncheckedCount,
+        };
+      }
+
     case POST_USER_REQUEST:
       return {
         ...state,
@@ -187,9 +198,9 @@ function user(state = initialState, action) {
     case POST_USER_SUCCESS:
       return {
         ...state,
-        email: action.res.data.email,
-        name: action.res.data.name,
-        capsules: action.res.data.capsules,
+        email: action.res.data.result.email,
+        name: action.res.data.result.name,
+        capsules: action.res.data.result.capsules,
       };
     case POST_USER_FAILURE:
       return {
