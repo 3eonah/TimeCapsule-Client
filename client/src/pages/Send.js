@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { post_capsule, update_arrivalinfo } from '../redux/modules/capsule';
 import useValidate from '../hooks/useValidate';
+import { useNavigate } from 'react-router-dom';
 
 const Send = () => {
   // 모달
@@ -101,6 +102,7 @@ const Send = () => {
     inputRef.current
   );
 
+  const navigate = useNavigate();
   const sendData = () => {
     // 올바른 입력값이나 입력값이 있을 때
     const isDateValidate = handleDateInput();
