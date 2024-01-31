@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BasicButton } from '../components/index.js';
+import { BasicButton ,Capsules} from '../components/index.js';
 import {
   cp_retro,
   cp_main,
@@ -97,7 +97,7 @@ const CapsuleList = () => {
 
     return (
       <div>
-        <CapsuleButton
+        <Capsules
           buttonWidth="168px"
           verticalPadding="13px"
           onClick={onClick}
@@ -106,7 +106,7 @@ const CapsuleList = () => {
             src={isChecked ? getImage(theme, true) : getImage(theme, false)}
             alt="Capsule Image"
           />
-        </CapsuleButton>
+        </Capsules>
         <p
           style={{
             textAlign: 'center',

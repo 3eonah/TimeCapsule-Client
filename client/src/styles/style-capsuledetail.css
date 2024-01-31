@@ -49,15 +49,12 @@
   margin-right: 4% 
 }
 
-.cd-song-title {
-  align-self: center; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 220px; 
-  margin-left: 5%; 
-  margin-right: 5%; 
-}
+
+
+
+
+
+
 
 .cd-content {
   align-self: flex-start; 
@@ -73,6 +70,7 @@
   cursor: pointer;
   width: 100px; 
   height: 100px; 
+  
 }
 
 .cd-sliding-button img {
@@ -122,4 +120,28 @@
 
 .slick-dots .slick-active button {
   background-color: #333; 
+}
+
+.cd-song-title {
+  align-self: center;
+  overflow: hidden;
+  width: 400px;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  animation: slide 10s linear infinite; /* 이 부분 확인 */
+}
+
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
