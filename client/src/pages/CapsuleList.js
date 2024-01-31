@@ -12,11 +12,14 @@ import {
 import '../styles/style-capsule.css';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { put_check, update_check } from '../redux/modules/user.js';
 
 // BaiscButton에 있는 css 수정해서 사용
 const CapsuleButton = styled(BasicButton)`
 
 `;
+
 
 const CapsuleList = () => {
   const navigate = useNavigate();
@@ -74,7 +77,8 @@ const CapsuleList = () => {
   // ]);
 
   // redux에서 capsules 데이터 가져옴
-  const { capsules } = useSelector((state) => state.user);
+  const { capsules, token } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
 
   const CapsuleButton = ({ theme, isChecked, writer, onClick }) => {
@@ -135,7 +139,7 @@ const CapsuleList = () => {
 
 
   //확인하지 않은 캡슐을 누르면 확인한 캡슐로 변경됨 ( ischecked false가 true로 변경 )
-  const handleButtonClick = (rowIndex, colIndex) => {
+  const handleButtonClick = (rowIndex, colIndex, capsuleId) => {
     const dataIndex = calculateDataIndex(rowIndex, colIndex);
     // const updatedCommonData = [...commonData];
 
@@ -148,8 +152,10 @@ const CapsuleList = () => {
     //console.log(`토글 상태(${dataIndex}): ${updatedCommonData[dataIndex].ischecked}`);
 
     // setCommonData(updatedCommonData);
+
+    dispatch(put_check(token, capsuleId)); // put request to server
     // 페이지 이동
-    navigate('/capsuledetail');
+    navigate('/capsuledetail', { state: { capsuleId: capsuleId } });
   };
 
   // 확인핸캡슐 버튼을 누르면 확인한 캡슐만 보이게, 확인하지 않은 캡슐 버튼을 누르면  확인하지 않은 캡슐만 보이게
@@ -209,8 +215,9 @@ const CapsuleList = () => {
               theme={data.theme}
               isChecked={data.isChecked}
               writer={data.writer}
-              onClick={() => handleButtonClick(rowIndex, colIndex)}
+              onClick={() => handleButtonClick(rowIndex, colIndex, data.id)}
             />
+
           ))}
         </div>
       ))}

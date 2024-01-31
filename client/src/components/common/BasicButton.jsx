@@ -9,6 +9,7 @@ const BasicButton = (props) => {
       isCardAddBtn={props.isCardAddBtn}
       verticalPadding={props.verticalPadding}
       fontSize={props.fontSize}
+      height={props.buttonHeight}
     >
       {props.children}
     </StyledButton>
@@ -59,5 +60,11 @@ const StyledButton = styled.button`
       margin-bottom: 1.3rem;
       // position: absolute;
       // right: 0;
+    `}
+
+  ${(props) =>
+    props.height &&
+    css`
+      height: ${props.height};
     `}
 `;

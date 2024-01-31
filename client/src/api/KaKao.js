@@ -8,6 +8,7 @@ import {
 } from '../redux/modules/user';
 import { useNavigate } from 'react-router-dom';
 import { instance } from './Axios';
+import { jwtDecode } from 'jwt-decode';
 
 const REACT_APP_KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
@@ -43,9 +44,15 @@ const KaKao = (props) => {
         // set redux state
         if (res.status === 200) {
           dispatch(update_token(res.data.userToken));
-          dispatch(post_user(res.data.userToken));
-          // dispatch(count_unchecked());
-          navigate('/home');
+          // 토큰 유효성 검사
+          try {
+            const decodedToken = jwtDecode(res.data.userToken);
+            if (decodedToken.type === 'JWT') {
+              dispatch(post_user(res.data.userToken));
+            }
+          } catch (err) {
+            console.error('Invalid JWT', err);
+          }
         }
       } catch (err) {
         console.error(err);
@@ -55,11 +62,11 @@ const KaKao = (props) => {
     Login();
   }, []);
 
-  // useEffect(() => {
-  //   if (email) {
-  //     navigate('/home');
-  //   }
-  // }, [email]);
+  useEffect(() => {
+    if (email) {
+      navigate('/home');
+    }
+  });
 
   return <div></div>;
 };
