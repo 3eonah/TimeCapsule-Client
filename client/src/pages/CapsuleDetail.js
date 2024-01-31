@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import YouTube from 'react-youtube';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
 import {
   school,
   europe,
@@ -15,13 +16,16 @@ import { BasicButton } from '../components/index.js';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+const REACT_APP_YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 const CapsuleDetail = () => {
-  // const commonData = {
-  //   from: '투게더',
-  //   date: '2024.01.01',
-  //   songTitle: 'Charlie Puth - Left And Right (feat. 정국 of BTS)',
-  //   videoId: 'NcTcNuoVYso',
-  // };
+  const commonData = {
+    from: '투게더',
+    date: '2024.01.01',
+    //songTitle: 'Charlie Puth - Left And Right (feat. 정국 of BTS)',
+    //videoId: 'XI4r_lw9gPk',
+    videoId: 'Azo4AvIjkmQ',
+  };
 
   // const dataFromBackend = [
   //   {
@@ -44,7 +48,10 @@ const CapsuleDetail = () => {
 
   const sliderRef = useRef(null);
   const playerRef = useRef(null);
+  const [currentVideoTitle, setCurrentVideoTitle] = useState('');
+  const [currentVideoUploader,  setCurrentVideoUploader] = useState('');
   const [currentVideoId, setCurrentVideoId] = useState(foundCapsule.music);
+
   const [isMuted, setIsMuted] = useState(true);
   const settings = {
     dots: true,
@@ -53,6 +60,45 @@ const CapsuleDetail = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  const fetchVideoInfo = async (videoId) => {
+    try {
+      // YouTube API 요청
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${REACT_APP_YOUTUBE_API_KEY}`
+      );
+
+      // API 응답에서 제목과 업로더 정보 추출
+    const title = response.data.items[0].snippet.title;
+    const uploader = response.data.items[0].snippet.channelTitle.split(' - ')[0];
+
+    // 업로더 이름이 제목에도 있으면 없엠
+    const cleanedTitle = title.replace(new RegExp(uploader, 'i'), '').trim();
+
+    const videoInfo = {
+      title: cleanedTitle,
+      uploader: uploader,
+    };
+
+      return videoInfo;
+    } catch (error) {
+      console.error('Error fetching video info:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      const info = await fetchVideoInfo(currentVideoId);
+      if (info) {
+        setCurrentVideoTitle(info.title);
+        setCurrentVideoUploader(info.uploader);
+      }
+    };
+
+    fetchInfo();
+  }, [currentVideoId]);
+
 
   const goToNextSlide = () => {
     sliderRef.current.slickNext();
@@ -119,8 +165,8 @@ const CapsuleDetail = () => {
                 <BasicButton onClick={muteVideo}>
                   <img src={musicoff} alt="음소거 하기" />
                 </BasicButton>
-                {/* TODO: videoId 로 동영상 제목 가져올 수 있나요? */}
-                <p className="cd-song-title">{}</p>
+                <p className="cd-song-title">{currentVideoUploader}  {currentVideoTitle}</p>
+
               </div>
               <p className="cd-content">{data.text}</p>
             </div>
