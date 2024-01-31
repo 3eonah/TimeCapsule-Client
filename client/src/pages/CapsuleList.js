@@ -90,8 +90,14 @@ const CapsuleList = () => {
   };
 
   // 초기 화면은 확인하지 않은 캡슐들이 보이게 설정
+  const currentDate = new Date();
   const [visibleData, setVisibleData] = useState(
-    capsules ? capsules.filter((data) => !data.isChecked) : []
+    capsules
+      ? capsules.filter(
+          // 현재 날짜보다 arrivaldate가 이전 날짜이고 isChecked가 false인 경우
+          (data) => !data.isChecked && new Date(data.arrivaldate) < currentDate
+        )
+      : []
   );
   //2열로 정렬
   const calculateDataIndex = (rowIndex, colIndex) => {

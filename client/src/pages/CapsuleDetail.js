@@ -88,8 +88,23 @@ const CapsuleDetail = () => {
     setIsMuted(true);
   };
 
+  // date formatting
+  const [formattedData, setFormattedData] = useState({});
+  const handleData = (capsuleData) => {
+    console.log(capsuleData);
+    const date = new Date(capsuleData.writtendate);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    setFormattedData({
+      writtendate: `${year}.${String(month).padStart(2, '0')}.${String(
+        day
+      ).padStart(2, '0')}`,
+    });
+  };
+
   useEffect(() => {
-    console.log(foundCapsule);
+    handleData(foundCapsule);
   }, []);
 
   return (
@@ -109,7 +124,7 @@ const CapsuleDetail = () => {
                 </p>
                 <p className="cd-date">
                   <span>작성일 </span> <br />
-                  {foundCapsule.writtendate}
+                  {formattedData.writtendate}
                 </p>
               </div>
               <div className="cd-button-container">
