@@ -61,6 +61,8 @@ const CapsuleDetail = () => {
     slidesToScroll: 1,
   };
 
+  
+
   const fetchVideoInfo = async (videoId) => {
     try {
       // YouTube API 요청
@@ -87,12 +89,14 @@ const CapsuleDetail = () => {
     }
   };
 
+
   useEffect(() => {
     const fetchInfo = async () => {
       const info = await fetchVideoInfo(currentVideoId);
       if (info) {
         setCurrentVideoTitle(info.title);
         setCurrentVideoUploader(info.uploader);
+       
       }
     };
 
@@ -134,23 +138,8 @@ const CapsuleDetail = () => {
     setIsMuted(true);
   };
 
-  // date formatting
-  const [formattedData, setFormattedData] = useState({});
-  const handleData = (capsuleData) => {
-    console.log(capsuleData);
-    const date = new Date(capsuleData.writtendate);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    setFormattedData({
-      writtendate: `${year}.${String(month).padStart(2, '0')}.${String(
-        day
-      ).padStart(2, '0')}`,
-    });
-  };
-
   useEffect(() => {
-    handleData(foundCapsule);
+    console.log(foundCapsule);
   }, []);
 
   return (
@@ -170,7 +159,7 @@ const CapsuleDetail = () => {
                 </p>
                 <p className="cd-date">
                   <span>작성일 </span> <br />
-                  {formattedData.writtendate}
+                  {foundCapsule.writtendate}
                 </p>
               </div>
               <div className="cd-button-container">
@@ -180,8 +169,11 @@ const CapsuleDetail = () => {
                 <BasicButton onClick={muteVideo}>
                   <img src={musicoff} alt="음소거 하기" />
                 </BasicButton>
-                <p className="cd-song-title">{currentVideoUploader}  {currentVideoTitle}</p>
-
+                <div class="marquee">
+                  <div>
+                    <span>{currentVideoUploader} {currentVideoTitle}</span>
+                     </div>
+                  </div>
               </div>
               <p className="cd-content">{data.text}</p>
             </div>

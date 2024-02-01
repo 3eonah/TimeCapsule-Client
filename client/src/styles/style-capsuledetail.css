@@ -36,7 +36,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 60%;
+  width: 80%;
 }
 
 .cd-button-container {
@@ -48,12 +48,6 @@
 .cd-button-container > * {
   margin-right: 4% 
 }
-
-
-
-
-
-
 
 
 .cd-content {
@@ -78,6 +72,7 @@
   height: 100%;
   object-fit: cover;
 }
+
 
 
 .cd-from span,
@@ -122,26 +117,32 @@
   background-color: #333; 
 }
 
-.cd-song-title {
-  align-self: center;
-  overflow: hidden;
-  width: 400px;
-  margin-left: 5%;
-  margin-right: 5%;
-  display: flex;
-  flex: 0 0 auto;
-  white-space: nowrap;
+
+.marquee {
+  height: 25px;
+  width: 420px;
+
   overflow: hidden;
   position: relative;
-  animation: slide 10s linear infinite; /* 이 부분 확인 */
 }
 
+.marquee div {
+  display: block;
+  width: 200%;
+  height: 30px;
 
-@keyframes slide {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  position: absolute;
+  overflow: hidden;
+
+  animation: marquee 5s linear infinite;
+}
+
+.marquee span {
+  float: left;
+  width: 500%;
+}
+
+@keyframes marquee {
+  0% { left: +10%; }
+  100% { left: -100%; }
 }
