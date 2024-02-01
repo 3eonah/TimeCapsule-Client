@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BasicButton ,Capsules} from '../components/index.js';
 import {
@@ -10,15 +10,10 @@ import {
   cp_newyear_open,
 } from '../assets/index.js';
 import '../styles/style-capsule.css';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { put_check, update_check } from '../redux/modules/user.js';
 
-// BaiscButton에 있는 css 수정해서 사용
-const CapsuleButton = styled(BasicButton)`
-
-`;
 
 
 const CapsuleList = () => {
@@ -165,7 +160,7 @@ const CapsuleList = () => {
   };
 
   // 확인핸캡슐 버튼을 누르면 확인한 캡슐만 보이게, 확인하지 않은 캡슐 버튼을 누르면  확인하지 않은 캡슐만 보이게
-  const handleCapsuleClick = (isChecked) => {
+  const handleCapsuleClick = (isChecked = false) => {
     const updatedVisibleData = capsules.filter((data) =>
       isChecked ? data.isChecked : !data.isChecked
     );
@@ -176,6 +171,11 @@ const CapsuleList = () => {
 
     return updatedVisibleData;
   };
+
+  useEffect(() => {
+    handleCapsuleClick(false); // 초기에 확인하지 않은 캡슐을 누른 것으로 설정
+  }, [capsules]);
+  
 
   const splitArrayIntoPairs = (array, size) => {
     const result = [];
