@@ -29,8 +29,7 @@ const Home = () => {
         <div className="greeting">
           <h2>안녕하세요,</h2>
           <h2>
-            {/* <span>{userInfo.name}</span>&nbsp;님 */}
-            <span>이선아</span>&nbsp;님
+            <span>{userInfo.name}</span>&nbsp;님
           </h2>
         </div>
         <div className="cap-div">
