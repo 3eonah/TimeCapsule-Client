@@ -165,3 +165,52 @@
 .sendme-btn-div > img {
   margin-left: 1rem;
 }
+
+#send-btn {
+  color: #fff;
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 1.3rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0px 3px 7.2px 0px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6.6px);
+  -webkit-backdrop-filter: blur(6.6px);
+}
+
+@media all and (max-height: 740px) {
+  .container.padded {
+    padding: 2.5rem 1.5rem 3.5rem;
+    box-sizing: border-box;
+  }
+
+  .form-div input {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .sendme-btn-div > button {
+    padding: 0.7rem 1rem;
+  }
+
+  .add-div button {
+    padding: 0.7rem 1rem;
+  }
+}
+
+@media all and (max-height: 667px) {
+  .container.padded {
+    padding: 2.2rem 1.5rem 2rem;
+    box-sizing: border-box;
+  }
+  #send-btn {
+    padding: 1rem;
+  }
+  .added-list {
+    height: 27%;
+  }
+  .form-div:nth-of-type(2) {
+    height: 42%;
+  }
+}

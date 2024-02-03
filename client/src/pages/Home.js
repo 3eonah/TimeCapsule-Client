@@ -25,11 +25,12 @@ const Home = () => {
   // Check if userInfo is available before rendering
   if (userInfo) {
     return (
-      <div className="container home">
+      <div className="home-container">
         <div className="greeting">
           <h2>안녕하세요,</h2>
           <h2>
-            <span>{userInfo.name}</span>&nbsp;님
+            {/* <span>{userInfo.name}</span>&nbsp;님 */}
+            <span>이선아</span>&nbsp;님
           </h2>
         </div>
         <div className="cap-div">
@@ -47,7 +48,7 @@ const Home = () => {
           </BasicButton>
           <BasicButton onClick={() => navigate('/create')}>
             <img src={ic_addpost} className="ic"></img>
-            <p>새로운 캡슐 보내기</p>
+            <p>새로운 캡슐 전송</p>
           </BasicButton>
         </div>
       </div>

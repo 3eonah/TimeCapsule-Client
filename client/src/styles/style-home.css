@@ -6,25 +6,39 @@
   align-items: center;
   box-sizing: border-box;
   padding: 5rem 0 0;
-  /* color: #363636; */
   color: #fff;
+
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
-.container.home {
+.home-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
   justify-content: space-between;
+  color: #fff;
   padding: 5rem 0 4.5rem;
+
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
-.greeting {
+.home-container > .greeting {
   text-align: center;
 }
 
-.container h2 {
+.home-container h2 {
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-.container h2 span {
+.home-container h2 span {
   font-size: 2rem;
 }
 
@@ -42,7 +56,7 @@
   display: block;
 }
 
-.container #shadow {
+.home-container #shadow {
   width: 130%;
   position: absolute;
   left: -14%;
@@ -56,12 +70,13 @@
   position: absolute;
   left: 30%;
   top: 15%;
+  z-index: 1;
 }
 
 .cap-txt-area p:nth-of-type(2) {
   margin-top: 1rem;
   font-family: 'Digital Numbers';
-  font-size: 3rem;
+  font-size: 3.2rem;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-weight: 400;
 }
@@ -81,19 +96,57 @@
   width: 58.5%;
 }
 
-.container.addedlist > .title-div {
-  z-index: 100;
-  text-align: center;
-}
-
-.container.addedlist > .btn-div {
-  display: flex;
-  flex-direction: column;
-}
-
 /* mobile */
-@media screen and (max-width: 390px) {
+/* @media screen and (max-width: 390px) {
   .cap-div {
     width: 50%;
+  }
+} */
+
+@media screen and (max-width: 360px) {
+  .cap-div {
+    height: 50vh;
+    position: relative;
+  }
+  .cap-div > img:nth-of-type(1) {
+    /* width: 120%;
+    position: absolute;
+    left: -10%; */
+    object-fit: contain;
+  }
+
+  .cap-txt-area {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 75%);
+    width: 100%;
+  }
+
+  .cap-txt-area > p:nth-of-type(2) {
+    font-size: 2.7rem;
+  }
+
+  .btn-row-div > button {
+    font-size: 0.9rem;
+  }
+  .btn-row-div > button > .ic {
+    width: 20%;
+  }
+}
+
+@media screen and (min-height: 881px) {
+  .cap-txt-area > p:nth-of-type(1) {
+    font-size: 1.3rem;
+  }
+
+  .cap-txt-area > p:nth-of-type(2) {
+    font-size: 3.5rem;
+  }
+
+  .cap-txt-area {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 65%);
   }
 }
