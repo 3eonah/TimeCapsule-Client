@@ -53,7 +53,7 @@ const AddedCardList = () => {
 
   return (
     <div
-      className="container addedlist"
+      className="addedlist-container"
       onMouseDown={(e) => e.preventDefault()}
     >
       <div className="background-div"></div>

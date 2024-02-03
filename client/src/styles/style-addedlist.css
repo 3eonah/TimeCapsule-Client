@@ -7,6 +7,20 @@
   box-sizing: border-box;
   padding: 5rem 0 5rem;
   color: #fff;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.addedlist-container > .title-div {
+  z-index: 100;
+  text-align: center;
+}
+
+.addedlist-container > .btn-div {
+  display: flex;
+  flex-direction: column;
 }
 
 .background-div {

@@ -208,14 +208,9 @@ const Send = () => {
           ))}
         </ul>
       </div>
-      <BasicButton
-        buttonWidth="100%"
-        fontSize="1.25rem"
-        verticalPadding="1.3rem"
-        onClick={() => setIsModalOpen(true)}
-      >
+      <button id="send-btn" onClick={() => setIsModalOpen(true)}>
         전송하기
-      </BasicButton>
+      </button>
       <Modal
         icSrc={ic_confirm}
         isOpen={isModalOpen}
