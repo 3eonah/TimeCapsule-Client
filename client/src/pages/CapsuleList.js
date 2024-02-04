@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BasicButton, Capsules } from '../components/index.js';
+import { BasicButton ,Capsules} from '../components/index.js';
 import {
   cp_retro,
   cp_main,
@@ -10,9 +10,11 @@ import {
   cp_newyear_open,
 } from '../assets/index.js';
 import '../styles/style-capsule.css';
-import styled from 'styled-components';
+import styled from 'styled-components'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { put_check, update_check } from '../redux/modules/user.js';
+
+
 
 const CapsuleList = () => {
   const navigate = useNavigate();
@@ -73,6 +75,7 @@ const CapsuleList = () => {
   const { capsules, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+
   const CapsuleButton = ({ theme, isChecked, writer, onClick }) => {
     const getImage = (theme, ischecked) => {
       if (theme === 'retro' && ischecked) {
@@ -93,7 +96,11 @@ const CapsuleList = () => {
 
     return (
       <div>
-        <Capsules buttonWidth="168px" verticalPadding="13px" onClick={onClick}>
+        <Capsules
+          buttonWidth="168px"
+          verticalPadding="13px"
+          onClick={onClick}
+        >
           <img
             src={isChecked ? getImage(theme, true) : getImage(theme, false)}
             alt="Capsule Image"
@@ -112,6 +119,8 @@ const CapsuleList = () => {
     );
   };
 
+  
+
   // 초기 화면은 확인하지 않은 캡슐들이 보이게 설정
   const currentDate = new Date();
   const [visibleData, setVisibleData] = useState(
@@ -125,7 +134,10 @@ const CapsuleList = () => {
   //2열로 정렬
   const calculateDataIndex = (rowIndex, colIndex) => {
     return rowIndex * 2 + colIndex;
+    
   };
+
+
 
   //확인하지 않은 캡슐을 누르면 확인한 캡슐로 변경됨 ( ischecked false가 true로 변경 )
   const handleButtonClick = (rowIndex, colIndex, capsuleId) => {
@@ -163,6 +175,7 @@ const CapsuleList = () => {
   useEffect(() => {
     handleCapsuleClick(false); // 초기에 확인하지 않은 캡슐을 누른 것으로 설정
   }, [capsules]);
+  
 
   const splitArrayIntoPairs = (array, size) => {
     const result = [];
@@ -210,6 +223,7 @@ const CapsuleList = () => {
               writer={data.writer}
               onClick={() => handleButtonClick(rowIndex, colIndex, data.id)}
             />
+
           ))}
         </div>
       ))}

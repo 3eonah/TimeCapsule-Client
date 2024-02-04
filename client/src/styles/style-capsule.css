@@ -24,14 +24,22 @@
     width: 88%;
   }
 
-
-
-
-
   
   /* mobile */
   @media screen and (max-width: 390px) {
-    .cap-div {
-      width: 50%;
+    .cs-row-div {
+      width: 95%;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .cs-row-div {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 340px) {
+    .cs-row-div {
+      width: 105%;
     }
   }
