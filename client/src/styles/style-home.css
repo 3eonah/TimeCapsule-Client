@@ -134,6 +134,39 @@
   }
 }
 
+
+@media screen and (max-width: 450px) {
+  .cap-div {
+    height: 50vh;
+    position: relative;
+  }
+  .cap-div > img:nth-of-type(1) {
+    /* width: 120%;
+    position: absolute;
+    left: -10%; */
+    object-fit: contain;
+  }
+
+  .cap-txt-area {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 75%);
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .cap-txt-area > p:nth-of-type(2) {
+    font-size: 2.7rem;
+  }
+
+  .btn-row-div > button {
+    font-size: 0.9rem;
+  }
+  .btn-row-div > button > .ic {
+    width: 20%;
+  }
+}
+
 @media screen and (min-height: 881px) {
   .cap-txt-area > p:nth-of-type(1) {
     font-size: 1.3rem;
