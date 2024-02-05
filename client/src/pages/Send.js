@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { post_capsule, update_arrivalinfo } from '../redux/modules/capsule';
 import useValidate from '../hooks/useValidate';
 import { useNavigate } from 'react-router-dom';
+import { count_unchecked, post_user } from '../redux/modules/user';
 
 const Send = () => {
   // 모달
@@ -104,6 +105,8 @@ const Send = () => {
   );
 
   const navigate = useNavigate();
+  const { status } = useSelector((state) => state.capsule.postedData);
+  const { POST_USER_REQUEST } = useSelector((state) => state.user.loading);
   const sendData = () => {
     // 올바른 입력값이나 입력값이 있을 때
     const isDateValidate = handleDateInput();
@@ -113,7 +116,7 @@ const Send = () => {
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
       dispatch(post_capsule(addedList, token));
-      navigate('/send/sendcapsule')
+      navigate('/send/sendcapsule');
     } else {
       console.log('something is invalidate');
     }
