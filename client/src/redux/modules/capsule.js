@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { instance } from '../../api/Axios';
 
 const initialState = {
@@ -28,6 +27,7 @@ const REMOVE = 'capsule/REMOVE'; // 카드 삭제
 const UPDATE_MUSIC = 'capsule/update_music'; // 음악 상태 변경
 const UPDATE_ARRIVALINFO = 'capsule/update_arrivalinfo'; // 도착 날짜, 받는 사람 변경
 const UPDATE_THEME = 'capsule/update_theme'; // 캡슐 테마 변경
+const RESET_CAPSULE = 'capsule/reset_capsule'; // 캡슐 데이터 초기화
 
 const POST_CAPSULE_REQUEST = 'capsule/POST_CAPSULE_REQUEST'; // 캡슐 서버에 전송 요청
 const POST_CAPSULE_SUCCESS = 'capsule/POST_CAPSULE_SUCCESS'; // 캡슐 서버에 전송 성공
@@ -41,6 +41,7 @@ export const write = (card) => ({
     card_id: card_id++,
     image: card.image,
     text: card.text,
+    file: card.file,
   },
 });
 
@@ -73,6 +74,10 @@ export const update_theme = (theme) => ({
   theme,
 });
 
+export const reset_capsule = () => ({
+  type: RESET_CAPSULE,
+});
+
 export const post_capsule_request = () => ({ type: POST_CAPSULE_REQUEST });
 export const post_capsule_success = (res) => ({
   type: POST_CAPSULE_SUCCESS,
@@ -90,7 +95,8 @@ export const post_capsule =
     dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
 
     const { capsule } = getState().capsule;
-
+    const images = [];
+    const texts = [];
     try {
       // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
       const responses = await Promise.all(
@@ -98,6 +104,7 @@ export const post_capsule =
           const requestData = new FormData();
 
           requestData.append('receiver', receiver);
+
           for (const key in capsule) {
             if (key === 'arrivaldate') {
               for (const dateKey in capsule[key]) {
@@ -109,17 +116,33 @@ export const post_capsule =
             } else if (key === 'cards') {
               capsule.cards.forEach((card, idx) => {
                 for (const cardKey in card) {
-                  requestData.append(
-                    `cards[${idx}][${cardKey}]`,
-                    card[cardKey]
-                  );
+                  if (cardKey === 'file') {
+                    images.push(card[cardKey]);
+                  } else if (cardKey === 'text') {
+                    texts.push(card[cardKey]);
+                  }
+                  // cardKey가 "image"인 경우에는 추가하지 않음
+                  // if (cardKey === 'image') continue;
+
+                  // requestData.append(
+                  //   `cards[${idx}][${cardKey}]`,
+                  //   card[cardKey]
+                  // );
                 }
               });
             } else {
               requestData.append(key, capsule[key]);
             }
           }
+          images.forEach((imgFile, idx) => {
+            requestData.append(`cardImages[${idx}]`, imgFile);
+          });
 
+          // texts.forEach((txt, idx) => {
+          //   requestData.append(`cardTexts[${idx}]`, txt);
+          // });
+          const textStringArray = JSON.stringify(texts);
+          requestData.append('cardTexts', textStringArray);
           for (const [key, value] of requestData.entries()) {
             console.log(`${key}: ${value}`);
           }
@@ -204,6 +227,22 @@ function capsule(state = initialState, action) {
         capsule: {
           ...state.capsule,
           cards: updatedCards,
+        },
+      };
+
+    case RESET_CAPSULE:
+      return {
+        ...state,
+        capsule: {
+          ...state.capsule,
+          arrivaldate: {
+            year: '',
+            month: '',
+            day: '',
+          },
+          cards: [],
+          music: '',
+          theme: '',
         },
       };
 

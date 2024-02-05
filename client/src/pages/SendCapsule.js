@@ -3,11 +3,15 @@ import '../styles/style-sendcapsule.css';
 import CapsuleTop from '../assets/sendcapsule_top.svg';
 import CapsuleBottom from '../assets/sendcapsule_bottom.svg';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { post_user } from '../redux/modules/user';
 
 const SendCapsule = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.user);
   useEffect(() => {
+    dispatch(post_user(token, true));
     // 3초 후 메인페이지로 이동
     setTimeout(() => {
       navigate('/home');

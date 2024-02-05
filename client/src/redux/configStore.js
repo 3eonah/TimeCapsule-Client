@@ -19,12 +19,11 @@ const persistConfig = {
   whitelist: ['user', 'capsule'], // target reducer name
 };
 
-// persistReducer(persistConfig, rootReducer);
-
 const logger = createLogger();
 
 const store = createStore(
   persistReducer(persistConfig, rootReducer),
+  // rootReducer,
   composeWithDevTools(applyMiddleware(logger, thunk))
 );
 

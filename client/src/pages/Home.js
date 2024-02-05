@@ -2,17 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../styles/style-home.css';
 import { capsule, cap_shadow, ic_list, ic_addpost } from '../assets/index.js';
 import { BasicButton } from '../components/index.js';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { count_unchecked, post_user } from '../redux/modules/user.js';
+import { reset_capsule } from '../redux/modules/capsule.js';
 
 const Home = () => {
   const navigate = useNavigate();
-
   const countRef = useRef();
 
   const userInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(count_unchecked());
     if (countRef.current && userInfo.uncheckedCount === 1) {
@@ -45,7 +46,12 @@ const Home = () => {
             <img src={ic_list} className="ic"></img>
             <p>전체보기</p>
           </BasicButton>
-          <BasicButton onClick={() => navigate('/create')}>
+          <BasicButton
+            onClick={() => {
+              dispatch(reset_capsule());
+              navigate('/create');
+            }}
+          >
             <img src={ic_addpost} className="ic"></img>
             <p>새로운 캡슐 전송</p>
           </BasicButton>

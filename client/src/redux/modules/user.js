@@ -108,7 +108,7 @@ export const put_check_failure = (err) => ({
 });
 
 // Thunk Creators
-export const post_user = (token) => async (dispatch, getState) => {
+export const post_user = (token, isAfterSend) => async (dispatch, getState) => {
   dispatch(post_user_request());
   try {
     const res = await instance.post(
@@ -122,6 +122,10 @@ export const post_user = (token) => async (dispatch, getState) => {
     );
     if (res.status === 200 && res.data.result.name && res.data.result.email) {
       dispatch(post_user_success(res));
+      if (isAfterSend) {
+        dispatch(count_unchecked());
+        console.log('count unchecked capsule after sending capsule');
+      }
     } else {
       console.log(res.data.result);
     }
