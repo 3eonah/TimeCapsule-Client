@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Send = () => {
   // 모달
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -112,6 +113,7 @@ const Send = () => {
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
       dispatch(post_capsule(addedList, token));
+      navigate('/send/sendcapsule')
     } else {
       console.log('something is invalidate');
     }
