@@ -86,6 +86,7 @@ const EditCard = ({ onCardValueChange }) => {
           id="imageFileInput"
           onChange={handleImageChange}
           style={{ display: 'none' }}
+          // name="cardImages"
         />
       </div>
     </div>

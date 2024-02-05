@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { instance } from '../../api/Axios';
 
 const initialState = {
@@ -96,7 +95,8 @@ export const post_capsule =
     dispatch(post_capsule_request()); // 요청 시작 알림에 대한 액션
 
     const { capsule } = getState().capsule;
-
+    const images = [];
+    const texts = [];
     try {
       // 여러 사용자에게 병렬로 데이터를 보내고 병렬로 응답을 처리
       const responses = await Promise.all(
@@ -104,6 +104,7 @@ export const post_capsule =
           const requestData = new FormData();
 
           requestData.append('receiver', receiver);
+
           for (const key in capsule) {
             if (key === 'arrivaldate') {
               for (const dateKey in capsule[key]) {
@@ -115,19 +116,33 @@ export const post_capsule =
             } else if (key === 'cards') {
               capsule.cards.forEach((card, idx) => {
                 for (const cardKey in card) {
+                  if (cardKey === 'file') {
+                    images.push(card[cardKey]);
+                  } else if (cardKey === 'text') {
+                    texts.push(card[cardKey]);
+                  }
                   // cardKey가 "image"인 경우에는 추가하지 않음
-                  if (cardKey === 'image') continue;
-                  requestData.append(
-                    `cards[${idx}][${cardKey}]`,
-                    card[cardKey]
-                  );
+                  // if (cardKey === 'image') continue;
+
+                  // requestData.append(
+                  //   `cards[${idx}][${cardKey}]`,
+                  //   card[cardKey]
+                  // );
                 }
               });
             } else {
               requestData.append(key, capsule[key]);
             }
           }
+          images.forEach((imgFile, idx) => {
+            requestData.append(`cardImages[${idx}]`, imgFile);
+          });
 
+          // texts.forEach((txt, idx) => {
+          //   requestData.append(`cardTexts[${idx}]`, txt);
+          // });
+          const textStringArray = JSON.stringify(texts);
+          requestData.append('cardTexts', textStringArray);
           for (const [key, value] of requestData.entries()) {
             console.log(`${key}: ${value}`);
           }
