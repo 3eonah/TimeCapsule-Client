@@ -5,6 +5,7 @@ import { BasicButton } from '../components/index.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { count_unchecked, post_user } from '../redux/modules/user.js';
+import { reset_capsule } from '../redux/modules/capsule.js';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,14 +15,13 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(post_user(userInfo.token));
     dispatch(count_unchecked());
     if (countRef.current && userInfo.uncheckedCount === 1) {
       countRef.current.style.paddingRight = '1rem';
     } else {
       countRef.current.style.paddingRight = '0rem';
     }
-  }, []);
+  }, [userInfo.uncheckedCount]);
 
   // Check if userInfo is available before rendering
   if (userInfo) {
@@ -46,7 +46,12 @@ const Home = () => {
             <img src={ic_list} className="ic"></img>
             <p>전체보기</p>
           </BasicButton>
-          <BasicButton onClick={() => navigate('/create')}>
+          <BasicButton
+            onClick={() => {
+              dispatch(reset_capsule());
+              navigate('/create');
+            }}
+          >
             <img src={ic_addpost} className="ic"></img>
             <p>새로운 캡슐 전송</p>
           </BasicButton>

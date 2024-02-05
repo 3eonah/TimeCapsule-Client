@@ -11,9 +11,9 @@ const SendCapsule = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.user);
   useEffect(() => {
+    dispatch(post_user(token, true));
     // 3초 후 메인페이지로 이동
     setTimeout(() => {
-      dispatch(post_user(token, true));
       navigate('/home');
     }, 7000);
   }, []);

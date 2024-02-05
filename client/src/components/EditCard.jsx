@@ -6,6 +6,7 @@ const EditCard = ({ onCardValueChange }) => {
   const [cardData, setCardData] = useState({
     image: null,
     text: '',
+    file: null,
   });
 
   // 이미지 삽입 제어
@@ -18,8 +19,10 @@ const EditCard = ({ onCardValueChange }) => {
         setCardData({
           ...cardData,
           image: reader.result,
+          file: file,
         });
       };
+      // 미리보기
       reader.readAsDataURL(file);
     }
   };

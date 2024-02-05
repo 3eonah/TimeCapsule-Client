@@ -28,6 +28,7 @@ const REMOVE = 'capsule/REMOVE'; // 카드 삭제
 const UPDATE_MUSIC = 'capsule/update_music'; // 음악 상태 변경
 const UPDATE_ARRIVALINFO = 'capsule/update_arrivalinfo'; // 도착 날짜, 받는 사람 변경
 const UPDATE_THEME = 'capsule/update_theme'; // 캡슐 테마 변경
+const RESET_CAPSULE = 'capsule/reset_capsule'; // 캡슐 데이터 초기화
 
 const POST_CAPSULE_REQUEST = 'capsule/POST_CAPSULE_REQUEST'; // 캡슐 서버에 전송 요청
 const POST_CAPSULE_SUCCESS = 'capsule/POST_CAPSULE_SUCCESS'; // 캡슐 서버에 전송 성공
@@ -41,6 +42,7 @@ export const write = (card) => ({
     card_id: card_id++,
     image: card.image,
     text: card.text,
+    file: card.file,
   },
 });
 
@@ -71,6 +73,10 @@ export const update_arrivalinfo = (date, writerInfo) => ({
 export const update_theme = (theme) => ({
   type: UPDATE_THEME,
   theme,
+});
+
+export const reset_capsule = () => ({
+  type: RESET_CAPSULE,
 });
 
 export const post_capsule_request = () => ({ type: POST_CAPSULE_REQUEST });
@@ -109,6 +115,8 @@ export const post_capsule =
             } else if (key === 'cards') {
               capsule.cards.forEach((card, idx) => {
                 for (const cardKey in card) {
+                  // cardKey가 "image"인 경우에는 추가하지 않음
+                  if (cardKey === 'image') continue;
                   requestData.append(
                     `cards[${idx}][${cardKey}]`,
                     card[cardKey]
@@ -204,6 +212,22 @@ function capsule(state = initialState, action) {
         capsule: {
           ...state.capsule,
           cards: updatedCards,
+        },
+      };
+
+    case RESET_CAPSULE:
+      return {
+        ...state,
+        capsule: {
+          ...state.capsule,
+          arrivaldate: {
+            year: '',
+            month: '',
+            day: '',
+          },
+          cards: [],
+          music: '',
+          theme: '',
         },
       };
 

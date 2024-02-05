@@ -48,8 +48,7 @@ const KaKao = (props) => {
           try {
             const decodedToken = jwtDecode(res.data.userToken);
             if (decodedToken.type === 'JWT') {
-              // dispatch(post_user(res.data.userToken));
-              navigate('/home');
+              dispatch(post_user(res.data.userToken));
             }
           } catch (err) {
             console.error('Invalid JWT', err);
@@ -62,6 +61,12 @@ const KaKao = (props) => {
 
     Login();
   }, []);
+
+  useEffect(() => {
+    if (email) {
+      navigate('/home');
+    }
+  });
 
   return <div></div>;
 };

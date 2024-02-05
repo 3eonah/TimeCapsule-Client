@@ -10,6 +10,7 @@ const AddCard = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleCardState = (cardData, cardRef) => {
     setCard(cardData);
     ref.current = cardRef;

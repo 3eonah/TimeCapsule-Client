@@ -113,15 +113,18 @@ const Send = () => {
     if (isDateValidate && isAddedListValidate) {
       // 캡슐 도착 날짜, 전송자 정보 업데이트
       dispatch(update_arrivalinfo(dateValues, writerInfo));
-
-      dispatch(post_capsule(addedList, token));
-      if (postRes.status === 200) {
-        navigate('/send/sendcapsule');
-      } else {
-        alert('전송 실패');
+      try {
+        dispatch(post_capsule(addedList, token));
+        if (postRes.status === 200) {
+          navigate('/send/sendcapsule');
+        } else {
+          alert('Failed to send');
+        }
+      } catch (err) {
+        console.log(err);
       }
     } else {
-      console.log('something is invalidate');
+      console.log('Some input data is invalidate');
     }
     handleModalClose();
     setIsSendClicked(true);
