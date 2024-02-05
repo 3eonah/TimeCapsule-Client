@@ -105,8 +105,7 @@ const Send = () => {
   );
 
   const navigate = useNavigate();
-  const { status } = useSelector((state) => state.capsule.postedData);
-  const { POST_USER_REQUEST } = useSelector((state) => state.user.loading);
+  const postRes = useSelector((state) => state.capsule.postedData);
   const sendData = () => {
     // 올바른 입력값이나 입력값이 있을 때
     const isDateValidate = handleDateInput();
@@ -116,7 +115,11 @@ const Send = () => {
       dispatch(update_arrivalinfo(dateValues, writerInfo));
 
       dispatch(post_capsule(addedList, token));
-      navigate('/send/sendcapsule');
+      if (postRes.status === 200) {
+        navigate('/send/sendcapsule');
+      } else {
+        alert('전송 실패');
+      }
     } else {
       console.log('something is invalidate');
     }
