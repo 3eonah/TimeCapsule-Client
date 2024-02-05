@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/style-sendcapsule.css';
 import CapsuleTop from '../assets/sendcapsule_top.svg';
 import CapsuleBottom from '../assets/sendcapsule_bottom.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SendCapsule = () => {
-  const [animationComplete, setAnimationComplete] = useState(false);
+  const navigate = useNavigate();
 
-  const handleAnimationEnd = () => {
-    // 애니메이션이 끝나면 상태를 업데이트하여 끝을 표시
-    setAnimationComplete(true);
-  };
+  useEffect(() => {
+    // 3초 후 메인페이지로 이동
+    setTimeout(() => {
+      navigate('/home');
+    }, 7000);
+  }, []);
 
   return (
-    <div className={`sendcapsule ${animationComplete ? 'hidden' : ''}`}>
+    <div className={`sendcapsule`}>
       <div className="capsule-image">
-        <img
-          src={CapsuleTop}
-          alt="캡슐 뚜껑"
-          className={`capsule-lid ${animationComplete ? 'go' : ''}`}
-        />
-        <img src={CapsuleBottom} alt="캡슐 몸통" />
+        <img src={CapsuleTop} alt="캡슐 뚜껑" className={`capsule-top`} />
+        <img class="capsule-bottom" src={CapsuleBottom} alt="캡슐 몸통" />
       </div>
 
-      <div className="container">
-        <svg onAnimationEnd={handleAnimationEnd}>
-          {/* You may include any SVG animations or elements here */}
-        </svg>
-        {animationComplete && <p>전송을 완료했습니다!</p>}
-      </div>
+      <p className="complete-text">전송을 완료했습니다!</p>
     </div>
   );
 };

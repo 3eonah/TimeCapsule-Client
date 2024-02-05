@@ -1,39 +1,89 @@
 .sendcapsule {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
 .capsule-image {
+  max-width: 20px;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
   align-items: center;
+  justify-content: center;
   position: relative;
-  padding: 40px 100px;
+  padding: 40px 40px;
+  animation: fadeOutAnimation 1s 2.5s ease forwards;
+
+  /*animation: fadeOutAnimation 1s 2s ease forwards; /* 애니메이션 추가 */
 }
 
-.capsule-lid {
-  position: relative;
-  animation: lidAnimation 2s ease-out forwards;
+.capsule-top {
+  animation: downAnimation 1.7s ease forwards; /* 애니메이션 추가 */
 }
 
-@keyframes lidAnimation {
-  to {
-    transform: translateY(160px); /* 이동 거리를 조절하세요 */
-  }
+.capsule-bottom {
+  margin-top: -162px;
 }
 
-.hidden {
-  opacity: 0;
-}
-
-.sendcapsule p {
+.sendcapsule p.complete-text {
+  position: absolute;
   color: #fff;
   font-family: Helvetica;
   font-size: 32px;
+  width: 100%;
+  text-align: center;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* 0.5초 동안 애니메이션, 2.7초 후 실행 */
+  animation: fadeInTextAnimation 0.5s 3.5s ease forwards;
+  /*2.7s ease forwards;*/
+  opacity: 0;
+}
+
+@keyframes downAnimation {
+  from {
+    transform: translateY(-80px);
+  }
+  to {
+    transform: translateY(0); /* translateY 값을 조절하여 이동 거리 조절 가능 */
+  }
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes fadeInTextAnimation {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%); /* 위쪽 중앙에서 시작하도록 수정 */
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
