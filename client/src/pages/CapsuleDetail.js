@@ -126,10 +126,11 @@ const CapsuleDetail = () => {
   const unmuteVideo = () => {
     if (playerRef.current) {
       playerRef.current.unMute();
+      playerRef.current.playVideo(); 
     }
     setIsMuted(false);
   };
-
+  
   const muteVideo = () => {
     if (playerRef.current) {
       playerRef.current.mute();
@@ -137,6 +138,7 @@ const CapsuleDetail = () => {
     setCurrentVideoId(foundCapsule.music); // Set to the common video ID
     setIsMuted(true);
   };
+  
 
   useEffect(() => {
     console.log(foundCapsule);
@@ -175,7 +177,7 @@ const CapsuleDetail = () => {
                 </BasicButton>
                 <div class="marquee">
                   <div>
-                    <span>{currentVideoUploader} {currentVideoTitle}</span>
+                  <span>{currentVideoUploader} - {currentVideoTitle}</span>
                      </div>
                   </div>
               </div>
@@ -190,7 +192,7 @@ const CapsuleDetail = () => {
         className="cd-sliding-button"
         onClick={goToNextSlide}
       />
-      <div style={videoStyle}>
+       <div style={videoStyle}>
         <YouTube
           videoId={currentVideoId}
           opts={opts}
