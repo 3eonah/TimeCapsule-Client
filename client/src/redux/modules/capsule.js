@@ -244,6 +244,7 @@ function capsule(state = initialState, action) {
           music: '',
           theme: '',
         },
+        postedData: '',
       };
 
     case POST_CAPSULE_REQUEST:
@@ -253,6 +254,8 @@ function capsule(state = initialState, action) {
           ...state.loading,
           POST_CAPSULE_REQUEST: true, // 요청 시작
         },
+        postedData: '',
+        error: false,
       };
     case POST_CAPSULE_SUCCESS:
       return {
@@ -262,6 +265,7 @@ function capsule(state = initialState, action) {
           POST_CAPSULE_REQUEST: false, // 요청 완료
         },
         postedData: action.payload,
+        error: false,
       };
     case POST_CAPSULE_FAILURE:
       return {
@@ -270,7 +274,8 @@ function capsule(state = initialState, action) {
           ...state.loading,
           POST_CAPSULE_REQUEST: false, // 요청 완료
         },
-        error: action.payload,
+        postedData: '',
+        error: action.error,
       };
     default:
       return state;

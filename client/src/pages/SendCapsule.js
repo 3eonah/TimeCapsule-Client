@@ -9,14 +9,18 @@ import { post_user } from '../redux/modules/user';
 const SendCapsule = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.user);
+  const { postedData } = useSelector((state) => state.capsule);
+  const { token, isSuccess } = useSelector((state) => state.user);
   useEffect(() => {
-    dispatch(post_user(token, true));
-    // 3초 후 메인페이지로 이동
     setTimeout(() => {
-      navigate('/home');
+      if (postedData) {
+        dispatch(post_user(token));
+        if (isSuccess) {
+          navigate('/home');
+        }
+      }
     }, 7000);
-  }, []);
+  });
 
   return (
     <div className={`sendcapsule`}>

@@ -8,46 +8,46 @@ const initialState = {
   name: '',
   // TODO: 실제 데이터 받을 땐 빈 배열이어야 됨
   capsules: [
-    {
-      id: 0,
-      writer: '솔룩스',
-      writtendate: '',
-      arrivaldate: '',
-      cards: [],
-      music: '',
-      theme: 'default',
-      isChecked: false,
-    },
-    {
-      id: 1,
-      writer: '솔룩스',
-      writtendate: '',
-      arrivaldate: '',
-      cards: [],
-      music: '',
-      theme: 'retro',
-      isChecked: false,
-    },
-    {
-      id: 2,
-      writer: '솔룩스',
-      writtendate: '',
-      arrivaldate: '',
-      cards: [],
-      music: '',
-      theme: 'newyear',
-      isChecked: false,
-    },
-    {
-      id: 3,
-      writer: '솔룩스',
-      writtendate: '',
-      arrivaldate: '',
-      cards: [],
-      music: '',
-      theme: 'newyear',
-      isChecked: true,
-    },
+    // {
+    //   id: 0,
+    //   writer: '솔룩스',
+    //   writtendate: '',
+    //   arrivaldate: '',
+    //   cards: [],
+    //   music: '',
+    //   theme: 'default',
+    //   isChecked: false,
+    // },
+    // {
+    //   id: 1,
+    //   writer: '솔룩스',
+    //   writtendate: '',
+    //   arrivaldate: '',
+    //   cards: [],
+    //   music: '',
+    //   theme: 'retro',
+    //   isChecked: false,
+    // },
+    // {
+    //   id: 2,
+    //   writer: '솔룩스',
+    //   writtendate: '',
+    //   arrivaldate: '',
+    //   cards: [],
+    //   music: '',
+    //   theme: 'newyear',
+    //   isChecked: false,
+    // },
+    // {
+    //   id: 3,
+    //   writer: '솔룩스',
+    //   writtendate: '',
+    //   arrivaldate: '',
+    //   cards: [],
+    //   music: '',
+    //   theme: 'newyear',
+    //   isChecked: true,
+    // },
   ],
   uncheckedCount: 0,
   loading: {
@@ -108,7 +108,7 @@ export const put_check_failure = (err) => ({
 });
 
 // Thunk Creators
-export const post_user = (token, isAfterSend) => async (dispatch, getState) => {
+export const post_user = (token) => async (dispatch, getState) => {
   dispatch(post_user_request());
   try {
     const res = await instance.post(
@@ -122,10 +122,7 @@ export const post_user = (token, isAfterSend) => async (dispatch, getState) => {
     );
     if (res.status === 200 && res.data.result.name && res.data.result.email) {
       dispatch(post_user_success(res));
-      if (isAfterSend) {
-        dispatch(count_unchecked());
-        console.log('count unchecked capsule after sending capsule');
-      }
+      dispatch(count_unchecked());
     } else {
       console.log(res.data.result);
     }
@@ -198,6 +195,7 @@ function user(state = initialState, action) {
           ...state.loading,
           POST_USER_REQUEST: true,
         },
+        isSuccess: false,
       };
     case POST_USER_SUCCESS:
       return {
@@ -205,6 +203,7 @@ function user(state = initialState, action) {
         email: action.res.data.result.email,
         name: action.res.data.result.name,
         capsules: action.res.data.result.capsules,
+        isSuccess: true,
       };
     case POST_USER_FAILURE:
       return {
@@ -214,6 +213,7 @@ function user(state = initialState, action) {
           POST_USER_REQUEST: false,
         },
         error: action.payload,
+        isSuccess: false,
       };
 
     case PUT_CHECK_REQUEST:
