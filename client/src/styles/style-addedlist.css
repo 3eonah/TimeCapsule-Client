@@ -1,3 +1,9 @@
+html {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .addedlist-container {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
