@@ -4,8 +4,16 @@ import '../styles/style-onboarding.css';
 import { big_capsule, ic_kakao } from '../assets';
 import { BasicButton } from '../components';
 import { handleKakKaoLogin } from '../api/KaKao';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/modules/user';
+import { reset_capsule } from '../redux/modules/capsule';
 
 const OnBoarding = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(logout());
+    dispatch(reset_capsule());
+  });
   return (
     <div className="onboarding-container">
       <div id="capsule_area">

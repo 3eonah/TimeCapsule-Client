@@ -23,6 +23,7 @@ const KaKao = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { email } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.user);
   useEffect(() => {
     // 카카오 인가코드 발급 받기
     // kakao_auth_code = new URL(window.location.href).searchParams.get('code');
@@ -49,10 +50,15 @@ const KaKao = (props) => {
             const decodedToken = jwtDecode(res.data.userToken);
             if (decodedToken.type === 'JWT') {
               dispatch(post_user(res.data.userToken));
+              if (error) {
+                navigate('/');
+              }
             }
           } catch (err) {
             console.error('Invalid JWT', err);
           }
+        } else {
+          navigate('/');
         }
       } catch (err) {
         console.error(err);

@@ -11,7 +11,11 @@ import {
   ic_deletelist,
 } from '../assets/';
 import { useDispatch, useSelector } from 'react-redux';
-import { post_capsule, update_arrivalinfo } from '../redux/modules/capsule';
+import {
+  post_capsule,
+  reset_capsule,
+  update_arrivalinfo,
+} from '../redux/modules/capsule';
 import useValidate from '../hooks/useValidate';
 import { useNavigate } from 'react-router-dom';
 import { count_unchecked, post_user } from '../redux/modules/user';
@@ -105,7 +109,7 @@ const Send = () => {
   );
 
   const navigate = useNavigate();
-  const postRes = useSelector((state) => state.capsule.postedData);
+  const { error } = useSelector((state) => state.capsule);
   const sendData = () => {
     // 올바른 입력값이나 입력값이 있을 때
     const isDateValidate = handleDateInput();
@@ -115,10 +119,11 @@ const Send = () => {
       dispatch(update_arrivalinfo(dateValues, writerInfo));
       try {
         dispatch(post_capsule(addedList, token));
-        if (postRes.status === 200) {
-          navigate('/send/sendcapsule');
+        if (error) {
+          alert('앗, 캡슐 전송에 실패했어요!');
         } else {
-          alert('Failed to send');
+          dispatch(reset_capsule());
+          navigate('/send/sendcapsule');
         }
       } catch (err) {
         console.log(err);

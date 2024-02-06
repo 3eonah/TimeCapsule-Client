@@ -16,11 +16,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(count_unchecked());
-    if (countRef.current && userInfo.uncheckedCount === 1) {
-      countRef.current.style.paddingRight = '1rem';
-    } else {
-      countRef.current.style.paddingRight = '0rem';
-    }
   }, [userInfo.uncheckedCount]);
 
   // Check if userInfo is available before rendering
