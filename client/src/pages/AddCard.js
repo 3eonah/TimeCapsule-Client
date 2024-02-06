@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { BasicButton, EditCard } from '../components/index';
 import { useDispatch } from 'react-redux';
 import { write } from '../redux/modules/capsule';
+import '../styles/style-addcard.css';
 
 const AddCard = () => {
   const [card, setCard] = useState();
@@ -32,7 +33,7 @@ const AddCard = () => {
   };
 
   return (
-    <div className="container">
+    <div className="addcard-container">
       <h2>새로운 캡슐 보내기</h2>
       <div className="edit-card-div">
         {isEmpty ? (

@@ -1,0 +1,41 @@
+.addcard-container {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 3.5rem 0;
+  color: #fff;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  justify-content: space-around;
+}
+
+/* @media all and (max-width: 430px) {
+  .edit-card-div {
+    margin: 3rem 0;
+  }
+  .alert-txt {
+    color: red;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+}
+
+/* desktop */
+/* @media all and (min-width: 431px) {
+  .edit-card-div {
+    margin: 4rem 0 2rem;
+  }
+} */
+
+@media all and (max-height: 730px) {
+  .addcard-container {
+    justify-content: space-between;
+  }
+}

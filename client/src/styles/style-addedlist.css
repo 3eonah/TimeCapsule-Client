@@ -1,6 +1,6 @@
 .addedlist-container {
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +16,11 @@
 .addedlist-container > .title-div {
   z-index: 100;
   text-align: center;
+}
+
+.addedlist-container > .title-div > .max-txt {
+  font-size: 1rem;
+  margin: 0.7rem 0;
 }
 
 .addedlist-container > .btn-div {
@@ -38,4 +43,28 @@
 
   display: flex;
   flex-direction: column;
+}
+
+@media all and (max-height: 750px) {
+  .addedlist-container {
+    padding: 3rem 0 4rem;
+  }
+
+  .btns-div {
+    bottom: 6%;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .addedlist-container > .title-div > h2 {
+    font-size: 1.24rem;
+  }
+
+  .addedlist-container > .title-div > .max-txt {
+    font-size: 0.8rem;
+  }
+
+  .btns-div {
+    bottom: 6%;
+  }
 }

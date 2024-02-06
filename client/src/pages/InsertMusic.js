@@ -3,6 +3,8 @@ import { BasicButton, ControlIframe } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { update_music } from '../redux/modules/capsule';
 import { useNavigate } from 'react-router-dom';
+import '../styles/style-insertmusic.css';
+
 const InsertMusic = () => {
   const [vidId, setVidId] = useState();
   const navigate = useNavigate();
@@ -13,9 +15,9 @@ const InsertMusic = () => {
   };
 
   return (
-    <div className="container">
+    <div className="musicinsert-container">
       <h2>새로운 캡슐 보내기</h2>
-      <p style={{ fontSize: '1rem', margin: '2rem 0', textAlign: 'center' }}>
+      <p className="description">
         삽입할 음악의 <br /> YouTube 링크를 입력해주세요
       </p>
       <ControlIframe handleMusicUrl={handleVidId} />

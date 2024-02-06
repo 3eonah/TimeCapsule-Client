@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,14 +15,14 @@
 
 .home-container {
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   justify-content: space-between;
   color: #fff;
-  padding: 5rem 0 4.5rem;
+  padding: 3.5rem 0 3.8rem;
 
   position: fixed;
   top: 0;
@@ -34,51 +34,76 @@
 }
 
 .home-container h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
 }
 
 .home-container h2 span {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .cap-div {
-  align-self: center;
-  position: relative;
+  height: calc(var(--vh, 1vh) * 55);
+  /* align-self: center; */
+  /* position: relative; */
   /* margin: 2rem 0; */
-  height: 55vh;
-}
-
-.cap-div > img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+  display: flex;
+  /* flex-direction: column; */
+  flex-direction: row;
+  justify-content: center;
 }
 
-.home-container #shadow {
-  width: 130%;
-  position: absolute;
-  left: -14%;
-  bottom: -50%;
-  z-index: -1;
+.cap-img-area {
+  height: inherit;
+  /* position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0); */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
 }
 
-.cap-txt-area {
+.uncheckedCount-container {
   text-align: center;
   font-weight: 700;
+  width: fit-content;
+
   position: absolute;
-  left: 30%;
-  top: 15%;
-  z-index: 1;
+  height: 49%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.cap-txt-area p:nth-of-type(2) {
+.uncheckedCount-txt div:nth-of-type(1) {
+  font-size: 1rem;
+}
+
+.uncheckedCount-txt div:nth-of-type(2) {
   margin-top: 1rem;
   font-family: 'Digital Numbers';
-  font-size: 3.2rem;
+  font-size: 2.5rem;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-weight: 400;
+}
+
+.cap-img-area > img:nth-of-type(1) {
+  height: inherit;
+  object-fit: contain;
+  /* position: relative; */
+}
+
+.cap-img-area > img:nth-of-type(2) {
+  /* width: 60%; */
+  position: absolute;
+  bottom: -15%;
+  z-index: -1;
 }
 
 .btn-row-div {
@@ -103,15 +128,15 @@
   }
 } */
 
-@media screen and (max-width: 360px) {
+/* @media screen and (max-width: 360px) {
   .cap-div {
-    height: 50vh;
+    height: calc(var(--vh, 1vh) * 50);
     position: relative;
   }
   .cap-div > img:nth-of-type(1) {
     /* width: 120%;
     position: absolute;
-    left: -10%; */
+    left: -10%; 
     object-fit: contain;
   }
 
@@ -134,16 +159,15 @@
   }
 }
 
-
 @media screen and (max-width: 450px) {
   .cap-div {
-    height: 50vh;
+    height: calc(var(--vh, 1vh) * 50);
     position: relative;
   }
   .cap-div > img:nth-of-type(1) {
     /* width: 120%;
     position: absolute;
-    left: -10%; */
+    left: -10%; 
     object-fit: contain;
   }
 
@@ -165,21 +189,63 @@
   .btn-row-div > button > .ic {
     width: 20%;
   }
+} */
+
+@media screen and (max-height: 653px) {
+  .home-container {
+    padding: 3rem 0 3.3rem;
+  }
+  .home-container h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .home-container h2 span {
+    font-size: 1.5rem;
+  }
+  .uncheckedCount-txt div:nth-of-type(1) {
+    font-size: 1rem;
+  }
+
+  .uncheckedCount-txt div:nth-of-type(2) {
+    margin-top: 1rem;
+    font-family: 'Digital Numbers';
+    font-size: 2.4rem;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 400;
+  }
+
+  .btn-row-div > button {
+    font-size: 0.8rem;
+  }
+  .btn-row-div > button > .ic {
+    width: 20%;
+    margin-right: 0.2rem;
+  }
 }
 
-@media screen and (min-height: 881px) {
-  .cap-txt-area > p:nth-of-type(1) {
+@media screen and (min-height: 843px) {
+  .home-container {
+    justify-content: space-around;
+  }
+
+  .home-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .home-container h2 span {
+    font-size: 2rem;
+  }
+  .uncheckedCount-txt div:nth-of-type(1) {
     font-size: 1.3rem;
   }
 
-  .cap-txt-area > p:nth-of-type(2) {
-    font-size: 3.5rem;
-  }
-
-  .cap-txt-area {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 65%);
+  .uncheckedCount-txt div:nth-of-type(2) {
+    margin-top: 1rem;
+    font-family: 'Digital Numbers';
+    font-size: 3rem;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 400;
   }
 }

@@ -34,3 +34,48 @@
   outline: none;
   color: #363636;
 }
+
+.musicinsert-container {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 4rem 0 3.5rem;
+  color: #fff;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.musicinsert-container > .description {
+  font-size: 1rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+@media all and (max-height: 700px) {
+  .musicinsert-container {
+    padding: 3rem 0 3rem;
+  }
+
+  .musicinsert-container > .description {
+    margin: 1rem 0 1.4rem;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .musicinsert-container > h2 {
+    font-size: 1.24rem;
+  }
+
+  .musicinsert-container > .description {
+    font-size: 0.9rem;
+  }
+
+  .vid-div {
+    width: 250px;
+  }
+}

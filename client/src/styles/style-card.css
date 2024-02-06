@@ -107,3 +107,17 @@
   height: 100%;
   object-fit: contain;
 }
+
+@media all and (max-height: 685px) {
+  .card-container {
+    width: 305px;
+    height: 380px;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .card-container {
+    width: 255px;
+    height: 330px;
+  }
+}
