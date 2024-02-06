@@ -177,7 +177,7 @@ const CapsuleDetail = () => {
                 </BasicButton>
                 <div class="marquee">
                   <div>
-                  <span>{currentVideoUploader} - {currentVideoTitle}</span>
+                  <span>{currentVideoUploader}   {currentVideoTitle}</span>
                      </div>
                   </div>
               </div>
