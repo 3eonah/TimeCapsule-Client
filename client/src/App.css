@@ -7,7 +7,8 @@
 }
 
 body {
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: calc(var(--vh, 1vh) * 100);
   background-repeat: no-repeat;
   background-image: radial-gradient(
       80% 80% at 30% 10%,
@@ -34,24 +35,4 @@ body {
       rgba(0, 30, 108, 0.7) 0%,
       rgba(0, 10, 255, 0) 100%
     );
-}
-
-/* mobile */
-@media all and (max-width: 430px) {
-  .edit-card-div {
-    margin: 4rem 0;
-  }
-  .alert-txt {
-    color: red;
-    text-align: center;
-    font-weight: 500;
-    font-size: 1.1rem;
-  }
-}
-
-/* desktop */
-@media all and (min-width: 431px) {
-  .edit-card-div {
-    margin: 4rem 0 2rem;
-  }
 }

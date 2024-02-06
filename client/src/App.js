@@ -11,9 +11,18 @@ import CapsuleList from './pages/CapsuleList';
 import CapsuleDetail from './pages/CapsuleDetail';
 import ThemeList from './pages/ThemeList';
 import Three from './pages/Three';
-import SendCapsule from './pages/SendCapsule'
+import SendCapsule from './pages/SendCapsule';
+import { useEffect } from 'react';
+import useScreenSize from './hooks/useScreenSize';
 
 function App() {
+  const { setScreenSize } = useScreenSize();
+
+  // window.addEventListener('resize', setScreenSize());
+
+  useEffect(() => {
+    setScreenSize();
+  }, [setScreenSize]);
   return (
     <div>
       <Routes>
@@ -28,7 +37,7 @@ function App() {
         <Route path="/capsuledetail" element={<CapsuleDetail />} />
         <Route path="/create" element={<ThemeList />} />
         <Route path="/three" element={<Three />} />
-        <Route path="/send/sendcapsule" element={<SendCapsule /> }/>
+        <Route path="/send/sendcapsule" element={<SendCapsule />} />
       </Routes>
     </div>
   );

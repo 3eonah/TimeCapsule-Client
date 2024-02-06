@@ -1,5 +1,5 @@
 .container.padded {
-  padding: 5rem 1.5rem 3.5rem;
+  padding: 3.5rem 1.5rem 3.5rem;
   box-sizing: border-box;
 }
 
@@ -199,10 +199,14 @@
   }
 }
 
-@media all and (max-height: 667px) {
+@media all and (max-height: 685px) {
   .container.padded {
     padding: 2.2rem 1.5rem 2rem;
     box-sizing: border-box;
+  }
+
+  .container.padded > h2 {
+    font-size: 1.35rem;
   }
   #send-btn {
     padding: 1rem;

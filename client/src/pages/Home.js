@@ -34,12 +34,20 @@ const Home = () => {
           </h2>
         </div>
         <div className="cap-div">
-          <div className="cap-txt-area">
+          {/* <div className="cap-txt-area">
             <p>도착한 캡슐</p>
             <p ref={countRef}>{userInfo.uncheckedCount}</p>
+          </div> */}
+          <div className="cap-img-area">
+            <div className="uncheckedCount-container">
+              <div className="uncheckedCount-txt">
+                <div>도착한 캡슐</div>
+                <div ref={countRef}>{userInfo.uncheckedCount}</div>
+              </div>
+            </div>
+            <img src={capsule}></img>
+            <img src={cap_shadow} id="shadow" />
           </div>
-          <img src={capsule} />
-          <img src={cap_shadow} id="shadow" />
         </div>
         <div className="btn-row-div">
           <BasicButton onClick={() => navigate('/capsulelist')}>

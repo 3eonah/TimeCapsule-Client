@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import YouTube from 'react-youtube';
 import '../styles/style-insertmusic.css';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ const ControlIframe = ({ handleMusicUrl }) => {
   const [link, setLink] = useState('');
   const [vidId, setVidId] = useState(existingState);
   const [isPlayerReady, setPlayerReady] = useState(false);
+  const vidDivRef = useRef(null);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -27,6 +28,13 @@ const ControlIframe = ({ handleMusicUrl }) => {
     setPlayerReady(true);
   };
 
+  const getVidDivWidth = () => {
+    if (vidDivRef.current) {
+      const vidDivWidth = vidDivRef.current.offsetWidth;
+      return vidDivWidth;
+    }
+  };
+
   useEffect(() => {
     if (existingState) {
       // existingState가 존재하면 link 설정
@@ -37,7 +45,7 @@ const ControlIframe = ({ handleMusicUrl }) => {
   }, [existingState]);
 
   return (
-    <div className="vid-div">
+    <div className="vid-div" ref={vidDivRef}>
       <div className="link-div">
         <p>링크를 입력한 후 엔터를 눌러주세요</p>
         <input
@@ -50,7 +58,7 @@ const ControlIframe = ({ handleMusicUrl }) => {
       </div>
       <YouTube
         videoId={vidId}
-        opts={{ width: '311px', height: '219px' }}
+        opts={{ width: getVidDivWidth(), height: '219px' }}
         onReady={onPlayerReady}
       />
     </div>

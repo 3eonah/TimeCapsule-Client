@@ -60,7 +60,7 @@ const AddedCardList = () => {
 
       <div className="title-div">
         <h2>새로운 캡슐 보내기</h2>
-        <p style={{ fontSize: '1rem', margin: '0.7rem 0' }}>최대 5장</p>
+        <p className="max-txt">최대 5장</p>
       </div>
       <MappedDiv cardNum={cards.length}>
         {cards.map((card) => (
@@ -344,6 +344,10 @@ const MappedDiv = styled.div`
         transform: rotate(4deg) scale(1.1);
       }
     `}
+
+    @media screen and (max-height: 750px) {
+    margin-top: 1.5rem;
+  }
 `;
 
 const DeleteModeContainer = styled.div`

@@ -41,6 +41,18 @@ const StyledButton = styled.button`
     margin-right: 0.5rem;
   }
 
+  & {
+    @media all and (min-width: 291px) and (max-width: 320px) {
+      width: 260px;
+      font-size: 1.1rem;
+    }
+
+    @media all and (max-width: 290px) {
+      width: 240px;
+      font-size: 1.1rem;
+    }
+  }
+
   &:hover {
     background: rgba(255, 255, 255, 0.58);
     border-radius: 16px;
@@ -60,6 +72,12 @@ const StyledButton = styled.button`
       margin-bottom: 1.3rem;
       // position: absolute;
       // right: 0;
+
+      @media all and (max-width: 320px) {
+        width: 60px;
+        display: flex;
+        padding: 1.3rem;
+      }
     `}
 
   ${(props) =>
