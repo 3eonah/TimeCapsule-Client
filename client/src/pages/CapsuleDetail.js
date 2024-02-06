@@ -157,10 +157,14 @@ const CapsuleDetail = () => {
                 <p className="cd-from">
                   <span>전달한 분 </span> <br /> {foundCapsule.writer}
                 </p>
-                <p className="cd-date">
-                  <span>작성일 </span> <br />
-                  {foundCapsule.writtendate}
-                </p>
+             <p className="cd-date">
+              <span>작성일 </span> <br />
+              {new Date(foundCapsule.writtendate).toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+              }).replace(/\./g, '.').slice(0, -1)}
+            </p>
               </div>
               <div className="cd-button-container">
                 <BasicButton onClick={unmuteVideo}>
