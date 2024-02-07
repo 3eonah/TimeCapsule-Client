@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'DungGeunMo';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
-  
 }
 .cd-App {
   overflow: hidden;
@@ -13,8 +13,7 @@
   position: relative;
   height: calc(var(--vh, 1vh) * 100);
   display: flex;
-  flex-direction: column-reverse; 
-  
+  flex-direction: column-reverse;
 }
 
 .cd-slide-image {
@@ -22,8 +21,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  filter: brightness(50%)
-  
+  filter: brightness(50%);
 }
 
 .cd-slide-text {
@@ -34,14 +32,12 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  color: #fff; 
+  color: #fff;
   font-weight: 200;
-  font-size: 1.2rem; 
-  margin-left: 5%; 
+  font-size: 1.2rem;
+  margin-left: 5%;
   margin-top: 10%;
-  
 }
-
 
 .cd-info-container {
   display: flex;
@@ -51,19 +47,18 @@
 }
 
 .cd-button-container {
-  margin-top :5%;
+  margin-top: 5%;
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .cd-button-container > * {
-  margin-right: 4% 
+  margin-right: 4%;
 }
 
-
 .cd-content {
-  align-self: flex-start; 
-  margin-top:100%; 
+  align-self: flex-start;
+  margin-top: 100%;
   margin-right: 30%;
 }
 
@@ -73,9 +68,8 @@
   transform: translateY(-50%);
   right: -5%;
   cursor: pointer;
-  width: 100px; 
-  height: 100px; 
-  
+  width: 100px;
+  height: 100px;
 }
 
 .cd-sliding-button img {
@@ -84,18 +78,14 @@
   object-fit: cover;
 }
 
-
-
-
 .cd-from span,
 .cd-date span {
   font-weight: 1000;
 }
 
-
 .slick-dots {
   position: absolute;
-  bottom: 20px; 
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   list-style: none;
@@ -110,26 +100,24 @@
 }
 
 .slick-dots button {
-  font-size: 0; 
+  font-size: 0;
   line-height: 0;
   width: 10px;
   height: 10px;
-  background-color: #fff; 
-  border: 1px solid #ddd; 
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .slick-dots button:hover {
-  background-color: #ddd; 
+  background-color: #ddd;
 }
 
 .slick-dots .slick-active button {
-  background-color: #333; 
+  background-color: #333;
 }
-
-
 
 .marquee {
   height: 25px;
@@ -157,27 +145,64 @@
 }
 
 @keyframes marquee {
-  0% { left: +10%; }
-  100% { left: -100%; }
-}
-
-
-@media screen and (max-width: 340px) {
-  .cd-content {
-    margin-bottom:95%; 
+  0% {
+    left: +10%;
+  }
+  100% {
+    left: -100%;
   }
 }
 
-
-@media screen and (max-width: 370px) {
+@media screen and (max-height: 660px) and (max-width: 281px) {
   .cd-content {
-    margin-bottom:85%; 
+    margin-top: 129%;
   }
 }
 
-
-@media screen and (max-width: 390px) {
+@media screen and (min-height: 661px) and (max-height: 667px) {
   .cd-content {
-    margin-top:70%; 
+    margin-top: 100%;
+  }
+}
+
+@media screen and (min-height: 668px) and (max-height: 690px) {
+  .cd-content {
+    margin-top: 125%;
+  }
+}
+
+@media screen and (min-height: 691px) and (max-height: 740px) {
+  .cd-content {
+    margin-top: 130%;
+  }
+}
+
+@media screen and (min-height: 741px) and (max-height: 761px) {
+  .cd-content {
+    margin-top: 138%;
+  }
+}
+
+@media screen and (min-height: 762px) and (max-height: 780px) {
+  .cd-content {
+    margin-top: 145%;
+  }
+}
+
+@media screen and (min-height: 781px) and (max-height: 844px) {
+  .cd-content {
+    margin-top: 146%;
+  }
+}
+
+@media screen and (min-height: 845px) and (max-height: 896px) {
+  .cd-content {
+    margin-top: 147%;
+  }
+}
+
+@media screen and (min-height: 897px) and (max-height: 932px) {
+  .cd-content {
+    margin-top: 148%;
   }
 }
