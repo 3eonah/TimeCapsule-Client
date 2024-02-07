@@ -196,9 +196,11 @@ function user(state = initialState, action) {
     case SET_ARRIVALDATE_TYPE:
       const updatedCapsules = state.capsules.map((capsule) => {
         if (capsule.arrivaldate) {
+          const stringToDate = new Date(capsule.arrivaldate);
+          stringToDate.setHours(0, 0, 0, 0);
           return {
             ...capsule,
-            arrivaldate: new Date(capsule.arrivaldate),
+            arrivaldate: stringToDate,
           };
         }
         return capsule;
