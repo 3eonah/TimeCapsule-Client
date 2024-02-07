@@ -64,8 +64,8 @@ const EditCard = ({ onCardValueChange }) => {
     <div className="card-container" ref={cardRef}>
       <textarea
         className="txt-area"
-        placeholder="최대 120자"
-        maxLength={120}
+        placeholder="최대 110자"
+        maxLength={110}
         ref={textRef}
         onChange={handleTextChange}
       ></textarea>
