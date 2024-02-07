@@ -107,7 +107,9 @@ const CapsuleDetail = () => {
 
   const goToNextSlide = () => {
     sliderRef.current.slickNext();
-    const currentSlide = sliderRef.current.innerSlider.state.currentSlide;
+    const current = sliderRef.current.innerSlider.state.currentSlide;
+    // setCurrentSlide(current);
+    // console.log(currentSlide);
     setCurrentVideoId(foundCapsule.music); // 공통 videoId 사용
   };
 
@@ -140,12 +142,6 @@ const CapsuleDetail = () => {
     setIsMuted(true);
   };
 
-  useEffect(() => {
-    console.log(foundCapsule);
-    getTextLength();
-    console.log(isLongText);
-  }, []);
-
   const isRetroTheme = foundCapsule.theme === 'retro';
   const getTextStyle = () => {
     if (isRetroTheme) {
@@ -172,90 +168,81 @@ const CapsuleDetail = () => {
     setPauseOpacity(0.5);
   };
 
-  const contentTextRef = useRef();
-  const [isLongText, setIsLongText] = useState(false);
-  const getTextLength = () => {
-    const originalText = contentTextRef.current.textContent;
-    const singleLineText = originalText.replace(/\n/g, ' ');
-    const textLength = singleLineText.length;
-    console.log('textLength:', textLength);
-    if (!(textLength < 25)) {
-      setIsLongText(true);
-    }
-  };
-
   return (
     <div className={isRetro ? 'cd-App retro' : 'cd-App'}>
       <Slider ref={sliderRef} {...settings}>
-        {foundCapsule.cards.map((data, index) => (
-          <div key={index} className="cd-slide-container">
-            <img
-              src={data.image}
-              alt={`이미지 ${index + 1}`}
-              className="cd-slide-image"
-            />
-            <div className="cd-slide-text" style={getTextStyle()}>
-              <div className="cd-info-container">
-                <p className="cd-from" style={getTextStyle()}>
-                  <span style={getTextStyle()}>전달한 분 </span> <br />{' '}
-                  {foundCapsule.writer}
-                </p>
-                <p className="cd-date" style={getTextStyle()}>
-                  <span style={getTextStyle()}>작성일 </span> <br />
-                  {new Date(foundCapsule.writtendate)
-                    .toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })
-                    .replace(/\./g, '.')
-                    .slice(0, -1)}
-                </p>
-              </div>
-              <div className="cd-button-container">
-                {isRetroTheme ? (
-                  <>
-                    <img
-                      src={pause_retro}
-                      alt="재생"
-                      onClick={handlePauseClick}
-                      style={{ opacity: pauseOpacity }}
-                    />
-                    <img
-                      src={play_retro}
-                      alt="일시 정지"
-                      onClick={handlePlayClick}
-                      style={{ opacity: playOpacity }}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <BasicButton onClick={unmuteVideo}>
-                      <img src={musicon} alt="음소거 해제" />
-                    </BasicButton>
-                    <BasicButton onClick={muteVideo}>
-                      <img src={musicoff} alt="음소거 하기" />
-                    </BasicButton>
-                  </>
-                )}
-                <div className="marquee">
-                  <div>
-                    <span style={getTextStyle()}>
-                      {currentVideoUploader} {currentVideoTitle}
-                    </span>
+        {foundCapsule.cards.map((data, index) => {
+          return (
+            <div key={index} className="cd-slide-container">
+              <img
+                src={data.image}
+                alt={`이미지 ${index + 1}`}
+                className="cd-slide-image"
+              />
+              <div className="cd-slide-text" style={getTextStyle()}>
+                <div className="cd-info-container">
+                  <p className="cd-from" style={getTextStyle()}>
+                    <span style={getTextStyle()}>전달한 분 </span> <br />{' '}
+                    {foundCapsule.writer}
+                  </p>
+                  <p className="cd-date" style={getTextStyle()}>
+                    <span style={getTextStyle()}>작성일 </span> <br />
+                    {new Date(foundCapsule.writtendate)
+                      .toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                      })
+                      .replace(/\./g, '.')
+                      .slice(0, -1)}
+                  </p>
+                </div>
+                <div className="cd-button-container">
+                  {isRetroTheme ? (
+                    <>
+                      <img
+                        src={pause_retro}
+                        alt="재생"
+                        onClick={handlePauseClick}
+                        style={{ opacity: pauseOpacity }}
+                      />
+                      <img
+                        src={play_retro}
+                        alt="일시 정지"
+                        onClick={handlePlayClick}
+                        style={{ opacity: playOpacity }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <BasicButton onClick={unmuteVideo}>
+                        <img src={musicon} alt="음소거 해제" />
+                      </BasicButton>
+                      <BasicButton onClick={muteVideo}>
+                        <img src={musicoff} alt="음소거 하기" />
+                      </BasicButton>
+                    </>
+                  )}
+                  <div className="marquee">
+                    <div>
+                      <span style={getTextStyle()}>
+                        {currentVideoUploader} {currentVideoTitle}
+                      </span>
+                    </div>
                   </div>
                 </div>
+                <p
+                  className={
+                    data.text.length > 70 ? 'cd-content long' : 'cd-content'
+                  }
+                  style={getTextStyle()}
+                >
+                  {data.text}
+                </p>
               </div>
-              <p
-                className={isLongText ? 'cd-content long' : 'cd-content'}
-                style={getTextStyle()}
-                ref={contentTextRef}
-              >
-                {data.text}
-              </p>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </Slider>
       <img
         src={isRetroTheme ? arrow_retro : slidingbutton}
