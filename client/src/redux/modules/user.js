@@ -61,6 +61,7 @@ const UPDATE_TOKEN = 'user/UPDATE_TOKEN';
 const LOGOUT = 'user/LOGOUT';
 const UPDATE_CHECK = 'user/UPDATE_CHECK';
 const COUNT_UNCHECKED = 'user/COUNT_UNCHECKED';
+const SET_ARRIVALDATE_TYPE = 'user/SET_ARRIVALDATE_TYPE';
 
 const POST_USER_REQUEST = 'user/POST_USER_REQUEST';
 const POST_USER_SUCCESS = 'user/POST_USER_SUCCESS';
@@ -85,6 +86,9 @@ export const update_check = (id) => ({
 });
 
 export const count_unchecked = () => ({ type: COUNT_UNCHECKED });
+export const set_arrivaldate_type = () => ({
+  type: SET_ARRIVALDATE_TYPE,
+});
 
 export const post_user_request = () => ({ type: POST_USER_REQUEST });
 export const post_user_success = (res) => ({
@@ -122,10 +126,11 @@ export const post_user = (token) => async (dispatch, getState) => {
     );
     if (res.status === 200 && res.data.result.name && res.data.result.email) {
       dispatch(post_user_success(res));
-      dispatch(count_unchecked());
     } else {
       console.log(res.data.result);
     }
+    dispatch(set_arrivaldate_type());
+    dispatch(count_unchecked());
   } catch (err) {
     dispatch(post_user_failure(err.message));
   }
@@ -179,14 +184,29 @@ function user(state = initialState, action) {
           uncheckedCount: 0,
         };
       } else {
+        const currentDate = new Date();
         const uncheckedCount = state.capsules.filter(
-          (capsule) => !capsule.isChecked
+          (capsule) => !capsule.isChecked && capsule.arrivaldate <= currentDate
         ).length;
         return {
           ...state,
           uncheckedCount,
         };
       }
+    case SET_ARRIVALDATE_TYPE:
+      const updatedCapsules = state.capsules.map((capsule) => {
+        if (capsule.arrivaldate) {
+          return {
+            ...capsule,
+            arrivaldate: new Date(capsule.arrivaldate),
+          };
+        }
+        return capsule;
+      });
+      return {
+        ...state,
+        capsules: updatedCapsules,
+      };
 
     case POST_USER_REQUEST:
       return {
