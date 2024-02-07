@@ -162,6 +162,20 @@
 }
 
 
+@media screen and (max-width: 340px) {
+  .cd-content {
+    margin-bottom:95%; 
+  }
+}
+
+
+@media screen and (max-width: 370px) {
+  .cd-content {
+    margin-bottom:85%; 
+  }
+}
+
+
 @media screen and (max-width: 390px) {
   .cd-content {
     margin-top:70%; 
