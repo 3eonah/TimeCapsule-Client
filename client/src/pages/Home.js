@@ -4,7 +4,11 @@ import { capsule, cap_shadow, ic_list, ic_addpost } from '../assets/index.js';
 import { BasicButton } from '../components/index.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { count_unchecked, post_user } from '../redux/modules/user.js';
+import {
+  count_unchecked,
+  post_user,
+  set_arrivaldate_type,
+} from '../redux/modules/user.js';
 import { reset_capsule } from '../redux/modules/capsule.js';
 
 const Home = () => {
@@ -16,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(count_unchecked());
-  }, [userInfo.uncheckedCount]);
+  }, [userInfo.count_unchecked]);
 
   // Check if userInfo is available before rendering
   if (userInfo) {
