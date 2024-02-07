@@ -15,6 +15,7 @@ import '../styles/style-capsuledetail.css';
 import { BasicButton } from '../components/index.js';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import '../styles/slider-dots-style.scss';
 
 const REACT_APP_YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
@@ -45,11 +46,12 @@ const CapsuleDetail = () => {
   const capsuleId = location.state.capsuleId;
   const { capsules } = useSelector((state) => state.user);
   const foundCapsule = capsules.find((capsule) => capsule.id === capsuleId);
+  const isRetro = foundCapsule.theme === 'retro';
 
   const sliderRef = useRef(null);
   const playerRef = useRef(null);
   const [currentVideoTitle, setCurrentVideoTitle] = useState('');
-  const [currentVideoUploader,  setCurrentVideoUploader] = useState('');
+  const [currentVideoUploader, setCurrentVideoUploader] = useState('');
   const [currentVideoId, setCurrentVideoId] = useState(foundCapsule.music);
 
   const [isMuted, setIsMuted] = useState(true);
@@ -61,8 +63,6 @@ const CapsuleDetail = () => {
     slidesToScroll: 1,
   };
 
-  
-
   const fetchVideoInfo = async (videoId) => {
     try {
       // YouTube API 요청
@@ -71,16 +71,17 @@ const CapsuleDetail = () => {
       );
 
       // API 응답에서 제목과 업로더 정보 추출
-    const title = response.data.items[0].snippet.title;
-    const uploader = response.data.items[0].snippet.channelTitle.split(' - ')[0];
+      const title = response.data.items[0].snippet.title;
+      const uploader =
+        response.data.items[0].snippet.channelTitle.split(' - ')[0];
 
-    // 업로더 이름이 제목에도 있으면 없엠
-    const cleanedTitle = title.replace(new RegExp(uploader, 'i'), '').trim();
+      // 업로더 이름이 제목에도 있으면 없엠
+      const cleanedTitle = title.replace(new RegExp(uploader, 'i'), '').trim();
 
-    const videoInfo = {
-      title: cleanedTitle,
-      uploader: uploader,
-    };
+      const videoInfo = {
+        title: cleanedTitle,
+        uploader: uploader,
+      };
 
       return videoInfo;
     } catch (error) {
@@ -89,20 +90,17 @@ const CapsuleDetail = () => {
     }
   };
 
-
   useEffect(() => {
     const fetchInfo = async () => {
       const info = await fetchVideoInfo(currentVideoId);
       if (info) {
         setCurrentVideoTitle(info.title);
         setCurrentVideoUploader(info.uploader);
-       
       }
     };
 
     fetchInfo();
   }, [currentVideoId]);
-
 
   const goToNextSlide = () => {
     sliderRef.current.slickNext();
@@ -126,11 +124,11 @@ const CapsuleDetail = () => {
   const unmuteVideo = () => {
     if (playerRef.current) {
       playerRef.current.unMute();
-      playerRef.current.playVideo(); 
+      playerRef.current.playVideo();
     }
     setIsMuted(false);
   };
-  
+
   const muteVideo = () => {
     if (playerRef.current) {
       playerRef.current.mute();
@@ -138,14 +136,13 @@ const CapsuleDetail = () => {
     setCurrentVideoId(foundCapsule.music); // Set to the common video ID
     setIsMuted(true);
   };
-  
 
   useEffect(() => {
     console.log(foundCapsule);
   }, []);
 
   return (
-    <div className="cd-App">
+    <div className={isRetro ? 'cd-App retro' : 'cd-App'}>
       <Slider ref={sliderRef} {...settings}>
         {foundCapsule.cards.map((data, index) => (
           <div key={index} className="cd-slide-container">
@@ -159,14 +156,17 @@ const CapsuleDetail = () => {
                 <p className="cd-from">
                   <span>전달한 분 </span> <br /> {foundCapsule.writer}
                 </p>
-             <p className="cd-date">
-              <span>작성일 </span> <br />
-              {new Date(foundCapsule.writtendate).toLocaleDateString('ko-KR', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-              }).replace(/\./g, '.').slice(0, -1)}
-            </p>
+                <p className="cd-date">
+                  <span>작성일 </span> <br />
+                  {new Date(foundCapsule.writtendate)
+                    .toLocaleDateString('ko-KR', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })
+                    .replace(/\./g, '.')
+                    .slice(0, -1)}
+                </p>
               </div>
               <div className="cd-button-container">
                 <BasicButton onClick={unmuteVideo}>
@@ -175,11 +175,13 @@ const CapsuleDetail = () => {
                 <BasicButton onClick={muteVideo}>
                   <img src={musicoff} alt="음소거 하기" />
                 </BasicButton>
-                <div class="marquee">
+                <div className="marquee">
                   <div>
-                  <span>{currentVideoUploader}   {currentVideoTitle}</span>
-                     </div>
+                    <span>
+                      {currentVideoUploader} {currentVideoTitle}
+                    </span>
                   </div>
+                </div>
               </div>
               <p className="cd-content">{data.text}</p>
             </div>
@@ -192,7 +194,7 @@ const CapsuleDetail = () => {
         className="cd-sliding-button"
         onClick={goToNextSlide}
       />
-       <div style={videoStyle}>
+      <div style={videoStyle}>
         <YouTube
           videoId={currentVideoId}
           opts={opts}
