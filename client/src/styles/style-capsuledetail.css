@@ -163,13 +163,13 @@
     margin-top: 129%;
   }
   .cd-content.long {
-    margin-top: 113%;
+    margin-top: 110%;
   }
 }
 
 @media screen and (max-height: 600px) {
   .cd-content.long {
-    margin-top: 77%;
+    margin-top: 70%;
   }
 }
 
@@ -178,7 +178,7 @@
     margin-top: 100%;
   }
   .cd-content.long {
-    margin-top: 90%;
+    margin-top: 70%;
   }
 }
 
@@ -187,7 +187,7 @@
     margin-top: 125%;
   }
   .cd-content.long {
-    margin-top: 108%;
+    margin-top: 80%;
   }
 }
 
@@ -196,7 +196,7 @@
     margin-top: 130%;
   }
   .cd-content.long {
-    margin-top: 109%;
+    margin-top: 90%;
   }
 }
 
@@ -205,7 +205,7 @@
     margin-top: 138%;
   }
   .cd-content.long {
-    margin-top: 123%;
+    margin-top: 100%;
   }
 }
 
@@ -214,7 +214,7 @@
     margin-top: 145%;
   }
   .cd-content.long {
-    margin-top: 133%;
+    margin-top: 100%;
   }
 }
 
@@ -223,7 +223,7 @@
     margin-top: 146%;
   }
   .cd-content.long {
-    margin-top: 134%;
+    margin-top: 104%;
   }
 }
 
@@ -232,7 +232,7 @@
     margin-top: 147%;
   }
   .cd-content.long {
-    margin-top: 135%;
+    margin-top: 107%;
   }
 }
 
@@ -241,6 +241,6 @@
     margin-top: 148%;
   }
   .cd-content.long {
-    margin-top: 136%;
+    margin-top: 110%;
   }
 }
