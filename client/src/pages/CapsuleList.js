@@ -102,7 +102,9 @@ const CapsuleList = () => {
         )
       : [];
     setVisibleData(updatedVisibleData);
-
+    capsules.map((data) => {
+      console.log(data.arrivaldate);
+    });
     console.log(`${isChecked ? '확인한' : '확인하지 않은'} 캡슐 보기`);
     console.log(updatedVisibleData);
 
