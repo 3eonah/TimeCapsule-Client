@@ -25,13 +25,15 @@ import europe from './europe.jpg';
 import school from './school.jpg';
 import slidingbutton from './slidingbutton.svg';
 import musicon from './musicon.svg';
-import musicoff from './musicoff.svg'; 
+import musicoff from './musicoff.svg';
 import cp_newyear from './cp_newyear.svg';
 import cp_newyear_open from './cp_newyear_open.svg';
 import pause_retro from './pause_retro.svg'
 import play_retro from './play_retro.svg'
 import arrow_retro from './arrow_retro.svg'
 
+import ic_slick_active from './ic_slick_active.svg';
+import ic_slick_inactive from './ic_slick_inactive.svg';
 
 export {
   cap_shadow,
@@ -66,8 +68,10 @@ export {
   cp_newyear_open,
   pause_retro,
   play_retro,
-  arrow_retro
+  arrow_retro,
 
   
 
+  ic_slick_active,
+  ic_slick_inactive,
 };

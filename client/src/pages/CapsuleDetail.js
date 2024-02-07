@@ -18,6 +18,7 @@ import '../styles/style-capsuledetail.css';
 import { BasicButton } from '../components/index.js';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import '../styles/slider-dots-style.scss';
 
 const REACT_APP_YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
@@ -48,11 +49,12 @@ const CapsuleDetail = () => {
   const capsuleId = location.state.capsuleId;
   const { capsules } = useSelector((state) => state.user);
   const foundCapsule = capsules.find((capsule) => capsule.id === capsuleId);
+  const isRetro = foundCapsule.theme === 'retro';
 
   const sliderRef = useRef(null);
   const playerRef = useRef(null);
   const [currentVideoTitle, setCurrentVideoTitle] = useState('');
-  const [currentVideoUploader,  setCurrentVideoUploader] = useState('');
+  const [currentVideoUploader, setCurrentVideoUploader] = useState('');
   const [currentVideoId, setCurrentVideoId] = useState(foundCapsule.music);
 
   const [isMuted, setIsMuted] = useState(true);
@@ -64,8 +66,6 @@ const CapsuleDetail = () => {
     slidesToScroll: 1,
   };
 
-  
-
   const fetchVideoInfo = async (videoId) => {
     try {
       // YouTube API 요청
@@ -74,16 +74,17 @@ const CapsuleDetail = () => {
       );
 
       // API 응답에서 제목과 업로더 정보 추출
-    const title = response.data.items[0].snippet.title;
-    const uploader = response.data.items[0].snippet.channelTitle.split(' - ')[0];
+      const title = response.data.items[0].snippet.title;
+      const uploader =
+        response.data.items[0].snippet.channelTitle.split(' - ')[0];
 
-    // 업로더 이름이 제목에도 있으면 없엠
-    const cleanedTitle = title.replace(new RegExp(uploader, 'i'), '').trim();
+      // 업로더 이름이 제목에도 있으면 없엠
+      const cleanedTitle = title.replace(new RegExp(uploader, 'i'), '').trim();
 
-    const videoInfo = {
-      title: cleanedTitle,
-      uploader: uploader,
-    };
+      const videoInfo = {
+        title: cleanedTitle,
+        uploader: uploader,
+      };
 
       return videoInfo;
     } catch (error) {
@@ -92,20 +93,17 @@ const CapsuleDetail = () => {
     }
   };
 
-
   useEffect(() => {
     const fetchInfo = async () => {
       const info = await fetchVideoInfo(currentVideoId);
       if (info) {
         setCurrentVideoTitle(info.title);
         setCurrentVideoUploader(info.uploader);
-       
       }
     };
 
     fetchInfo();
   }, [currentVideoId]);
-
 
   const goToNextSlide = () => {
     sliderRef.current.slickNext();
@@ -129,11 +127,11 @@ const CapsuleDetail = () => {
   const unmuteVideo = () => {
     if (playerRef.current) {
       playerRef.current.unMute();
-      playerRef.current.playVideo(); 
+      playerRef.current.playVideo();
     }
     setIsMuted(false);
   };
-  
+
   const muteVideo = () => {
     if (playerRef.current) {
       playerRef.current.mute();
@@ -141,7 +139,6 @@ const CapsuleDetail = () => {
     setCurrentVideoId(foundCapsule.music); // Set to the common video ID
     setIsMuted(true);
   };
-  
 
   useEffect(() => {
     console.log(foundCapsule);
@@ -178,31 +175,34 @@ const CapsuleDetail = () => {
   };
 
 
-  return (
-    <div className="cd-App">
-      <Slider ref={sliderRef} {...settings}>
-        {foundCapsule.cards.map((data, index) => (
-          <div key={index} className="cd-slide-container" >
-            <img
-              src={data.image}
-              alt={`이미지 ${index + 1}`}
-              className="cd-slide-image"
-            />
-            <div className="cd-slide-text" >
-              <div className="cd-info-container">
-                <p className="cd-from"style={getTextStyle()}>
-                  <span style={getTextStyle()}>전달한 분 </span> <br /> {foundCapsule.writer}
-                </p>
-                <p className="cd-date" style={getTextStyle()} >
-                  <span style={getTextStyle()} >작성일 </span> <br />
-                  {new Date(foundCapsule.writtendate).toLocaleDateString('ko-KR', {
+return (
+  <div className={isRetro ? 'cd-App retro' : 'cd-App'}>
+    <Slider ref={sliderRef} {...settings}>
+      {foundCapsule.cards.map((data, index) => (
+        <div key={index} className="cd-slide-container">
+          <img
+            src={data.image}
+            alt={`이미지 ${index + 1}`}
+            className="cd-slide-image"
+          />
+          <div className="cd-slide-text" style={getTextStyle()}>
+            <div className="cd-info-container">
+              <p className="cd-from" style={getTextStyle()} >
+                <span style={getTextStyle()}>전달한 분 </span> <br /> {foundCapsule.writer}
+              </p>
+              <p className="cd-date" style={getTextStyle()} >
+                <span style={getTextStyle()}>작성일 </span> <br />
+                {new Date(foundCapsule.writtendate)
+                  .toLocaleDateString('ko-KR', {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit',
-                  }).replace(/\./g, '.').slice(0, -1)}
-                </p>
-              </div>
-              <div className="cd-button-container">
+                  })
+                  .replace(/\./g, '.')
+                  .slice(0, -1)}
+              </p>
+            </div>
+            <div className="cd-button-container">
               {isRetroTheme ? (
                 <>
                   <img
@@ -218,42 +218,48 @@ const CapsuleDetail = () => {
                     style={{ opacity: playOpacity }}
                   />
                 </>
-                  ) : (
-                  <>
+              ) : (
+                <>
                   <BasicButton onClick={unmuteVideo}>
                     <img src={musicon} alt="음소거 해제" />
                   </BasicButton>
                   <BasicButton onClick={muteVideo}>
-                   <img src={musicoff} alt="음소거 하기" />
+                    <img src={musicoff} alt="음소거 하기" />
                   </BasicButton>
-                 </> )}
-                <div class="marquee">
-                  <div>
-                    <span style={getTextStyle()}  >{currentVideoUploader}   {currentVideoTitle}</span>
-                  </div>
+                </>
+              )}
+              <div className="marquee">
+                <div>
+                  <span style={getTextStyle()}>
+                    {currentVideoUploader} {currentVideoTitle}
+                  </span>
                 </div>
               </div>
-              <p className="cd-content" style={getTextStyle()}>{data.text}</p>
             </div>
+            <p className="cd-content" style={getTextStyle()}>
+              {data.text}
+            </p>
           </div>
-        ))}
-      </Slider>
-      <img
-        src={isRetroTheme ? arrow_retro : slidingbutton}
-        alt="슬라이딩 버튼"
-        className={`cd-sliding-button ${isRetroTheme ? 'retro-arrow' : ''}`}
-        style={isRetroTheme ? { width: '40px', height: '40px',marginRight: '15px' } : {}}
-        onClick={goToNextSlide}
+        </div>
+      ))}
+    </Slider>
+    <img
+      src={isRetroTheme ? arrow_retro : slidingbutton}
+      alt="슬라이딩 버튼"
+      className={`cd-sliding-button ${isRetroTheme ? 'retro-arrow' : ''}`}
+      style={isRetroTheme ? { width: '40px', height: '40px', marginRight: '15px' } : {}}
+      onClick={goToNextSlide}
+    />
+    <div style={videoStyle}>
+      <YouTube
+        videoId={currentVideoId}
+        opts={opts}
+        onReady={(e) => (playerRef.current = e.target)}
       />
-      <div style={videoStyle}>
-        <YouTube
-          videoId={currentVideoId}
-          opts={opts}
-          onReady={(e) => (playerRef.current = e.target)}
-        />
-      </div>
     </div>
-  );
+  </div>
+);
+
    };
 
 export default CapsuleDetail;
