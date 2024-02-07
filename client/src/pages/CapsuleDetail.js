@@ -143,6 +143,7 @@ const CapsuleDetail = () => {
   useEffect(() => {
     console.log(foundCapsule);
     getTextLength();
+    console.log(isLongText);
   }, []);
 
   const isRetroTheme = foundCapsule.theme === 'retro';
@@ -174,8 +175,11 @@ const CapsuleDetail = () => {
   const contentTextRef = useRef();
   const [isLongText, setIsLongText] = useState(false);
   const getTextLength = () => {
-    const textLength = contentTextRef.current.innerText.length;
-    if (textLength >= 80) {
+    const originalText = contentTextRef.current.textContent;
+    const singleLineText = originalText.replace(/\n/g, ' ');
+    const textLength = singleLineText.length;
+    console.log('textLength:', textLength);
+    if (!(textLength < 25)) {
       setIsLongText(true);
     }
   };

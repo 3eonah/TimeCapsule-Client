@@ -34,7 +34,7 @@
   width: 100%;
   color: #fff;
   font-weight: 200;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-left: 5%;
   margin-top: 10%;
 }
@@ -119,6 +119,10 @@
   background-color: #333;
 }
 
+.cd-App.retro .slick-dots .slick-active button {
+  background-color: transparent;
+}
+
 .marquee {
   height: 25px;
   width: 420px;
@@ -158,6 +162,9 @@
   .cd-content {
     margin-top: 129%;
   }
+  .cd-content.long {
+    margin-top: 113%;
+  }
 }
 
 @media screen and (min-height: 661px) and (max-height: 667px) {
@@ -165,7 +172,7 @@
     margin-top: 100%;
   }
   .cd-content.long {
-    margin-top: 88%;
+    margin-top: 90%;
   }
 }
 
