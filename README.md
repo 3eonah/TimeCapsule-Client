@@ -5,8 +5,8 @@
 <br/>
 
 ## ✨ 프로젝트 소개
-- **과거에서 온 편지**는 타임캡슐 컨셉 🚀 을 기반으로 추억에 대한 감상을 사용자간 송수신할 수 있는 서비스입니다.
-- 소위 '추억팔이 👵🏻🫧' 라고 불리는 과거 소중했던 시간들에 대한 회고를 계기로 서비스를 기획했습니다.
+- **과거에서 온 편지**는 🚀 타임캡슐 🚀 컨셉 을 기반으로 추억에 대한 감상을 사용자간 송수신할 수 있는 서비스입니다.
+- 소위 '추억팔이 👵🏻 🫧' 라고 불리는 노스탤지어를 계기로 서비스를 기획했습니다.
 - 타임캡슐은 `이미지`, `텍스트`, `음악`을 포함한 포토덤프 형태로 모아볼 수 있습니다.
 - 전송자 본인을 포함한 특정 사용자가 지정한 날짜에 타임캡슐을 조회할 수 있도록 설계했습니다.
   
@@ -58,4 +58,55 @@
 <br/>
 
 ## 🕹️ 페이지별 기능
+### [시작화면]
+1. 서비스 이용을 원하는 유저는 `카카오 소셜 로그인` 을 통해 간편하게 로그인/회원가입을 할 수 있습니다.
+2. 로그인한 유저는 `도착한 캡슐 개수` 를 확인할 수 있습니다.
+3. 계절과 트렌드를 반영한 `다양한 테마`가 반영된 시작 화면을 통해 서비스가 가진 감성을 유저가 즐길 수 있도록 디자인했으나 구현되어 있진 않습니다.
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/6441e35b-4335-4c55-b589-fb589883cf60" width="190" height="411.18"/>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/726d754e-0217-47a1-9918-75d4acbe341d" width="190" height="411.18"/>
+   <div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/04942398-cc81-4f30-87d8-5e1d7cec23fe" width="190" height="411.18"/>
+   <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/c352baa6-ea03-4aea-9582-3a1f9ec3b8fa" width="190" height="411.18"/>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/94245c04-130c-4fc6-adf0-5794093f3ec8" width="190" height="411.18"/>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/b879d374-bc0f-4c91-876d-76537a6d2a3b" width="190" height="411.18"/>
+</div>
+</div>  
 
+### [새로운 캡슐 생성]
+1. `캡슐 테마` 를 선택할 수 있습니다.
+2. 갤러리에 저장된 `사진`을 첨부하고 `텍스트`를 입력하여 포토 카드를 최대 5장 생성할 수 있습니다.
+3. 유튜브 링크를 첨부하여 캡슐 조회시 `음악`을 자동 재생할 수 있습니다.
+4. 카드를 길게 누르면 `삭제` 할 수 있습니다. 
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/cd649161-cbb0-4b40-aed6-96bd480667c1" width="200"/>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/814bb11e-bf59-4e99-a499-4302fc15056d" width="200"/>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/117933bf-9e75-49b2-a537-a7083980114c" width="200"/>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/1cce8167-16ea-49b2-911e-128df61841ce" width="200"/>
+</div>
+
+### [캡슐 전송]
+1. 캡슐 `도착일`과 `수신자` 이메일을 입력합니다. 본인을 포함한 여러 사용자 이메일을 추가할 수 있습니다.
+2. 캡슐 전송이 완료되면 `시작화면으로 이동`합니다.
+3. `나에게 보내기`를 선택했기 때문에 도착한 캡슐 개수가 늘어있는 것을 확인할 수 있습니다.
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/cbdcac3f-2d30-4946-b404-5b1591263a02" width="200" />
+</div>
+
+### [캡슐 목록 및 내용 확인]
+1. 시작화면에서 `전체 보기` 페이지로 이동합니다.
+2. `확인하지 않은 캡슐 조회` 후, 다시 돌아오면 해당 캡슐은 `확인한 캡슐로 이동`합니다.
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/cbdcac3f-2d30-4946-b404-5b1591263a02" width="200" />
+</div>  
+<br/>  
+<br/>
+
+## 개선 목표
+1. 
+
+## 💖 Speical Thanks to
+이틀간 '과거에서 온 편지' 를 이용해준 100-1명의 유저들
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/b53789ea-7f5c-4e64-8c03-b9643cdf2cc1" width="200" />
+</div>  
