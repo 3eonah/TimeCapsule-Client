@@ -13,6 +13,17 @@
 <br/>  
 <br/>
 
+## 💖 Speical Thanks to
+이틀간 '과거에서 온 편지' 를 이용해준 98명의 유저들과 사용 피드백
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/b53789ea-7f5c-4e64-8c03-b9643cdf2cc1" width="350" />
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/ad99ed31-a2dd-4d28-b530-f8cb5b111290" width="270" />
+</div>  
+<div>
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/018ceca4-81ff-4cae-b6fa-fdf1b9767239" width="500"/>
+</div>
+
+
 
 ## 🙋‍♀️ 팀원 및 역할
 <table>
@@ -20,7 +31,7 @@
     <tr>
       <td align="center"><img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/8c5894a8-2e8c-41cb-8378-2fde04e983ad" height="100px;" alt=""/><br /><sub>
         <b>[FE] 김소연 </b><br/>테마선택, 전송완료 UI</sub><br /></td>
-      <td align="center"><img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/a011652d-78a8-4753-9d46-d5cd0a663abe" height="80px;" alt=""/><br /><sub><b>[FE] 이선아 </b><br/>스플래시, 홈, 캡슐 생성, 전송 UI<br/>RESTful API, 전역 상태 관리<br/>AWS S3 이미지 저장</sub><br /></td>
+      <td align="center"><img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/a011652d-78a8-4753-9d46-d5cd0a663abe" height="80px;" alt=""/><br /><sub><b>[FE] 이선아 </b><br/>스플래시, 홈, 캡슐 생성, 전송 UI<br/>서버 연동 API, 전역 상태 관리<br/>AWS S3 이미지 저장</sub><br /></td>
       <td align="center"><img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/4d320796-7bf7-4d88-8980-bf5a30e3352a" height="100px;" alt=""/><br /><sub><b>[FE] 황영서 </b><br/>캡슐 리스트, 캡슐 상세 UI</sub><br /></td>
      <tr/>
       <td align="center"><img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/ab9dd76e-755d-4a8f-aa20-77ef46675d84" height="100px;" alt=""/><br /><sub><b>[BE] 권승연 </b><br/>AWS RDS, EC2 서버 무중단 배포</sub><br /></td>
@@ -36,6 +47,15 @@
 ## 🛠️ 개발 환경
 ### Front-end
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"><img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=purple"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+<div>
+  <ul>
+    <li>컴포넌트화를 통해 추후 유지보수와 재사용성을 고려</li>
+    <li>Custom Hook을 통한 삭제 기능 구현 및 </li>
+    <li>미디어 쿼리를 통해 다양한 모바일 디바이스 대응</li>
+    <li>styled-components를 활용하여 props를 통해 페이지 용도에 따른 스타일링 적용</li>
+    <li>Redux를 사용한 사용자 정보, 새로 생성할 캡슐 정보 모듈화 및 관리, redux-thunk와 axios를 통한 api 연동</li>ㄹ
+  </ul>
+</div>
 
 
 ### Back-end
@@ -43,6 +63,12 @@
 
 ### 협업 tool
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"><img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+<div>
+  <ul>
+    <li>Notion을 활용한 작업 상황 및 참고 자료, 개발 컨벤션 공유</li>
+    <li>Git과 Github를 활용한 버전 관리</li>
+  </ul>
+</div>
 
 
 
@@ -74,7 +100,7 @@
 </div>  
 
 ### [새로운 캡슐 생성]
-1. `캡슐 테마` 를 선택할 수 있습니다.
+1. `캡슐 테마` 를 선택할 수 있습니다. 🎮 레트로 🎮 테마 선택시 캡슐 조회에서 테마가 적용된 ui를 확인할 수 있습니다. 
 2. 갤러리에 저장된 `사진`을 첨부하고 `텍스트`를 입력하여 포토 카드를 최대 5장 생성할 수 있습니다.
 3. 유튜브 링크를 첨부하여 캡슐 조회시 `음악`을 자동 재생할 수 있습니다.
 4. 카드를 길게 누르면 `삭제` 할 수 있습니다. 
@@ -97,16 +123,13 @@
 1. 시작화면에서 `전체 보기` 페이지로 이동합니다.
 2. `확인하지 않은 캡슐 조회` 후, 다시 돌아오면 해당 캡슐은 `확인한 캡슐로 이동`합니다.
 <div>
-  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/cbdcac3f-2d30-4946-b404-5b1591263a02" width="200" />
+  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/bc7c4301-35b1-4a6f-8c0a-94df789bba33" width="200" />
 </div>  
 <br/>  
 <br/>
 
-## 개선 목표
-1. 
+## 👩‍🔧 개선 목표
+1. Custom Hook과 uitl function 분리
+2. 리액트 렌더링 최적화 방안 모색
+3. 시작화면과 캡슐 조회에서 다양한 캡슐 테마 ui 적용 구현
 
-## 💖 Speical Thanks to
-이틀간 '과거에서 온 편지' 를 이용해준 100-1명의 유저들
-<div>
-  <img src="https://github.com/2023-Solux-FinalProj/TimeCapsule-Client/assets/126681896/b53789ea-7f5c-4e64-8c03-b9643cdf2cc1" width="200" />
-</div>  
