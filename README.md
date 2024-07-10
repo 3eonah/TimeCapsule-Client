@@ -53,7 +53,7 @@
     <li>Custom Hook을 통한 삭제 기능 구현 및 </li>
     <li>미디어 쿼리를 통해 다양한 모바일 디바이스 대응</li>
     <li>styled-components를 활용하여 props를 통해 페이지 용도에 따른 스타일링 적용</li>
-    <li>Redux를 사용한 사용자 정보, 새로 생성할 캡슐 정보 모듈화 및 관리, redux-thunk와 axios를 통한 api 연동</li>ㄹ
+    <li>Redux를 사용한 사용자 정보, 새로 생성할 캡슐 정보 모듈화 및 관리, redux-thunk와 axios를 통한 api 연동</li>
   </ul>
 </div>
 
